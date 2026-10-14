@@ -1,0 +1,9 @@
+  cert 0 block: 24 pts, 12 7-APs, 5206 valid patterns, C1 ok
+cert 0: k=7 C2 ok (T=89, 2097 cells), C3 ok on [0.0000,0.1752]
+  cert 1 block: 24 pts, 12 7-APs, 5206 valid patterns, C1 ok
+cert 1: k=7 C2 ok (T=59, 623 cells), C3 ok on [0.0000,0.2142]
+  cert 2 block: 24 pts, 12 7-APs, 5206 valid patterns, C1 ok
+cert 2: k=7 C2 ok (T=79, 770 cells), C3 ok on [0.0000,0.2565]
+  cert 3 block: 24 pts, 12 7-APs, 5206 valid patterns, C1 ok
+cert 3: k=7 C2 ok (T=74, 753 cells), C3 ok on [0.2026,1.0000]
+ALL CHECKS PASSED: no admissible delta in [0,1]; every coloring has a blue unit-step 7-AP, so the answer to #188 is >= 8.

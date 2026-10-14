@@ -59,6 +59,20 @@ Every finite coloring of the plane has, for all large n, monochromatic pairs at 
 <tbody><tr>
 <td>
 
+**011. Erdős Problem #188: unit-step progressions, k ≥ 8 (previously k ≥ 6).** Every red/blue coloring of the plane with no two red points at distance 1 contains a blue unit-step 7-term arithmetic progression, so 8 ≤ k ≤ 6330. Proof: transfer + rigidity gives Bessel-mixture red pair correlations with atom ≥ δ²; pattern linear programs on 7 collinear points (k ≥ 7) and on a 2×12 strip of the triangular lattice (k ≥ 8). Exact rational certificates, Arb-checked, and re-verified by an independent brute-force checker.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+&emsp;[Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf)
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
 **004. Finite unit-distance graphs in ℝ³ attain the measurable density; an improved density bound.** The infimum of α(G)/|G| over finite unit-distance graphs in ℝ³ equals m₁(ℝ³); in particular some finite unit-distance graph in ℝ³ has independence ratio below 0.1486, using the new bound m₁(ℝ³) ≤ 0.1485113 (previously 0.1532996), certified in ball arithmetic and checked by two independent programs. Consequently, in ℝ³ every red/blue coloring with red unit-distance-free contains a blue translate of every 6-point set; these are the three-dimensional cases of Erdős Problems #188 and #214 (formalized). The equality α₁ = m₁ in ℝ³ is verified in Lean. The plane is due to Li–Su and n ≥ 4 to Davies.
 
 </td>

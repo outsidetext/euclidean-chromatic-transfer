@@ -32,7 +32,7 @@
 
 \begin{document}
 \begin{abstract}
-We show that every coloring of the plane with finitely many colors has, for all sufficiently large $j$, two points of the same color at distance $2^j$, and two at distance $j!$. This answers questions of Soifer and of Kahle. More generally, no finite coloring of $\R^n$, $n\ge2$, avoids a set of algebraic distances that is unbounded or accumulates at $0$. We also show that the number of colors needed to avoid $r$ distances in the plane grows exponentially in $r$, with explicit distance sets. This answers Erd\H{o}s Problem \#706 in the negative: every coloring avoiding the distances $1,q,\dots,q^{K-1}$ uses more than $\frac{22}{15}(2.5^K-1)$ colors when $q\ge4096$ is algebraic. Crocker independently derived the qualitative statements conditionally on~\cite[Theorem 2.3]{OAI}. The statements for unbounded sets (including those of Soifer and Kahle), a lacunary bound $\frac49(3/2)^K$ for integer $q\ge10^6$ (which already answers \#706), and a quantitative Soifer bound are formally verified in Lean~4 with only the standard axioms.
+We show that every coloring of the plane with finitely many colors has, for all sufficiently large $j$, two points of the same color at distance $2^j$, and two at distance $j!$. This answers questions of Soifer and of Kahle. More generally, no finite coloring of $\R^n$, $n\ge2$, avoids a set of algebraic distances that is unbounded or accumulates at $0$. We also show that the number of colors needed to avoid $r$ distances in the plane grows exponentially in $r$, with explicit distance sets. This answers Erd\H{o}s Problem \#706 in the negative: every coloring avoiding the distances $1,q,\dots,q^{K-1}$ uses more than $\frac{22}{15}(2.5^K-1)$ colors when $q\ge4096$ is algebraic. Crocker independently derived the qualitative statements conditionally on~\cite[Theorem 2.3]{OAI}. The statements for unbounded sets (including those of Soifer and Kahle), a lacunary bound $\frac49(3/2)^K$ for integer $q\ge10^6$ (which already answers \#706), and a quantitative Soifer bound are formally verified in Lean~4 with only the standard axioms. Finally, the same Fourier method with a pattern linear program shows that every red/blue coloring of the plane with no red unit pair contains a blue unit-step $7$-term progression, improving the lower bound in Erd\H{o}s Problem \#188 from $6$ to $8$.
 
 The proofs combine the transfer principle of OpenAI's proof that the plane is not five-colorable, extended to sets of algebraic distances, with explicit Fourier certificates. They also give quantitative bounds. Every $k$-coloring of the plane has a monochromatic odd distance below $18k^2$, a monochromatic distance $2^i<k^{6.2}$, and a monochromatic distance $s\le2X_0k^{7.44}$ in any algebraic set meeting every $[X,2X]$, $X\ge X_0$. In $\R^3$ the odd distance can be taken at most $k$. For two distances, $\chi(\R^2,\{1,d\})\ge7$ for every algebraic $d\ge7$, and $\chi(\R^2,\{1,d\})\ge10$ for $d\ge150$.
 \end{abstract}
@@ -54,6 +54,7 @@ Two questions motivate it. First, Erd\H{o}s~\cite{Erdos81,EP} asked whether $F_2
 \begin{itemize}
 \item Theorem~\ref{thm:E}: for countable sets of algebraic distances, $\chi_D(\R^n)\ge1/m_D(\R^n)$; exponential growth of $F_n(r)$; and no finite coloring of $\R^n$ avoids a set of algebraic distances that is unbounded or accumulates at $0$. In particular the questions of Soifer and Kahle have positive answers in $\R^2$ and $\R^3$.
 \item Section~\ref{sec:quant}: explicit Fourier certificates. Odd distances give monochromatic odd distances below $18k^2$ in the plane and at most $k$ in $\R^3$. Lacunary sets give $F_2(r)\ge2.5^r$ with explicit distance sets, and polynomial bounds in $k$ for monochromatic powers of $2$, factorials and elements of sets meeting every dyadic interval. We also give bounds for two distances and for small explicit sets.
+\item Theorem~\ref{thm:188}: Erd\H{o}s Problem \#188 has answer $k\ge8$ (previously $k\ge6$), by pattern linear programs on a line and on a strip of the triangular lattice.
 \item Section~\ref{sec:lean}: a Lean formalization of the statements for unbounded sets, of a lacunary bound that answers Erd\H{o}s Problem \#706, and of a quantitative Soifer bound.
 \end{itemize}
 
@@ -278,6 +279,37 @@ For each set we give a certificate $(v_d)$ satisfying~\eqref{eq:LPcert} with $n=
 \end{proof}
 
 
+\subsection{Erd\H{o}s Problem \#188: unit-step progressions}\label{sec:188}
+
+Erd\H{o}s asked~\cite[Problem \#188]{EP188} for the least $k$ such that the plane can be colored red and blue with no two red points at distance $1$ and no blue $k$-term arithmetic progression with step $1$ (a blue congruent copy of $\ell_k=\{0,1,\dots,k-1\}$). Tsaturian~\cite{Tsaturian} showed that every such coloring contains a blue $\ell_5$, and Currier, Mody, Xie and Zhang~\cite{CMXZ} constructed a coloring with no blue $\ell_{6330}$; thus $6\le k\le6330$.
+
+\begin{theorem}\label{thm:188}
+Every red/blue coloring of the plane with no two red points at distance $1$ contains a blue unit-step $7$-term arithmetic progression. Hence $8\le k\le 6330$ in Erd\H{o}s Problem \#188.
+\end{theorem}
+
+The proof combines the transfer with a pattern linear program. Restrict the coloring to the field-$F$ points $E$ and average along F\o lner sets of the amenable group $E\rtimes K$, as in~\cite[\S2.2]{OAI}. This gives an $E\rtimes K$-invariant probability measure on red/blue colorings of $E$ in which, almost surely, no two red points are at distance $1$ and every unit-step $\ell_k$ in $E$ has a red point. Let $f$ be the indicator that the origin is red, $\delta=\E f$, and $F(z)=\langle f,U_zf\rangle=\Pr(0,z\text{ red})$. Since $f$ is $K$-fixed, \cite[Theorem 2.3]{OAI} shows that the component of $f$ orthogonal to the continuous vectors has zero correlation at every $z\ne0$. Hence, for $z\in E\setminus\{0\}$,
+\[
+F(z)=a_0+\int_{(0,\infty)}J_0(|z|t)\,d\nu(t),\qquad a_0\ge\delta^2,\quad a_0+\nu(0,\infty)\le\delta,
+\]
+where $a_0$ is the mass at $0$ of the spectral measure of the continuous part $Qf$. Indeed $a_0$ is the squared norm of the projection of $Qf$ onto the invariant vectors, which is at least $\langle Qf,\mathbf 1\rangle^2=\delta^2$, and the total mass is $\|Qf\|^2\le\|f\|^2=\delta$. Moreover $F(z)=0$ for $|z|=1$.
+
+Now let $X=\{x_1,\dots,x_m\}\subset E$ be finite and let $q(s)=z_0+\sum_ia_is_i+\sum_{i<j}y_{ij}s_is_j$ be nonnegative on every red pattern $s\in\{0,1\}^X$ allowed by the two rules. Taking expectations over the invariant measure and writing $Y_r=\sum_{|x_i-x_j|=r}y_{ij}$ and $h(t)=\sum_rY_rJ_0(rt)$, we get
+\[
+0\le z_0+\delta\sum_ia_i+a_0h(0)+\int h\,d\nu\le z_0+\delta\sum_ia_i+\lambda\delta+(h(0)-\lambda)\delta^2
+\]
+whenever $h\le\lambda$ on $[0,\infty)$ and $h(0)\le\lambda$. A certificate is a choice of $q$ and $\lambda$ for which the right side is negative on an interval of $\delta$; certificates covering $[0,1]$ prove that the two rules are incompatible.
+
+\emph{Blue $\ell_6$.} Take seven collinear points $0,u,\dots,6u$ with $|u|=1$. The allowed patterns have no two adjacent reds and a red in each of the windows $s_0\dots s_5$ and $s_1\dots s_6$; there are $31$. The form
+\begin{multline*}
+q(s)=-15+5s_0+15(s_1+\dots+s_5)+5s_6-5(s_0s_2+s_4s_6+s_0s_3+s_3s_6+s_0s_4+s_2s_6)\\
+-(s_0s_5+s_1s_6)+5s_0s_6-14(s_1s_3+s_3s_5+s_1s_4+s_2s_5)-2s_1s_5-10s_2s_4
+\end{multline*}
+is nonnegative on all $31$ patterns ($20$ are tight). Adding the free term $-\tfrac{339}{4}F(1)=0$ gives $Y=(-\tfrac{339}4,-48,-38,-12,-2,5)$ at distances $1,\dots,6$, $h(0)=-\tfrac{719}4$, and $h\le\lambda=\tfrac{126}5$ on $[0,\infty)$ (the maximum is about $25.19603$, near $t=3.5652$). The resulting quadratic $-15+110.2\,\delta-204.95\,\delta^2$ has discriminant $-152.96<0$. So every coloring contains a blue $\ell_6$, and $k\ge7$.
+
+\emph{Blue $\ell_7$.} Lines alone leave $\delta\in[0.22,0.285]$ feasible. The configuration $\{a+b\omega:0\le a<12,\ b\in\{0,1\}\}$, $\omega=e^{i\pi/3}$, a $2\times12$ strip of the unit triangular lattice, has $24$ points, $12$ unit-step $7$-term progressions along its rows, and $5206$ allowed patterns. Its cross-row distances $\sqrt3,\sqrt7,\sqrt{13},\dots$ close the gap. Four rational certificates cover $\delta\in[0,0.1752]$, $[0,0.2142]$, $[0,0.2565]$ and $[0.2026,1]$.
+
+\emph{Verification.} Each certificate is checked in exact rational arithmetic for the pattern inequalities. The inequality $h\le\lambda$ is checked with ball arithmetic (Arb) on adaptive cells using $|J_0''|\le1$, and for large $t$ by $|J_0(x)|\le\sqrt{2/(\pi x)}$, which follows from Nicholson's formula~\cite[\S13.74]{Watson}. The quadratic in $\delta$ is checked exactly. A second program, written independently, enumerates all $2^{24}$ patterns by brute force and reproduces every check; the $\ell_7$ margins in $h\le\lambda$ are about $3\cdot10^{-4}$. The same method finds blue $\ell_5$ forced from a single window, consistent with~\cite{Tsaturian}. It stalls at $\ell_8$: strips $2\times14$ and $3\times10$ leave $\delta\in[0.20,0.26]$ feasible.
+
 \section{Formal verification}\label{sec:lean}
 
 The Lean development builds on the library of~\cite{OAI} and on the formalization of the transfer in~\cite{BassR3} (\texttt{OAI.HNN.euclidean\_\allowbreak{}transfer\_\allowbreak{}set}). The directory \texttt{OAI/Soifer} has 1431 lines. It contains the following.
@@ -318,6 +350,9 @@ The results and the Lean formalization were developed with the assistance of Cla
 \bibitem{Watson} G.~N.~Watson, \emph{A Treatise on the Theory of Bessel Functions}, 2nd ed., Cambridge Univ.\ Press, 1944.
 \bibitem{AAR} G.~E.~Andrews, R.~Askey, R.~Roy, \emph{Special Functions}, Cambridge Univ.\ Press, 1999.
 \bibitem{Erdos81} P.~Erd\H{o}s, \emph{On the combinatorial problems which I would most like to see solved}, Combinatorica 1 (1981), 25--42.
+\bibitem{EP188} T.~F.~Bloom, \emph{Erd\H{o}s Problems}, \url{https://www.erdosproblems.com/188}, Problem \#188.
+\bibitem{Tsaturian} S.~Tsaturian, \emph{A Euclidean Ramsey result in the plane}, arXiv:1703.10723 (2017).
+\bibitem{CMXZ} G.~Currier, P.~Mody, Z.~Xie, J.~Zhang, \emph{Improved bounds for lines and $1$-separated sets in Euclidean Ramsey theory}, arXiv:2606.17194 (2026).
 \bibitem{FKW} H.~Furstenberg, Y.~Katznelson, B.~Weiss, \emph{Ergodic theory and configurations in sets of positive density}, in Mathematics of Ramsey Theory, Springer (1990).
 \bibitem{Naslund} E.~Naslund, \emph{The chromatic number of $\R^n$ with multiple forbidden distances}, arXiv:2205.12312.
 \bibitem{OAI} OpenAI, \emph{The Euclidean plane is not five-colorable}, preprint (2026), \url{https://github.com/openai/math}, with Lean formalization.

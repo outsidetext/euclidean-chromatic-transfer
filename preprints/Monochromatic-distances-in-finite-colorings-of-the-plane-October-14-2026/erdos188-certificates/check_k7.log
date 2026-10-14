@@ -1,0 +1,4 @@
+admissible 31 min Q 0 tight 20
+B -719/4 disc -3824/25
+grid max h 25.196027609463098 at 3.565220000003703 Lipschitz slack 0.0038275 bound 25.199855109463098 < lam 25.2
+tail bound for t>=30: 21.787761679819425
