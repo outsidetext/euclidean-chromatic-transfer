@@ -1,6 +1,6 @@
 # Manuscript collection
 
-**2 manuscripts covering 9 result families.**
+**2 manuscripts covering 10 result families.**
 
 ## Manuscript map
 
@@ -137,7 +137,21 @@ We prove χ(ℝ², {1, (√2+√6)/2}) ≥ 7 with explicit SAT- and exact-arithm
 <tbody><tr>
 <td>
 
-**009. Quantitative monochromatic distances.** Every k-coloring of the plane has two points of the same color at an odd distance below 128k² and at a distance 2ⁱ < k^6.2; in ℝ³, at an odd distance at most k and at a distance 2ⁱ < k^2.58. χ(ℝ², {1, q, …, q^{K−1}}) ≥ 1 + (22/15)(2.5^K − 1) for algebraic q ≥ 4096 (an explicit exponential lower bound for Erdős Problem #706), and χ(ℝ², {1, d}) ≥ 12 for every algebraic d ≥ 10⁴. Explicit certified cases: every 6-coloring of the plane has a monochromatic pair at distance 1, 3, 5 or 7. Proofs combine the Lean-verified transfer with explicit Fourier certificates.
+**009. Quantitative monochromatic distances.** Every k-coloring of the plane has two points of the same color at an odd distance below 18k² and at a distance 2ⁱ < k^6.2; in ℝ³, at an odd distance at most k and at a distance 2ⁱ < k^2.58. χ(ℝ², {1, q, …, q^{K−1}}) ≥ 1 + (22/15)(2.5^K − 1) for algebraic q ≥ 4096 (an explicit exponential lower bound for Erdős Problem #706), and χ(ℝ², {1, d}) ≥ 12 for every algebraic d ≥ 10⁴. Explicit certified cases: every 6-coloring of the plane has a monochromatic pair at distance 1, 3, 5 or 7. Proofs combine the Lean-verified transfer with explicit Fourier certificates.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+&emsp;[A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf)
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+**010. Erdős Problem #706, machine-checked.** For every C and e there is a K-element set D of integer distances and a finite point set P in the plane whose D-distance graph is not C·K^e-colorable; explicitly, every coloring of the plane avoiding {(10⁶)^j : j < K} uses at least (4/9)(3/2)^K colors. Hence L(r) is not polynomially bounded. Also formal: every k-coloring of the plane has a monochromatic distance 2^i with i ≤ 20(2⌊log₂ 9k⌋+2). Two forbidden distances (computer-certified): χ(ℝ², {1, d}) ≥ 7 for algebraic d ∈ [1.77, 1.92] ∪ [7, ∞), ≥ 8 for d ≥ 16, ≥ 9 for d ≥ 40, ≥ 10 for d ≥ 150, ≥ 12 for d ≥ 10⁴. The qualitative exponential growth was stated conditionally by Crocker.
 
 </td>
 </tr></tbody>

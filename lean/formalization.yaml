@@ -57,6 +57,15 @@ status:
     - declaration: OAI.Soifer.mono_distance_of_unbounded
       file: OAI/Soifer/Main.lean
 
+    - declaration: OAI.Soifer.erdos706_finite
+      file: OAI/Soifer/ErdosFinite.lean
+
+    - declaration: OAI.Soifer.erdos706_not_polynomial
+      file: OAI/Soifer/Erdos706.lean
+
+    - declaration: OAI.Soifer.soifer_quantitative
+      file: OAI/Soifer/Quantitative.lean
+
 automation:
   methods:
     - method: agent
