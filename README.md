@@ -21,7 +21,8 @@ density bounds from the literature appear as explicit hypotheses.
 
 | # | Result | Previous | Verification | Priority / credit |
 |---|---|---|---|---|
-| 1 | **Erdős #188 (plane):** every red/blue coloring of ℝ² with no red unit pair has a blue unit-step 7-term progression, so **8 ≤ k ≤ 6330** | 6 ≤ k (Tsaturian) | Cert, 2× | new |
+| 1 | **Erdős #188 (plane):** every red/blue coloring of ℝ² with no red unit pair has a blue unit-step 7-term progression; and an explicit periodic coloring (21 open discs of radius 1/2 per period) has no red unit pair and no blue unit-step 105-term progression. So **8 ≤ k ≤ 105** | 6 ≤ k ≤ 6330 (Tsaturian; Currier–Mody–Xie–Zhang, Sept 2026) | Cert, 2× (both bounds) | new |
+| 1b | **New chromatic lower bounds in high dimension:** χ(ℝ⁶) ≥ 55, χ(ℝ⁷) ≥ 110, χ(ℝ⁸) ≥ 198, χ(ℝ¹⁰) ≥ 760, from m₁(ℝ⁶) ≤ 0.0182084, m₁(ℝ⁷) ≤ 0.0091408, m₁(ℝ⁸) ≤ 0.0050689, m₁(ℝ¹⁰) ≤ 0.0013170 (Davies's derivative LP + triangle cuts) | 52, 98, 174, 729 (Davies, Oct 8 2026) | Cert (Arb), 2× (float) | new |
 | 2 | **m₁(ℝ³) ≤ 0.1485113** (density of unit-distance-free sets in ℝ³) | 0.1532996 (DeCorte–Oliveira–Vallentin) | Cert, 2× | new |
 | 3 | One-cut certificate m₁(ℝ³) ≤ 0.158035 < 1/6 (5 points, 10 distances) | — | Cert | new |
 | 4 | Finite unit-distance graphs in ℝ³ with independence ratio < 0.1486 | — | Proof (from 2 + α₁ = m₁) | new |
