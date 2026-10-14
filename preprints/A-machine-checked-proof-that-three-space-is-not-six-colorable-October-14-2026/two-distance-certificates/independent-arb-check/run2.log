@@ -1,0 +1,66 @@
+table built: 1048576 cells in 39.0s
+
+== ~/hadwiger-nelson/multidist/cover_t7_7.0_10000.0.npy  rows=13  target 1+a+b>6
+  row  0 [7,7.35] a=0.79791 b=4.26741 1+a+b=6.06532  min h_lo=0.01878 at t~3.2578 tail_lo=0.904 boxes=51200
+  row  1 [7.35,7.938] a=0.83113 b=4.35778 1+a+b=6.18891  min h_lo=0.01859 at t~0.5234 tail_lo=0.903 boxes=51200
+  row  2 [7.938,8.95406] a=0.83397 b=4.38395 1+a+b=6.21793  min h_lo=0.01870 at t~0.4844 tail_lo=0.905 boxes=51200
+  row  3 [8.95406,10.7879] a=0.90622 b=4.58044 1+a+b=6.48665  min h_lo=0.01878 at t~0.4297 tail_lo=0.903 boxes=51200
+  row  4 [10.7879,14.3228] a=0.96959 b=4.76445 1+a+b=6.73405  min h_lo=0.01961 at t~0.3516 tail_lo=0.903 boxes=51200
+  row  5 [14.3228,21.8321] a=1.07421 b=5.05208 1+a+b=7.12630  min h_lo=0.01945 at t~0.2656 tail_lo=0.904 boxes=51200
+  row  6 [21.8321,40.1462] a=1.23777 b=5.48208 1+a+b=7.71985  min h_lo=0.01958 at t~3.6328 tail_lo=0.904 boxes=51200
+  row  7 [40.1462,94.0295] a=1.46153 b=6.05301 1+a+b=8.51455  min h_lo=0.01985 at t~3.6953 tail_lo=0.904 boxes=51200
+  row  8 [94.0295,282.089] a=1.72834 b=6.72177 1+a+b=9.45011  min h_lo=0.02012 at t~0.0391 tail_lo=0.903 boxes=51200
+  row  9 [282.089,846.266] a=1.98747 b=7.36658 1+a+b=10.35405  min h_lo=0.02020 at t~3.7969 tail_lo=0.903 boxes=51200
+  row 10 [846.266,2538.8] a=2.16160 b=7.79905 1+a+b=10.96065  min h_lo=0.01987 at t~3.8047 tail_lo=0.903 boxes=51200
+  row 11 [2538.8,7616.39] a=2.27101 b=8.07068 1+a+b=11.34169  min h_lo=0.01991 at t~3.8125 tail_lo=0.903 boxes=51200
+  row 12 [7616.39,10000] a=2.33767 b=8.23616 1+a+b=11.57383  min h_lo=0.01994 at t~3.8203 tail_lo=0.903 boxes=51200
+  RESULT: VERIFIED  (40.0s)
+
+== ~/hadwiger-nelson/multidist/cover_t7_1.77_1.92.npy  rows=2  target 1+a+b>6
+  NOTE start float 3985685670222889/2251799813685248 != 177/100 (diff 1.78e-17); widening first row down
+  NOTE end float differs from 48/25 by -7.11e-17; widening last row up
+  row  0 [1.77,1.8585] a=2.73527 b=2.39138 1+a+b=6.12665  min h_lo=0.01061 at t~2.6797 tail_lo=0.819 boxes=51200
+  row  1 [1.8585,1.92] a=2.47906 b=2.56615 1+a+b=6.04521  min h_lo=0.01395 at t~4.9375 tail_lo=0.826 boxes=51200
+  RESULT: VERIFIED  (13.9s)
+
+== ~/hadwiger-nelson/multidist/cover_t8_16.0_10000.0.npy  rows=12  target 1+a+b>7
+  row  0 [16,16.8] a=1.11757 b=5.16768 1+a+b=7.28524  min h_lo=0.01990 at t~0.2344 tail_lo=0.904 boxes=51200
+  row  1 [16.8,18.144] a=1.13518 b=5.21439 1+a+b=7.34957  min h_lo=0.01949 at t~0.2266 tail_lo=0.904 boxes=51200
+  row  2 [18.144,20.4664] a=1.16364 b=5.28951 1+a+b=7.45315  min h_lo=0.01936 at t~0.2109 tail_lo=0.904 boxes=51200
+  row  3 [20.4664,24.658] a=1.21707 b=5.42784 1+a+b=7.64491  min h_lo=0.01941 at t~3.5703 tail_lo=0.904 boxes=51200
+  row  4 [24.658,32.7379] a=1.28268 b=5.59795 1+a+b=7.88063  min h_lo=0.01990 at t~3.7266 tail_lo=0.904 boxes=51200
+  row  5 [32.7379,49.902] a=1.38848 b=5.86809 1+a+b=8.25657  min h_lo=0.01966 at t~0.1172 tail_lo=0.904 boxes=51200
+  row  6 [49.902,91.7627] a=1.53471 b=6.23728 1+a+b=8.77199  min h_lo=0.02005 at t~3.7266 tail_lo=0.904 boxes=51200
+  row  7 [91.7627,214.925] a=1.72208 b=6.70610 1+a+b=9.42818  min h_lo=0.02018 at t~0.0391 tail_lo=0.903 boxes=51200
+  row  8 [214.925,644.774] a=1.93215 b=7.22911 1+a+b=10.16126  min h_lo=0.02015 at t~3.7891 tail_lo=0.903 boxes=51200
+  row  9 [644.774,1934.32] a=2.12556 b=7.70956 1+a+b=10.83512  min h_lo=0.01985 at t~3.8047 tail_lo=0.903 boxes=51200
+  row 10 [1934.32,5802.96] a=2.24865 b=8.01516 1+a+b=11.26381  min h_lo=0.01990 at t~3.8125 tail_lo=0.903 boxes=51200
+  row 11 [5802.96,10000] a=2.32420 b=8.20271 1+a+b=11.52690  min h_lo=0.01993 at t~3.8203 tail_lo=0.903 boxes=51200
+  RESULT: VERIFIED  (33.5s)
+
+== ~/hadwiger-nelson/multidist/cover_t9_40.0_10000.0.npy  rows=11  target 1+a+b>8
+  row  0 [40,42] a=1.45964 b=6.04825 1+a+b=8.50789  min h_lo=0.01979 at t~3.7109 tail_lo=0.904 boxes=51200
+  row  1 [42,45.36] a=1.47802 b=6.09455 1+a+b=8.57258  min h_lo=0.02002 at t~3.6797 tail_lo=0.904 boxes=51200
+  row  2 [45.36,51.1661] a=1.50438 b=6.16091 1+a+b=8.66529  min h_lo=0.01972 at t~3.6875 tail_lo=0.903 boxes=51200
+  row  3 [51.1661,61.6449] a=1.54267 b=6.25723 1+a+b=8.79989  min h_lo=0.02011 at t~3.7578 tail_lo=0.904 boxes=51200
+  row  4 [61.6449,81.8447] a=1.60321 b=6.40908 1+a+b=9.01229  min h_lo=0.02026 at t~3.7266 tail_lo=0.903 boxes=51200
+  row  5 [81.8447,124.755] a=1.68946 b=6.62469 1+a+b=9.31415  min h_lo=0.02007 at t~0.0469 tail_lo=0.903 boxes=51200
+  row  6 [124.755,229.407] a=1.80455 b=6.91168 1+a+b=9.71623  min h_lo=0.02010 at t~3.7578 tail_lo=0.903 boxes=51200
+  row  7 [229.407,537.312] a=1.94586 b=7.26319 1+a+b=10.20905  min h_lo=0.02024 at t~3.7969 tail_lo=0.903 boxes=51200
+  row  8 [537.312,1611.93] a=2.09904 b=7.64369 1+a+b=10.74272  min h_lo=0.01984 at t~3.8047 tail_lo=0.903 boxes=51200
+  row  9 [1611.93,4835.8] a=2.23206 b=7.97397 1+a+b=11.20603  min h_lo=0.01989 at t~3.8125 tail_lo=0.903 boxes=51200
+  row 10 [4835.8,10000] a=2.31415 b=8.17777 1+a+b=11.49192  min h_lo=0.01993 at t~3.8203 tail_lo=0.903 boxes=51200
+  RESULT: VERIFIED  (29.7s)
+
+== ~/hadwiger-nelson/multidist/cover_t10_150.0_10000.0.npy  rows=10  target 1+a+b>9
+  row  0 [150,157.5] a=1.85015 b=7.02517 1+a+b=9.87532  min h_lo=0.02024 at t~0.0234 tail_lo=0.903 boxes=51200
+  row  1 [157.5,170.1] a=1.86210 b=7.05489 1+a+b=9.91699  min h_lo=0.02010 at t~3.7734 tail_lo=0.903 boxes=51200
+  row  2 [170.1,191.873] a=1.87997 b=7.09938 1+a+b=9.97935  min h_lo=0.02019 at t~3.7891 tail_lo=0.903 boxes=51200
+  row  3 [191.873,231.168] a=1.90737 b=7.16747 1+a+b=10.07483  min h_lo=0.02030 at t~3.7812 tail_lo=0.903 boxes=51200
+  row  4 [231.168,306.918] a=1.94744 b=7.26711 1+a+b=10.21455  min h_lo=0.02027 at t~0.0156 tail_lo=0.903 boxes=51200
+  row  5 [306.918,467.831] a=2.00353 b=7.40648 1+a+b=10.41001  min h_lo=0.02022 at t~3.7969 tail_lo=0.903 boxes=51200
+  row  6 [467.831,860.276] a=2.07658 b=7.58792 1+a+b=10.66450  min h_lo=0.02027 at t~3.8047 tail_lo=0.903 boxes=51200
+  row  7 [860.276,2014.92] a=2.16365 b=7.80413 1+a+b=10.96778  min h_lo=0.01987 at t~3.8047 tail_lo=0.903 boxes=51200
+  row  8 [2014.92,6044.75] a=2.25218 b=8.02393 1+a+b=11.27612  min h_lo=0.01990 at t~3.8125 tail_lo=0.903 boxes=51200
+  row  9 [6044.75,10000] a=2.32633 b=8.20801 1+a+b=11.53434  min h_lo=0.01993 at t~3.8203 tail_lo=0.903 boxes=51200
+  RESULT: VERIFIED  (26.4s)

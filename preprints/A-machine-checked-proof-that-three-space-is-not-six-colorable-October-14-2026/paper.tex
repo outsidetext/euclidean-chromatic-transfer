@@ -329,6 +329,22 @@ where $\sigma$ is the Fej\'er mean of order $2N$ of the square wave $\operatorna
 
 Since at most four points of $\R^3$ have pairwise odd distances, this bound is not a clique bound. The optimal certificates give about $5.3N$.
 
+The proof uses only that consecutive distances have ratio at least $q$: the arguments satisfy $d_jt\le Aq^{j-m}$ for $j\le m$ and $d_jt>Aq^{j-m-1}$ for $j>m$. So the bounds hold for any $K$ positive algebraic distances $d_0<\dots<d_{K-1}$ with $d_{j+1}/d_j\ge q$. Since $(n+1)!/n!=n+1\ge32$ for $n\ge31$, the second parameter set gives a quantitative form of Kahle's question.
+
+\begin{corollary}\label{cor:kahle}
+Every coloring of the plane with $k\ge2$ colors has two points of the same color at distance $n!$ for some $n\le 31+\log_{1.75}k$.
+\end{corollary}
+
+\begin{corollary}\label{cor:dense}
+Let $S$ be a set of positive real algebraic numbers that meets every interval $[X,2X]$ with $X\ge X_0$; for example the primes, the integers and the powers of $2$ ($X_0=1$), or the perfect squares ($X_0=2$). Then every coloring of the plane with $k\ge2$ colors has two points of the same color at a distance $s\in S$ with $s\le2X_0k^{7.44}$.
+\end{corollary}
+
+\begin{proof}
+Choose $s_0\in S\cap[X_0,2X_0]$ and $s_{j+1}\in S\cap[32s_j,64s_j]$. With $K=\lceil\log_{1.75}k\rceil$, the distances $s_0,\dots,s_{K-1}$ have consecutive ratios at least $32$, so some $s_j$ with $j\le K-1$ is monochromatic, and $s_{K-1}\le2X_0\cdot64^{K-1}<2X_0k^{6/\log_21.75}<2X_0k^{7.44}$. For integer-valued polynomials with positive leading coefficient the hypothesis holds for some $X_0$ depending on the polynomial.
+\end{proof}
+
+This makes the theorems of~\cite{DaviesOdd,DMP} on odd, prime and polynomial distances effective, with polynomial bounds. For odd distances Theorem~\ref{thm:odd} gives the better bound $18k^2$.
+
 For lacunary distances in $\R^3$ the Bessel function is likewise replaced by $\Omega_3(x)=\sin x/x$, which satisfies $\Omega_3\ge-0.21724$, $\Omega_3(x)\ge1-x^2/6$ and $|\Omega_3(x)|\le1/x$. The same case analysis with $\lambda=4$, $v_j=4\lambda^j$, $A=\frac12$ and $\kappa=2\frac{\lambda/q}{1-\lambda/q}\le0.0318$ gives the following, with brackets at least $0.21$, $-0.04$ and $1-4(0.21724+0.0318)>0$ in the three cases.
 
 \begin{theorem}\label{thm:lacunary3}
@@ -352,7 +368,7 @@ For every real algebraic $d\in[1.77,1.92]\cup[7,\infty)$, $\chi(\R^2,\{1,d\})\ge
 \end{theorem}
 
 \begin{proof}
-For $d\ge10^4$ this follows from Corollary~\ref{cor:twodist}. For $d\in[d_1,d_2]\subset[7,10^4]$ we use $h(t)=1+aJ_0(t)+bJ_0(dt)$ with $b\ge0$ and bound $J_0(dt)$ below by $\min\{J_0(x):d_1t\le x\le d_2t\}$, computed from a tabulation of $J_0$ on $[0,2050]$ with spacing $10^{-4}$ and a grid error term, and by $-\sqrt{2/(\pi d_1t)}$ when $d_1t>2000$. Positivity is checked on a $t$-grid with a Lipschitz margin, and beyond a cutoff $T$ by the envelope bound. Thirteen intervals cover $[7,10^4]$ and two cover $[1.77,1.92]$, each with $1+a+b>6$. The intervals and coefficients are listed in the accompanying files.
+For $d\ge10^4$ this follows from Corollary~\ref{cor:twodist}. For $d\in[d_1,d_2]\subset[7,10^4]$ we use $h(t)=1+aJ_0(t)+bJ_0(dt)$ with $b\ge0$ and bound $J_0(dt)$ below by $\min\{J_0(x):d_1t\le x\le d_2t\}$, computed from a tabulation of $J_0$ on $[0,2050]$ with spacing $10^{-4}$ and a grid error term, and by $-\sqrt{2/(\pi d_1t)}$ when $d_1t>2000$. Positivity is checked on a $t$-grid with a Lipschitz margin, and beyond a cutoff $T$ by the envelope bound. Thirteen intervals cover $[7,10^4]$ and two cover $[1.77,1.92]$, each with $1+a+b>6$. The intervals and coefficients are listed in the accompanying files. All covers in this section were re-verified independently with ball arithmetic (Arb), including the exact decimal endpoints, with margins at least $0.01$.
 \end{proof}
 
 The same method certifies larger values: $\chi(\R^2,\{1,d\})\ge8$ for every algebraic $d\ge16$, $\ge9$ for $d\ge40$, and $\ge10$ for $d\ge150$, using $12$, $11$ and $10$ intervals in $[16,10^4]$, $[40,10^4]$ and $[150,10^4]$ together with Corollary~\ref{cor:twodist}.
