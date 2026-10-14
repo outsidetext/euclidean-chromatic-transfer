@@ -1,0 +1,121 @@
+{
+ "d": 6,
+ "c": [
+  "-0x1.f6ad6d1bdbe9cp-1",
+  "0x1.0a4305e2f4ecfp-3",
+  "-0x1.0b4020de66383p-4"
+ ],
+ "mu": "0x1.2a5347a7646efp-6",
+ "cuts": [
+  {
+   "kind": "tri",
+   "y": "0x1.629f77dbf1f78p-11",
+   "abc": [
+    "0x1.ba5e353f7ced9p-4",
+    "0x1.ba5e353f7ced9p-4",
+    "0x1.ba5e353f7ced9p-3"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.eebbc95bc11f6p-11",
+   "abc": [
+    "0x1.89374bc6a7efap-4",
+    "0x1.eb851eb851eb8p-4",
+    "0x1.ba5e353f7ced9p-3"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.6d6e46959078ap-12",
+   "abc": [
+    "0x1.cac083126e979p-5",
+    "0x1.db22d0e560419p-5",
+    "0x1.d2f1a9fbe76c9p-4"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.0acbc228cea3dp-12",
+   "abc": [
+    "0x1.89374bc6a7efap-5",
+    "0x1.1eb851eb851ecp-4",
+    "0x1.e353f7ced9169p-4"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.6b0d27f1fb019p-10",
+   "abc": [
+    "0x1.0e5604189374cp-4",
+    "0x1.16872b020c49cp-4",
+    "0x1.126e978d4fdf4p-3"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.af44d541d1143p-10",
+   "abc": [
+    "0x1.89374bc6a7efap-6",
+    "0x1.89374bc6a7efap-6",
+    "0x1.89374bc6a7efap-5"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.6625a17689a29p-10",
+   "abc": [
+    "0x1.16872b020c49cp-5",
+    "0x1.16872b020c49cp-5",
+    "0x1.16872b020c49cp-4"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.f020fb9911099p-10",
+   "abc": [
+    "0x1.89374bc6a7efap-7",
+    "0x1.cac083126e979p-7",
+    "0x1.a9fbe76c8b439p-6"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.216786191143ap-10",
+   "abc": [
+    "0x1.a9fbe76c8b43ap-5",
+    "0x1.3b645a1cac083p-3",
+    "0x1.a5e353f7ced91p-3"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.e5b71b58610ffp-15",
+   "abc": [
+    "0x1.2f1a9fbe76c8bp-4",
+    "0x1.26e978d4fdf3cp-3",
+    "0x1.be76c8b439581p-3"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.25e830c912019p-10",
+   "abc": [
+    "0x1.5810624dd2f1bp-4",
+    "0x1.0a3d70a3d70a4p-3",
+    "0x1.b645a1cac0831p-3"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.16cdcbf3eccafp-9",
+   "abc": [
+    "0x1.78d4fdf3b645ap-5",
+    "0x1.5c28f5c28f5c3p-3",
+    "0x1.ba5e353f7ced9p-3"
+   ]
+  }
+ ],
+ "L": 100.0,
+ "note": "triangle cuts, kappa_rel=0.03, LP mu=0.018208113049734864; mu rounded up by rel 1e-06 from 0.018208313829124103"
+}

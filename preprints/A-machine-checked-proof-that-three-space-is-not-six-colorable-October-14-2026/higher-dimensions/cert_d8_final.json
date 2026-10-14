@@ -1,0 +1,113 @@
+{
+ "d": 8,
+ "c": [
+  "-0x1.fd67a123b3eb2p-1",
+  "0x1.00e4d041a2123p-2",
+  "-0x1.01a7e3bd35ab6p-3",
+  "0x1.49295ded68e11p-16"
+ ],
+ "mu": "0x1.4c313b6ee001cp-8",
+ "cuts": [
+  {
+   "kind": "tri",
+   "y": "0x1.362bfbd78eb7dp-13",
+   "abc": [
+    "0x1.0624dd2f1a9fcp-5",
+    "0x1.ba5e353f7ced9p-5",
+    "0x1.604189374bc6ap-4"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.f33e096bd3023p-11",
+   "abc": [
+    "0x1.f3b645a1cac08p-4",
+    "0x1.a9fbe76c8b43ap-3",
+    "0x1.51eb851eb851fp-2"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.bfea5cc1e14c8p-12",
+   "abc": [
+    "0x1.ba5e353f7ced9p-4",
+    "0x1.c6a7ef9db22d1p-3",
+    "0x1.51eb851eb851ep-2"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.49605f4709d95p-12",
+   "abc": [
+    "0x1.47ae147ae147bp-3",
+    "0x1.47ae147ae147bp-3",
+    "0x1.47ae147ae147bp-2"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.5f2c5291e5352p-11",
+   "abc": [
+    "0x1.999999999999ap-5",
+    "0x1.0a3d70a3d70a4p-2",
+    "0x1.3d70a3d70a3d7p-2"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.5ffb73f0475aep-11",
+   "abc": [
+    "0x1.6872b020c49bap-4",
+    "0x1.ef9db22d0e560p-3",
+    "0x1.51eb851eb851ep-2"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.442d69fb70ba0p-11",
+   "abc": [
+    "0x1.3f7ced916872bp-4",
+    "0x1.020c49ba5e354p-2",
+    "0x1.51eb851eb851ep-2"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.a4d3d50e6ccd0p-12",
+   "abc": [
+    "0x1.2b020c49ba5e3p-3",
+    "0x1.78d4fdf3b645ap-3",
+    "0x1.51eb851eb851ep-2"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.48225e98e44eep-12",
+   "abc": [
+    "0x1.126e978d4fdf4p-3",
+    "0x1.916872b020c4ap-3",
+    "0x1.51eb851eb851fp-2"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.50e531ba1f821p-12",
+   "abc": [
+    "0x1.89374bc6a7efap-6",
+    "0x1.24dd2f1a9fbe8p-2",
+    "0x1.3d70a3d70a3d7p-2"
+   ]
+  },
+  {
+   "kind": "tri",
+   "y": "0x1.50ddac5703ec3p-14",
+   "abc": [
+    "0x1.6872b020c49bap-4",
+    "0x1.db22d0e560419p-3",
+    "0x1.47ae147ae147bp-2"
+   ]
+  }
+ ],
+ "L": 100.0,
+ "note": "triangle cuts, kappa_rel=0.03, LP mu=0.005068745033023127; mu rounded up by rel 1e-06 from 0.005068847365344854"
+}

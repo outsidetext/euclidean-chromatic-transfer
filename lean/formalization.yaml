@@ -14,6 +14,11 @@ sources:
     id: ../preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf
     type: article
 
+  - title: "Monochromatic distances in finite colorings of the plane"
+    authors: ["Henry Bass"]
+    id: ../preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf
+    type: article
+
 related_formalizations:
   - id: https://github.com/leanprover-community/mathlib4
     relationship: builds-on
@@ -22,7 +27,7 @@ related_formalizations:
     relationship: builds-on
 
 status:
-  scope: "Main results formalized; numerical density bounds (DeCorte-Oliveira-Vallentin) are explicit hypotheses."
+  scope: "Transfer theorems, chi = chi_m, alpha_1 = m_1 in R^3, Soifer/Kahle/Erdos #706 formalized; numerical density bounds from the literature are explicit hypotheses."
   main_results:
     - declaration: OAI.HNN.euclidean_transfer_set
       file: OAI/HNN/Euclid.lean

@@ -57,14 +57,14 @@ def verify(k, D, kappa, m):
     return n1, n2, T, float(qmin)
 if __name__ == '__main__':
     check_rho()
-    # (k, D, kappa, m) -- found by small_sets.py, rounded
-    import numpy as np
-    sys.path.insert(0, '/Users/henry/hadwiger-nelson/research/theory_erdos214')
-    from small_sets import margin
+    # (k, D, kappa, m): certified parameters (found by a separate search, then rounded to rationals)
     out = []
-    for k, D in [(5, Fr(29, 100)), (6, Fr(15, 100)), (7, Fr(75, 1000)), (8, Fr(27, 1000)), (9, Fr(2, 1000))]:
-        mg, kap, m = margin(k, float(D))
-        kap = Fr(round(kap*1000), 1000); m = Fr(round(m*10000)+(200 if k < 9 else 20), 10000)
+    PARAMS = [(5, Fr(29, 100), Fr(12471, 500), Fr(9041, 1250)),
+              (6, Fr(3, 20), Fr(6817, 250), Fr(12829, 2000)),
+              (7, Fr(3, 40), Fr(3579, 125), Fr(56751, 10000)),
+              (8, Fr(27, 1000), Fr(29193, 1000), Fr(11999, 2500)),
+              (9, Fr(1, 500), Fr(29193, 1000), Fr(37599, 10000))]
+    for k, D, kap, m in PARAMS:
         try:
             n1, n2, T, q = verify(k, D, kap, m)
             print(f"k={k} D={D} kappa={kap} m={m}: OK  cells {n1}+{n2}, T={T}, min Q = {q:.5f}", flush=True)

@@ -1,23 +1,18 @@
 # History
 
-Dates are when results were obtained in this project (unpublished unless noted), followed by
-related public work.
+Dates of results in this project, interleaved with related public work.
 
-- **2026-08-08/09.** Records for distance graphs in the plane: χ(ℝ², {1,(√2+√6)/2}) ≥ 7 by finite
-  certificates; 26- and 30-vertex 6-chromatic two-distance graphs; e₅ ≤ 2278; the six-coloring
-  continuum to 0.667504532081; forced monochromatic densities.
-- **2026-09-23.** OpenAI, *The Euclidean plane is not five-colorable* (openai/math, family 158,
-  released 2026-10-06), with a Lean formalization: χ(ℝ²) ≥ 6.
-- **2026-10-07.** Transfer in every dimension via torus averaging; χ(ℝ³) ≥ 7; Lean verification of
-  the three-dimensional transfer.
-- **2026-10-08.** J. Davies, arXiv:2610.12301: χ_D(ℝⁿ) = χ_D^(m)(ℝⁿ) and α_D = m_D for n ≥ 4 and
-  rational squared distances, χ(ℝⁿ) ≥ (2+o(1))ⁿ; leaves n = 2, 3 open.
-- **2026-10-10.** C. Crocker, Zenodo 10.5281/zenodo.23273952: the transfer for all n and algebraic
-  distance sets, χ(ℝ³) ≥ 7 and further consequences, conditional on OpenAI's Theorem 2.3.
-- **2026-10-11.** S. Li, Y. Su, arXiv:2610.15424: f(N) = (m₁(ℝ²)+o(1))N in the plane, with Lean.
-- **2026-10-14.** Lean: transfer in every dimension for countable sets of algebraic distances,
-  χ(ℝⁿ) bounds for 3 ≤ n ≤ 8 from published density bounds, finite forms, and α₁(ℝ³) ≤ m₁(ℝ³).
-  Many-distance consequences (Erdős Problem #706; Soifer's and Kahle's questions).
-- **2026-10-14 (later).** Lean: Soifer's and Kahle's questions (monochromatic 2ⁿ and n! distances) fully
-  formalized. Quantitative bounds via Fourier certificates: odd distances (√N in the plane, linear in ℝ³),
-  lacunary distances (explicit exponential bound for Erdős #706; monochromatic 2ⁱ < k^6.2), two distances.
+- **2026-08-08/09.** Records for two-distance graphs: χ(ℝ², {1, (√2+√6)/2}) ≥ 7 by finite certificates; 6-chromatic
+  two-distance graphs on 26 and 30 vertices; e₅ ≤ 2278; the six-colouring continuum.
+- **2026-10-06.** OpenAI releases *The Euclidean plane is not five-colorable* (openai/math, family 158), with a Lean
+  formalization: χ(ℝ²) ≥ 6.
+- **2026-10-07.** Transfer in every dimension by torus averaging; χ(ℝ³) ≥ 7; Lean verification of the three-dimensional case.
+- **2026-10-08.** J. Davies, arXiv:2610.12301: χ = χ_m and α₁ = m₁ for n ≥ 4 (rational squared distances), χ(ℝⁿ) ≥ (2+o(1))ⁿ.
+- **2026-10-10.** C. Crocker, Zenodo 10.5281/zenodo.23273952: the transfer for all n and algebraic distance sets, χ(ℝ³) ≥ 7
+  and further consequences, conditional on OpenAI's rigidity theorem.
+- **2026-10-11.** S. Li, Y. Su, arXiv:2610.15424: α₁ = m₁ in the plane, with Lean.
+- **2026-10-14.** Lean: transfer in every dimension for countable algebraic distance sets; α₁(ℝ³) = m₁(ℝ³); Soifer's and
+  Kahle's questions; Erdős #706; χ(ℝⁿ) = χ_m(ℝⁿ) for n ≥ 2. Certificates: m₁(ℝ³) ≤ 0.1485113; quantitative odd, lacunary
+  and two-distance bounds; χ(ℝ⁴) ≥ 12, χ(ℝ⁶) ≥ 55, χ(ℝ⁷) ≥ 110, χ(ℝ⁸) ≥ 198, χ(ℝ¹⁰) ≥ 760. Euclidean Ramsey: Erdős #188
+  8 ≤ k ≤ 68; monochromatic collinear triples and triangles in 2-colourings; E³ → (ℓ₂, ℓ₁₁); polychromatic bounds;
+  partial results on Erdős #214.

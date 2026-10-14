@@ -1,84 +1,78 @@
-# Euclidean chromatic numbers: transfer theorems and records
+# Euclidean chromatic numbers and Euclidean Ramsey theory, after the transfer theorem
 
-A small manuscript collection on the chromatic number of Euclidean spaces, with Lean
-formalizations and machine-checkable certificates. The layout follows
-[openai/math](https://github.com/openai/math).
+*Henry Bass, October 2026*
 
-- [**CONTENTS.md**](CONTENTS.md): the result families and their manuscripts.
-- [`preprints/`](preprints/): one folder per manuscript (`paper.pdf`, `paper.tex`, and any certificates).
-- [`lean/`](lean/): the Lean 4 / Mathlib development and its catalog [`formalization.yaml`](lean/formalization.yaml).
-- [**history.md**](history.md): dated record of the results and of related work.
+In October 2026 OpenAI proved that the plane is not 5-colourable ([openai/math](https://github.com/openai/math), family 158).
+A central step is a **transfer theorem**: averaging an arbitrary colouring over algebraic translations and rotations, plus a
+spectral rigidity theorem, makes pair correlations behave as if the colouring were measurable. This repository develops that
+idea in several directions: higher dimensions, many forbidden distances, Erdős problems in Euclidean Ramsey theory, and a
+Lean formalization. It contains four manuscripts, a Lean 4 development, and machine-checkable certificates for every
+numerical claim.
 
-**Status.** Nothing here has been refereed. The Lean statements are machine-checked
-with only the standard axioms (`propext`, `Classical.choice`, `Quot.sound`). Numerical
-density bounds from the literature appear as explicit hypotheses.
+## Results
 
-## Results at a glance
-
-**Verification key:** **Lean** = kernel-checked, standard axioms only · **Cert** = exact/rational certificate with ball-arithmetic (Arb) checks · **2×** = re-verified by an independent program · **DRAT** = SAT proof certificate · **Proof** = written proof, agent-refereed.
-
-### New results
-
-| # | Result | Previous | Verification | Priority / credit |
-|---|---|---|---|---|
-| 1 | **Erdős #188 (plane):** every red/blue coloring of ℝ² with no red unit pair has a blue unit-step 7-term progression; and an explicit periodic coloring (27 open discs of radius 1/2 per period) has no red unit pair and no blue unit-step 68-term progression. So **8 ≤ k ≤ 68** | 6 ≤ k ≤ 6330 (Tsaturian; Currier–Mody–Xie–Zhang, Sept 2026) | Cert, 2× (both bounds) | new |
-| 1b | **New chromatic lower bounds in dimensions 4–10:** χ(ℝ⁴) ≥ 12, χ(ℝ⁶) ≥ 55, χ(ℝ⁷) ≥ 110, χ(ℝ⁸) ≥ 198, χ(ℝ¹⁰) ≥ 760, from m₁(ℝ⁴) ≤ 0.0901868, m₁(ℝ⁶) ≤ 0.0182084, m₁(ℝ⁷) ≤ 0.0091408, m₁(ℝ⁸) ≤ 0.0050689, m₁(ℝ¹⁰) ≤ 0.0013170 (Davies's derivative LP + triangle and hypermetric cuts) | 11, 52, 98, 174, 729 (DOV + Davies; Davies, Oct 8 2026) | Cert (Arb), 2× (float) | new |
-| 1e | **E³ → (ℓ₂, ℓ₁₁):** every red/blue colouring of ℝ³ with no red unit pair contains a blue unit-step 11-term progression | ℓ₆ (Arman–Tsaturian) | Cert, 2× | new |
-| 1f | **Erdős #214 (partial):** in every colouring of ℝ² with no blue unit pair, every 5-point set with algebraic distances that is small (spanning tree of edges ≤ 0.29) or spread (all distances ≥ 10) has a red congruent copy; new 'triangle lemma' 1 ≤ 5δ − (2/3)ΣF | 4 ≤ k ≤ 7 (Juhász; Csizmadia–Tóth); k ≥ 5 still open | Cert (exact + Arb) | new (partial) |
-| 1c | **Monochromatic triangles in arbitrary 2-colourings (Erdős #173 / EGMRSS conjecture):** every red/blue colouring of ℝ² contains a monochromatic congruent copy of every collinear triple {0, a, a+b} with a/b algebraic, and of every triangle with algebraic side ratios whose shortest side is ≤ 0.654 × its longest (criterion: J₀(at)+J₀(bt)+J₀(ct) > −1 for all t) | 3-term APs {0,a,2a} only (Currier–Moore–Yip 2024); general criterion known only for measurable colourings (Shkredov 2015) | Proof + certified Bessel grid | new (priority checked 14 Oct 2026) |
-| 1d | **Polychromatic colourings:** if each class of a k-colouring of ℝⁿ avoids some distance and these distances have algebraic ratios, then k ≥ ⌈1/m₁(ℝⁿ)⌉: k ≥ 5 in ℝ² (Raiskii: ≥ 4), k ≥ 7 in ℝ³ | χ_p(ℝ²) ≥ 4 (Raiskii 1970) | Proof | new (priority checked 14 Oct 2026) |
-| 2 | **m₁(ℝ³) ≤ 0.1485113** (density of unit-distance-free sets in ℝ³) | 0.1532996 (DeCorte–Oliveira–Vallentin) | Cert, 2× | new |
-| 3 | One-cut certificate m₁(ℝ³) ≤ 0.158035 < 1/6 (5 points, 10 distances) | — | Cert | new |
-| 4 | Finite unit-distance graphs in ℝ³ with independence ratio < 0.1486 | — | Proof (from 2 + α₁ = m₁) | new |
-| 5 | Quantitative Soifer: monochromatic 2ⁱ < k^6.2 in every k-coloring of ℝ² (k^2.58 in ℝ³); Kahle: n! with n ≤ 31 + log₁.₇₅ k | qualitative only | Cert (weaker exponent in Lean) | new |
-| 6 | Dense sets meeting every [X, 2X], X ≥ X₀: monochromatic s ≤ 2X₀k^7.44 (squares: 9k^7.44) | — | Proof + Cert | new |
-| 7 | Odd distances: monochromatic odd distance < 18k² in ℝ²; ≤ k in ℝ³ | existence only (Davies) | Proof | new |
-| 8 | χ(ℝ², {1, q, …, q^(K−1)}) ≥ 1 + (22/15)(2.5^K − 1) for q ≥ 4096; ℝ³: ≥ 1 + (4/3)(4^K − 1) for q ≥ 256 | c·r√(log r) | Cert | new |
-| 9 | Two distances: χ(ℝ², {1, d}) ≥ 7 for algebraic d ∈ [1.77, 1.92] ∪ [7, ∞); ≥ 8, 9, 10, 12, 13 for d ≥ 16, 40, 150, 10⁴, 10¹⁰; ℝ³: ≥ 31 for d ≥ 10⁴ | — | Cert, 2× | new |
-| 10 | Small explicit sets: every 6-coloring of ℝ² has a monochromatic distance in {1,3,5,7}; 8-colorings: odd ≤ 15; 10: {2,3,5,7}; 16: {1,2,…,32}; 18: squares ≤ 64 | — | Cert | new |
-| 11 | Erdős #188 / #214 in ℝ³: every 6-point set has a blue translate | — | Lean (from DOV bound) | new |
-
-### Machine-checked versions of results also stated by others
-
-| # | Result | Verification | Priority / credit |
+| | Result | Previously | Verification |
 |---|---|---|---|
-| 12 | **χ(ℝ³) ≥ 7** (three-space is not six-colorable), and a finite non-6-colorable point set in ℝ³ | Lean (input: m₁(ℝ³) ≤ 0.1532996) | Crocker, conditional on OpenAI Thm 2.3; formal proof ours |
-| 13 | Transfer in every dimension n ≥ 2 and for every countable set of algebraic distances; χ_D(ℝⁿ) ≥ 1/m_D(ℝⁿ); bounds for n = 4…8 and finite forms | Lean | Crocker (conditional); n ≥ 4 rational squares: Davies |
-| 14 | **χ(ℝⁿ) = χ_m(ℝⁿ)** for every n ≥ 2 (ordinary = Lebesgue-measurable chromatic number; Székely's question) | Lean | Davies Lemma B.1 + transfer; plane flagged by Crocker; formal proof ours |
-| 15 | α₁(ℝ³) = m₁(ℝ³): finite unit-distance graphs attain the measurable density | Lean | Crocker (conditional); plane Li–Su; n ≥ 4 Davies |
-| 16 | Soifer (2ⁿ) and Kahle (n!): monochromatic for all large n in every finite coloring of ℝ² | Lean | Crocker (conditional, qualitative) |
-| 17 | **Erdős #706 answered negatively:** colors needed to avoid r distances is not polynomial in r; explicit distances (10⁶)ʲ give ≥ (4/9)(3/2)^K | Lean | Crocker (conditional, non-explicit) |
+| 1 | **χ(ℝ³) ≥ 7**: three-space is not six-colourable, for arbitrary colourings | χ(ℝ³) ≥ 6 | Lean, from the published bound m₁(ℝ³) ≤ 0.1533 |
+| 2 | **χ(ℝⁿ) = χ_m(ℝⁿ) for every n ≥ 2**: the chromatic number equals the Lebesgue-measurable chromatic number (also for countable sets of algebraic distances) | n ≥ 4 (Davies) | Lean |
+| 3 | **Erdős Problem #188: 8 ≤ k ≤ 68.** Every red/blue colouring of the plane with no red unit pair has a blue unit-step 7-term progression; an explicit periodic colouring has none of length 68 | 6 ≤ k ≤ 6330 | exact certificates, two independent verifiers each |
+| 4 | **Monochromatic triangles in every 2-colouring of the plane** (Erdős #173): every collinear triple {0, a, a+b} with a/b algebraic, and every triangle with algebraic side ratios and shortest side ≤ 0.654 × longest | 3-term progressions only | proof + certified Bessel bound |
+| 5 | **E³ → (ℓ₂, ℓ₁₁)**: red unit-distance-free colourings of ℝ³ contain blue unit-step 11-term progressions | ℓ₆ | exact certificate, two verifiers |
+| 6 | **χ(ℝ⁴) ≥ 12, χ(ℝ⁶) ≥ 55, χ(ℝ⁷) ≥ 110, χ(ℝ⁸) ≥ 198, χ(ℝ¹⁰) ≥ 760** | 11, 52, 98, 174, 729 | ball-arithmetic certificates, independently re-checked |
+| 7 | **m₁(ℝ³) ≤ 0.1485113** (density of unit-distance-free sets in ℝ³) | 0.1532996 | ball-arithmetic certificate, two verifiers |
+| 8 | **Erdős Problem #706, negative answer**: the number of colours needed to avoid r distances in the plane is not polynomial in r; explicit bound > (22/15)(2.5ʳ − 1) | — | Lean (qualitative), certificate (explicit) |
+| 9 | **Soifer's and Kahle's questions**: every finite colouring of the plane has monochromatic pairs at distance 2ⁿ and n! for all large n; quantitatively a monochromatic 2ⁱ < k^6.2 | open | Lean (qualitative), certificate (quantitative) |
+| 10 | **Polychromatic colourings** whose avoided distances have algebraic ratios need ≥ 5 colours in ℝ² and ≥ 7 in ℝ³ | ≥ 4 in ℝ² (Raiskii) | proof |
+| 11 | **Erdős Problem #214 (partial)**: 5-point sets with algebraic distances that are small or spread out have red copies | 4 ≤ k ≤ 7 | certificates |
+| 12 | Finite unit-distance graphs attain the measurable density in ℝ³ (α₁ = m₁), hence finite graphs in ℝ³ with independence ratio < 0.1486 | — | Lean (α₁ = m₁) |
+| 13 | Quantitative bounds for odd distances, lacunary and two-distance sets; e.g. χ(ℝ², {1, d}) ≥ 7 for algebraic d ≥ 7 | — | certificates |
+| 14 | Records for two-distance graphs: χ(ℝ², {1, (√2+√6)/2}) ≥ 7 by finite certificates; 6-chromatic two-distance graphs on 26 and 30 vertices; e₅ ≤ 2278 | 117 and 33 vertices; e₅ ≤ 2406 | DRAT + exact arithmetic |
 
-### Earlier records (August–October 2026)
+The transfer in all dimensions and results 1, 12 and the qualitative parts of 8 and 9 were also stated, conditionally on
+OpenAI's rigidity theorem and without formalization or explicit bounds, by C. Crocker
+([Zenodo, 10 October 2026](https://doi.org/10.5281/zenodo.23273952)), who also noted result 2 as expected.
+J. Davies ([arXiv:2610.12301](https://arxiv.org/abs/2610.12301)) proved χ = χ_m and α₁ = m₁ in dimensions n ≥ 4 by a
+different method; S. Li and Y. Su ([arXiv:2610.15424](https://arxiv.org/abs/2610.15424)) proved α₁ = m₁ in the plane.
+See [history.md](history.md).
 
-| # | Result | Previous | Verification |
-|---|---|---|---|
-| 18 | χ(ℝ², {1, (√2+√6)/2}) ≥ 7 by finite certificates | — | Exact arithmetic + DRAT |
-| 19 | Smallest 6-chromatic two-distance graphs: 26 vertices; 30 for {1, √3} | 117; 33 | Exact arithmetic + DRAT |
-| 20 | e₅ ≤ 2278 | 2406 | DRAT |
-| 21 | Six-coloring continuum extended to [0.354, 0.667504532081] | 0.657 | 59 exact rational tilings |
-| 22 | Forced densities 1/67, 1/28, 1/37 | — | DRAT |
+## Manuscripts
 
-### Open
+| Manuscript | Contents |
+|---|---|
+| [A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf) | results 1, 2, 6, 7, 12 |
+| [Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf) | results 8, 9, 13 |
+| [Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf) | results 3, 4, 5, 10, 11; which constraints the transfer can and cannot carry |
+| [Chromatic numbers of the plane with two forbidden distances](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/paper.pdf) | result 14 |
 
-χ(ℝ²) ∈ {6, 7} remains open. Density methods cannot decide it: Pritikin's six-coloring covers all but 0.015% of the plane. In ℝ³, m₁(ℝ³) < 1/7 would give χ(ℝ³) ≥ 8; work in progress.
+Each manuscript folder contains `paper.pdf`, `paper.tex` and the certificates and verification scripts for its claims.
+[CONTENTS.md](CONTENTS.md) lists the results with abstracts.
 
-## Build and check
+## Checking
+
+**Lean.** Requires [elan](https://github.com/leanprover/elan).
 ```
 cd lean
-lake exe cache get              # Mathlib oleans (pinned commit d13f23b)
-lake build OAI.HNN.Corollary OAI.HNN.Repair OAI.HN3.Finite OAI.HN3.IndepFolner OAI.HN3.Translates OAI.Soifer.Main
-lake env lean CheckN.lean       # n-dimensional transfer and corollaries: prints axioms
-lake env lean CheckRepair.lean  # chi(R^n) = measurable chi(R^n), n >= 2: prints axioms
-lake env lean Check3.lean       # three-dimensional development
-lake env lean CheckIndep.lean   # finite graphs attain the density in R^3
-lake env lean CheckSoifer.lean  # monochromatic 2^n and n! distances (Soifer, Kahle)
-lake env lean CheckTranslates.lean # Erdos #188/#214 in R^3: prints axioms
+lake exe cache get
+lake build OAI.HNN.Corollary OAI.HNN.Repair OAI.HN3.Finite OAI.HN3.IndepEq OAI.HN3.Translates OAI.Soifer.Main
+lake env lean CheckRepair.lean   # prints the theorem and its axioms; likewise Check3, CheckN, CheckIndep, CheckSoifer, CheckTranslates
 ```
-Certificates for the record graphs are checked by the scripts beside them; see
-[`preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/certificates/README.md`](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/certificates/README.md).
+See [lean/README.md](lean/README.md) for the list of formal statements.
+
+**Certificates.** Python 3 with `numpy`, `scipy` and `python-flint` (ball arithmetic); SAT certificates need
+[`drat-trim`](https://github.com/marijnheule/drat-trim). Each certificate folder documents its verifier command.
+
+## Caveats
+
+Nothing here has been refereed. The transfer applies to colourings restricted to algebraic points, so statements about
+configurations require algebraic distances or ratios; the case of transcendental distances is open. In Lean, numerical density
+bounds from the literature appear as explicit hypotheses. The chromatic number of the plane, 6 or 7, remains open.
+
+## Acknowledgements
+
+The results, proofs, Lean formalization, certificates and verification programs were developed with the assistance of Claude
+(Anthropic). The planar transfer and rigidity theorem and its formalization are due to OpenAI.
 
 ## License
-Lean sources and scripts: Apache License 2.0 (see [LICENSE](LICENSE)). The modules under
-`lean/OAI/{Analysis,Geometry,MeasureTheory}` are from github.com/openai/math, used
-unmodified under the Apache License 2.0 (see `lean/LICENSE-openai-math`).
+
+Apache License 2.0 ([LICENSE](LICENSE)). The modules under `lean/OAI/{Analysis,Geometry,MeasureTheory}` are from
+[openai/math](https://github.com/openai/math), used unmodified under the Apache License 2.0 (`lean/LICENSE-openai-math`).

@@ -38,7 +38,7 @@ We give a proof, formally verified in Lean~4, that every coloring of $\R^3$ with
 
 The proof extends to $\R^3$ the transfer principle of a recent preprint released by OpenAI, which converts a proper $k$-coloring of the plane into a measurable $k$-coloring whose monochromatic unit pairs form a null set, and whose key rigidity theorem is formalized in Lean. We average over independent rotations of orthogonal coordinate $2$-planes, apply the rigidity theorem block by block through a polarization identity, and remove the remaining axis with an invariant-mean line average. The argument works in every dimension and for every finite set of algebraic forbidden distances, and gives $\chi_D(\R^n)\ge 1/m_D(\R^n)$. With the density bound of DeCorte, Oliveira and Vallentin this yields $\chi(\R^3)\ge7$. Crocker independently posted, on 10 October 2026, the same transfer and its consequences, stated conditionally on the rigidity theorem and with a different treatment of the axis. Our formalization verifies, end to end and with only the standard axioms, the transfer in every dimension for every countable set of algebraic distances, the deduction of $\chi(\R^3)\ge7$ from the published density bound, the existence of a finite non-$6$-colorable unit-distance graph in $\R^3$, and the existence of finite unit-distance graphs in $\R^3$ with independence ratio below $0.1533$. The only input not formalized for $\chi(\R^3)\ge7$ is that numerical density bound, whose published exact verifier we re-ran.
 
-We improve the density bound to $m_1(\R^3)\le0.1485113$, with a certificate checked in ball arithmetic. We also show that finite unit-distance graphs in $\R^3$ attain the measurable density, $\inf_G\alpha(G)/|G|=m_1(\R^3)$, which is formally verified, and that $\sup_G\chi_f(G)=\sup_G\chi_{gf}(G)$ for finite unit-distance graphs in every dimension. Consequences of the transfer for colorings avoiding several distances, including formal answers to questions of Soifer, Kahle and Erd\H{o}s, are in a companion paper.
+We also prove, with a Lean formalization, that the chromatic number of $\R^n$ equals its Lebesgue-measurable chromatic number for every $n\ge2$. We improve the density bound to $m_1(\R^3)\le0.1485113$, with a certificate checked in ball arithmetic, and the bounds in dimensions $4$, $6$, $7$, $8$ and $10$, giving $\chi(\R^4)\ge12$, $\chi(\R^6)\ge55$, $\chi(\R^7)\ge110$, $\chi(\R^8)\ge198$ and $\chi(\R^{10})\ge760$. We also show that finite unit-distance graphs in $\R^3$ attain the measurable density, $\inf_G\alpha(G)/|G|=m_1(\R^3)$, which is formally verified, and that $\sup_G\chi_f(G)=\sup_G\chi_{gf}(G)$ for finite unit-distance graphs in every dimension. Consequences of the transfer for colorings avoiding several distances, including formal answers to questions of Soifer, Kahle and Erd\H{o}s, are in a companion paper.
 \end{abstract}
 \maketitle
 
@@ -253,6 +253,15 @@ A single inequality already suffices for $\chi(\R^3)\ge7$. With one five-point c
 
 Proposition~\ref{prop:m1} does not change $\chi(\R^3)\ge7$, since $1/0.1485>6.7$. Reaching $\chi(\R^3)\ge8$ in this way needs $m_1(\R^3)<1/7$. The two-point constraints used here saturate near $0.1485$. With Theorem~\ref{thm:D}, which is formalized in $\R^3$, it gives finite unit-distance graphs in $\R^3$ with independence ratio below $0.1486$.
 
+\subsection*{Higher dimensions}
+The same kind of cuts improve Davies's derivative linear program~\cite[Lemma 9.2 and Table 1]{Davies}. Its optimal autocorrelation is smooth at the origin, $1-g(r)\sim r^2$, which triangle inequalities $g(a)+g(b)-g(c)\le1$ on small, nearly collinear triangles exclude; in $\R^4$, hypermetric inequalities on five to eight points around a regular simplex also help.
+
+\begin{proposition}\label{prop:highdim}
+$m_1(\R^4)\le0.0901868$, $m_1(\R^6)\le0.0182084$, $m_1(\R^7)\le0.0091408$, $m_1(\R^8)\le0.0050689$ and $m_1(\R^{10})\le0.0013170$. Consequently $\chi(\R^4)\ge12$, $\chi(\R^6)\ge55$, $\chi(\R^7)\ge110$, $\chi(\R^8)\ge198$ and $\chi(\R^{10})\ge760$.
+\end{proposition}
+
+The previous bounds were $11$, $52$, $98$, $174$ and $729$~\cite{DOV,Davies}. The chromatic bounds follow from $\chi(\R^n)\ge\lceil1/m_1(\R^n)\rceil$ (Corollary~\ref{cor:B}, or~\cite[Theorem 1.1]{Davies}). Each certificate consists of multipliers for the derivative constraints and for the cuts, a constant $\mu$ with $G(0)+1\le\mu$ and $G(t)\le\mu$ for $t>0$; it is checked in ball arithmetic on cells of $(0,L]$, with the tail bounded through the Hankel expansion of $J_\nu$~\cite[\S10.17(iii)]{DLMF}, and re-checked independently in floating point. In dimensions $5$ and $9$ the optimum of the linear program puts mass at infinite frequency and the cuts we tried give no improvement.
+
 \section{Finite graphs attain the measurable density}\label{sec:finite}
 
 \begin{proof}[Proof of Theorem~\ref{thm:D}]
@@ -313,6 +322,7 @@ The Lean development (Lean 4.34.1, Mathlib commit \texttt{d13f23b}) builds on th
 \bibitem{ACMVZ} G.~Ambrus, A.~Csisz\'arik, M.~Matolcsi, D.~Varga, P.~Zs\'amboki, \emph{The density of planar sets avoiding unit distances}, Math.\ Program.\ (2023); arXiv:2207.14179.
 \bibitem{BPT} C.~Bachoc, A.~Passuello, A.~Thiery, \emph{The density of sets avoiding distance 1 in Euclidean space}, Discrete Comput.\ Geom.\ 53 (2015); arXiv:1401.6140.
 \bibitem{Coulson} D.~Coulson, \emph{A 15-colouring of 3-space omitting distance one}, Discrete Math.\ 256 (2002).
+\bibitem{DLMF} \emph{NIST Digital Library of Mathematical Functions}, \url{https://dlmf.nist.gov}, Release 1.2.
 \bibitem{DOV} E.~DeCorte, F.~M.~de Oliveira Filho, F.~Vallentin, \emph{Complete positivity and distance-avoiding sets}, Math.\ Program.\ (2022); arXiv:1804.09099.
 \bibitem{Crocker} C.~Crocker, \emph{A conditional transfer for colourings of $\R^n$, with the conditional consequence $\chi(\R^3)\ge7$}, Zenodo (10 October 2026), doi:10.5281/zenodo.23273952.
 \bibitem{BassRamsey} H.~Bass, \emph{Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity}, preprint (October 2026).

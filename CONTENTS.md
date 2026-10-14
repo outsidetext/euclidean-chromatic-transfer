@@ -1,17 +1,15 @@
 # Manuscript collection
 
-**4 manuscripts covering 10 result families.**
+**4 manuscripts covering 14 results.**
 
-## Manuscript map
-
-Each result description is followed by its manuscript and abstract. Paper titles link directly to PDFs.
+Each result is followed by its manuscript and abstract. Paper titles link directly to PDFs.
 
 <table>
 <thead><tr><th>Result</th></tr></thead>
 <tbody><tr>
 <td>
 
-**001. Three-space is not six-colorable, machine-checked.** Every coloring of ℝ³ with six colors, with arbitrary color classes, has two points at distance 1 of the same color, so χ(ℝ³) ≥ 7 (previously 6). The proof transfers arbitrary colorings to measurable ones by averaging over independent rotations of coordinate 2-planes and applying OpenAI's planar rigidity theorem block by block. It is verified in Lean end to end, relative to the published density bound m₁(ℝ³) ≤ 0.1532996. Crocker independently posted the argument conditionally on OpenAI's rigidity theorem (Oct 10, 2026).
+**001. Three-space is not six-colourable, machine-checked.** Every colouring of ℝ³ with six colours, with arbitrary colour classes, has two points at distance 1 of the same colour, so χ(ℝ³) ≥ 7 (previously 6). Verified in Lean end to end, relative to the published density bound m₁(ℝ³) ≤ 0.1532996; the improved bound of result 7 is certified separately. Crocker independently stated the argument conditionally on OpenAI's rigidity theorem.
 
 </td>
 </tr></tbody>
@@ -20,14 +18,14 @@ Each result description is followed by its manuscript and abstract. Paper titles
 
 &emsp;[A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf)
 
-We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with six colors contains two points at distance 1 of the same color, so χ(ℝ³) ≥ 7. The proof extends OpenAI's planar transfer principle to every dimension and to every finite set of algebraic distances by torus averaging, and records consequences for finite graphs and for many forbidden distances.
+We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with six colors contains two points at distance 1 of the same color, so χ(ℝ³) ≥ 7. The proof extends OpenAI's planar transfer principle to every dimension and to every countable set of algebraic distances by torus averaging, shows that the chromatic and measurable chromatic numbers coincide, and records consequences for finite graphs, densities and higher dimensions.
 
 </td>
 </tr></tbody>
 <tbody><tr>
 <td>
 
-**002. Transfer in every dimension and for algebraic distance sets.** For every n ≥ 2 and every countable set D of positive algebraic distances, a D-avoiding coloring of ℝⁿ yields a conull measurable partition into D-avoiding sets, so χ_D(ℝⁿ) ≥ 1/m_D(ℝⁿ). Verified in Lean, together with the conditional bounds χ(ℝⁿ) ≥ 11, 17, 23, 39, 53 for n = 4, …, 8 and their finite forms. Combined with Davies's measurable-repair lemma (formalized here by density-point anchors and de Bruijn–Erdős compactness), this gives χ_D(ℝⁿ) = χ_{m,D}(ℝⁿ): the ordinary and Lebesgue-measurable chromatic numbers coincide for every n ≥ 2, in particular for the plane and for ℝ³ (Székely asked whether they can differ). Verified in Lean. For n ≥ 4 and rational squared distances these consequences are due to Davies; for the plane the equality is the combination of Davies's Lemma B.1 with OpenAI's transfer, flagged without proof by Crocker.
+**002. Ordinary and measurable chromatic numbers coincide.** For every n ≥ 2 and every countable set D of positive algebraic distances, χ_D(ℝⁿ) = χ_{m,D}(ℝⁿ): a proper colouring exists iff one with Lebesgue-measurable classes does (Székely asked whether they can differ). Verified in Lean. The repair step is Davies's Lemma B.1; Davies proved the equality for n ≥ 4 and rational squared distances.
 
 </td>
 </tr></tbody>
@@ -36,14 +34,94 @@ We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with 
 
 &emsp;[A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf)
 
-We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with six colors contains two points at distance 1 of the same color, so χ(ℝ³) ≥ 7. The proof extends OpenAI's planar transfer principle to every dimension and to every finite set of algebraic distances by torus averaging, and records consequences for finite graphs and for many forbidden distances.
+We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with six colors contains two points at distance 1 of the same color, so χ(ℝ³) ≥ 7. The proof extends OpenAI's planar transfer principle to every dimension and to every countable set of algebraic distances by torus averaging, shows that the chromatic and measurable chromatic numbers coincide, and records consequences for finite graphs, densities and higher dimensions.
 
 </td>
 </tr></tbody>
 <tbody><tr>
 <td>
 
-**003. Many forbidden distances in the plane.** With Bukh's theorem, the number of colors needed to avoid k distances in the plane exceeds 4.0486ᵏ, answering Erdős Problem #706 in the negative; every finite coloring of the plane realizes every sufficiently large algebraic distance, such as 2ʲ or j!, monochromatically (questions of Soifer and Kahle). Also stated conditionally by Crocker.
+**003. Erdős Problem #188: 8 ≤ k ≤ 68 (previously 6 ≤ k ≤ 6330).** Every red/blue colouring of the plane with no two red points at distance 1 contains a blue unit-step 7-term progression (Fourier pattern linear program on a strip of the triangular lattice), and an explicit periodic colouring by 27 open discs per period has no red unit pair and no blue unit-step 68-term progression. Both bounds have exact certificates checked by two independent programs.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+&emsp;[Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf)
+
+Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 68 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+**004. Monochromatic triangles in every 2-colouring of the plane.** Every red/blue colouring of ℝ² contains a monochromatic congruent copy of every collinear triple {0, a, a+b} with a/b algebraic, and of every triangle with algebraic side ratios whose shortest side is at most 0.654 times its longest (Erdős #173 / the conjecture of Erdős, Graham, Montgomery, Rothschild, Spencer and Straus). Previously known for arbitrary colourings only for 3-term progressions (Currier–Moore–Yip); the criterion is Shkredov's for measurable colourings.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+&emsp;[Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf)
+
+Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 68 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+**005. E³ → (ℓ₂, ℓ₁₁).** Every red/blue colouring of ℝ³ with no two red points at distance 1 contains a blue unit-step 11-term progression (previously 6, Arman–Tsaturian).
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+&emsp;[Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf)
+
+Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 68 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+**006. New chromatic lower bounds in dimensions 4–10.** χ(ℝ⁴) ≥ 12, χ(ℝ⁶) ≥ 55, χ(ℝ⁷) ≥ 110, χ(ℝ⁸) ≥ 198, χ(ℝ¹⁰) ≥ 760 (previously 11, 52, 98, 174, 729), from improved bounds on m₁(ℝⁿ) obtained by adding correlation-polytope cuts to Davies's derivative linear program; ball-arithmetic certificates.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+&emsp;[A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf)
+
+We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with six colors contains two points at distance 1 of the same color, so χ(ℝ³) ≥ 7. The proof extends OpenAI's planar transfer principle to every dimension and to every countable set of algebraic distances by torus averaging, shows that the chromatic and measurable chromatic numbers coincide, and records consequences for finite graphs, densities and higher dimensions.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+**007. An improved density bound in ℝ³.** m₁(ℝ³) ≤ 0.1485113 (previously 0.1532996), by correlation-polytope cutting planes; certified in ball arithmetic and checked by two independent programs.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+&emsp;[A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf)
+
+We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with six colors contains two points at distance 1 of the same color, so χ(ℝ³) ≥ 7. The proof extends OpenAI's planar transfer principle to every dimension and to every countable set of algebraic distances by torus averaging, shows that the chromatic and measurable chromatic numbers coincide, and records consequences for finite graphs, densities and higher dimensions.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+**008. Erdős Problem #706, negative answer.** The number of colours needed to avoid r distances in the plane is not bounded by a polynomial in r; for algebraic q ≥ 4096, avoiding {1, q, …, q^(K−1)} needs more than 1 + (22/15)(2.5^K − 1) colours. A weaker explicit form is verified in Lean.
 
 </td>
 </tr></tbody>
@@ -59,7 +137,23 @@ Every finite coloring of the plane has, for all large n, monochromatic pairs at 
 <tbody><tr>
 <td>
 
-**011. Erdős Problem #188: unit-step progressions, k ≥ 8 (previously k ≥ 6).** Every red/blue coloring of the plane with no two red points at distance 1 contains a blue unit-step 7-term arithmetic progression, so 8 ≤ k ≤ 6330; an explicit certified periodic disc colouring improves the upper bound to 68, so 8 ≤ k ≤ 68. Proof: transfer + rigidity gives Bessel-mixture red pair correlations with atom ≥ δ²; pattern linear programs on 7 collinear points (k ≥ 7) and on a 2×12 strip of the triangular lattice (k ≥ 8). Exact rational certificates, Arb-checked, and re-verified by an independent brute-force checker.
+**009. Soifer's and Kahle's questions.** Every finite colouring of the plane has monochromatic pairs at distance 2ⁿ and at distance n! for all large n (Lean); quantitatively, every k-colouring has a monochromatic 2ⁱ < k^6.2 and a monochromatic odd distance below 18k².
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+&emsp;[Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf)
+
+Every finite coloring of the plane has, for all large n, monochromatic pairs at distance 2ⁿ and at distance n!; the number of colors needed to avoid r distances grows exponentially (Erdős #706), with explicit distance sets; quantitative bounds for odd, lacunary and two-distance problems; the main qualitative statements are formally verified in Lean.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+**010. Polychromatic colourings.** If each class of a colouring avoids some distance and the avoided distances have algebraic ratios, at least 5 colours are needed in the plane (previously 4, Raiskii) and at least 7 in ℝ³.
 
 </td>
 </tr></tbody>
@@ -68,12 +162,30 @@ Every finite coloring of the plane has, for all large n, monochromatic pairs at 
 
 &emsp;[Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf)
 
+Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 68 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
+
 </td>
 </tr></tbody>
 <tbody><tr>
 <td>
 
-**004. Finite unit-distance graphs in ℝ³ attain the measurable density; an improved density bound.** The infimum of α(G)/|G| over finite unit-distance graphs in ℝ³ equals m₁(ℝ³); in particular some finite unit-distance graph in ℝ³ has independence ratio below 0.1486, using the new bound m₁(ℝ³) ≤ 0.1485113 (previously 0.1532996), certified in ball arithmetic and checked by two independent programs. Consequently, in ℝ³ every red/blue coloring with red unit-distance-free contains a blue translate of every 6-point set; these are the three-dimensional cases of Erdős Problems #188 and #214 (formalized). The equality α₁ = m₁ in ℝ³ is verified in Lean. The plane is due to Li–Su and n ≥ 4 to Davies.
+**011. Erdős Problem #214, partial results.** In every colouring of the plane with no two blue points at distance 1, every 5-point set with algebraic distances that has a spanning tree of edges ≤ 0.29, or all distances ≥ 10, has a red congruent copy (known: 4 ≤ k ≤ 7).
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+&emsp;[Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf)
+
+Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 68 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+**012. Finite graphs attain the measurable density in ℝ³.** α₁(ℝ³) = m₁(ℝ³) (Lean), so finite unit-distance graphs in ℝ³ have independence ratio below 0.1486; consequently Erdős #188 and #214 hold in ℝ³ for 6-point sets (Lean).
 
 </td>
 </tr></tbody>
@@ -82,62 +194,14 @@ Every finite coloring of the plane has, for all large n, monochromatic pairs at 
 
 &emsp;[A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf)
 
-We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with six colors contains two points at distance 1 of the same color, so χ(ℝ³) ≥ 7. The proof extends OpenAI's planar transfer principle to every dimension and to every finite set of algebraic distances by torus averaging, and records consequences for finite graphs and for many forbidden distances.
+We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with six colors contains two points at distance 1 of the same color, so χ(ℝ³) ≥ 7. The proof extends OpenAI's planar transfer principle to every dimension and to every countable set of algebraic distances by torus averaging, shows that the chromatic and measurable chromatic numbers coincide, and records consequences for finite graphs, densities and higher dimensions.
 
 </td>
 </tr></tbody>
 <tbody><tr>
 <td>
 
-**005. Seven colors for the plane with two forbidden distances.** χ(ℝ², {1, (√2+√6)/2}) ≥ 7, by an 8-point pigeonhole gadget and two 12-point chains whose long pairs land exactly on the forbidden distances, with exact-arithmetic and DRAT certificates. This is the only bound χ_D(ℝ²) ≥ 7 for an explicit two-distance set proved by a finite certificate.
-
-</td>
-</tr></tbody>
-<tbody><tr>
-<td>
-
-&emsp;[Chromatic numbers of the plane with two forbidden distances: a seven-color lower bound and smaller six-chromatic graphs](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/paper.pdf)
-
-We prove χ(ℝ², {1, (√2+√6)/2}) ≥ 7 with explicit SAT- and exact-arithmetic-certified finite configurations, give record small 6-chromatic two-distance graphs (26 and 30 vertices), the bound e₅ ≤ 2278, the six-coloring continuum up to 0.667504532081, and forced-density constants, with all certificates.
-
-</td>
-</tr></tbody>
-<tbody><tr>
-<td>
-
-**006. Small six-chromatic two-distance graphs and an edge-sparse 5-chromatic unit-distance graph.** A 26-vertex 6-chromatic {1, (√2+√6)/2}-graph (previously 117 for this pair; smallest known for any pair, previously 31) and a 30-vertex 6-chromatic {1, √3}-graph (previously 33). The 509-vertex 5-chromatic unit-distance graph stays 5-chromatic with 2278 edges (previously 2406).
-
-</td>
-</tr></tbody>
-<tbody><tr>
-<td>
-
-&emsp;[Chromatic numbers of the plane with two forbidden distances: a seven-color lower bound and smaller six-chromatic graphs](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/paper.pdf)
-
-We prove χ(ℝ², {1, (√2+√6)/2}) ≥ 7 with explicit SAT- and exact-arithmetic-certified finite configurations, give record small 6-chromatic two-distance graphs (26 and 30 vertices), the bound e₅ ≤ 2278, the six-coloring continuum up to 0.667504532081, and forced-density constants, with all certificates.
-
-</td>
-</tr></tbody>
-<tbody><tr>
-<td>
-
-**007. The six-coloring continuum.** There are colorings of the plane with six colors in which five classes avoid distance 1 and the sixth avoids distance d, for every d ∈ [0.354, 0.667504532081] (previously up to 0.657), certified by 59 exact rational tilings.
-
-</td>
-</tr></tbody>
-<tbody><tr>
-<td>
-
-&emsp;[Chromatic numbers of the plane with two forbidden distances: a seven-color lower bound and smaller six-chromatic graphs](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/paper.pdf)
-
-We prove χ(ℝ², {1, (√2+√6)/2}) ≥ 7 with explicit SAT- and exact-arithmetic-certified finite configurations, give record small 6-chromatic two-distance graphs (26 and 30 vertices), the bound e₅ ≤ 2278, the six-coloring continuum up to 0.667504532081, and forced-density constants, with all certificates.
-
-</td>
-</tr></tbody>
-<tbody><tr>
-<td>
-
-**008. Monochromatic powers of two and factorials, machine-checked.** Every finite coloring of the plane (and of ℝⁿ, n ≥ 2) has two points of the same color at distance 2ⁿ, and two at distance n!, for all sufficiently large n; more generally no finite coloring avoids an unbounded set of algebraic distances. This answers questions of Soifer and of Kahle recorded by Davies–McCarty–Pilipczuk. Fully verified in Lean (transfer plus a torus-Fourier proof of the needed Furstenberg–Katznelson–Weiss theorem). Stated conditionally by Crocker.
+**013. Quantitative bounds for odd, lacunary and two-distance sets.** For example χ(ℝ², {1, d}) ≥ 7 for algebraic d ≥ 7 and ≥ 10 for d ≥ 150; χ(ℝ³, odd distances < 2N) ≥ 1 + 2N.
 
 </td>
 </tr></tbody>
@@ -146,33 +210,23 @@ We prove χ(ℝ², {1, (√2+√6)/2}) ≥ 7 with explicit SAT- and exact-arithm
 
 &emsp;[Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf)
 
-</td>
-</tr></tbody>
-<tbody><tr>
-<td>
-
-**009. Quantitative monochromatic distances.** Every k-coloring of the plane has two points of the same color at an odd distance below 18k² and at a distance 2ⁱ < k^6.2; in ℝ³, at an odd distance at most k and at a distance 2ⁱ < k^2.58. χ(ℝ², {1, q, …, q^{K−1}}) ≥ 1 + (22/15)(2.5^K − 1) for algebraic q ≥ 4096 (an explicit exponential lower bound for Erdős Problem #706), and χ(ℝ², {1, d}) ≥ 12 for every algebraic d ≥ 10⁴. Explicit certified cases: every 6-coloring of the plane has a monochromatic pair at distance 1, 3, 5 or 7. Proofs combine the Lean-verified transfer with explicit Fourier certificates.
+Every finite coloring of the plane has, for all large n, monochromatic pairs at distance 2ⁿ and at distance n!; the number of colors needed to avoid r distances grows exponentially (Erdős #706), with explicit distance sets; quantitative bounds for odd, lacunary and two-distance problems; the main qualitative statements are formally verified in Lean.
 
 </td>
 </tr></tbody>
 <tbody><tr>
 <td>
 
-&emsp;[Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf)
+**014. Records for two-distance graphs.** χ(ℝ², {1, (√2+√6)/2}) ≥ 7 by finite certificates; 6-chromatic two-distance graphs on 26 vertices (previously 117) and 30 vertices for {1, √3} (previously 33); e₅ ≤ 2278 (previously 2406).
 
 </td>
 </tr></tbody>
 <tbody><tr>
 <td>
 
-**010. Erdős Problem #706, machine-checked.** For every C and e there is a K-element set D of integer distances and a finite point set P in the plane whose D-distance graph is not C·K^e-colorable; explicitly, every coloring of the plane avoiding {(10⁶)^j : j < K} uses at least (4/9)(3/2)^K colors. Hence L(r) is not polynomially bounded. Also formal: every k-coloring of the plane has a monochromatic distance 2^i with i ≤ 20(2⌊log₂ 9k⌋+2). Two forbidden distances (computer-certified): χ(ℝ², {1, d}) ≥ 7 for algebraic d ∈ [1.77, 1.92] ∪ [7, ∞), ≥ 8 for d ≥ 16, ≥ 9 for d ≥ 40, ≥ 10 for d ≥ 150, ≥ 12 for d ≥ 10⁴. The qualitative exponential growth was stated conditionally by Crocker.
+&emsp;[Chromatic numbers of the plane with two forbidden distances](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/paper.pdf)
 
-</td>
-</tr></tbody>
-<tbody><tr>
-<td>
-
-&emsp;[Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf)
+A seven-color lower bound for the plane with the two forbidden distances 1 and (√2+√6)/2 by finite certificates, smaller six-chromatic two-distance graphs, and related records, with exact-arithmetic and DRAT certificates.
 
 </td>
 </tr></tbody>

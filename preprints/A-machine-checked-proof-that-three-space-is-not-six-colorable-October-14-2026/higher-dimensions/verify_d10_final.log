@@ -1,0 +1,5 @@
+d=10 derivatives used j=0..4; cuts=6; distinct distances=15; w0=9.690821e-04; sum y*beta=0.000e+00; mu=0.0013169862885
+(i)  mu - G(0) - 1 = [8.64325e-8 +/- 3.73e-14]
+(ii) tail: for t >= L = 1455.2:  w0 + bound = [0.0013008946 +/- 8.64e-12] < mu
+(iii) [0, 1455.2] covered by 1996 cells (1158 refinements); max upper bound 0.0013169855246 at t~902.48725; mu = 0.0013169862885
+CERTIFIED: m1(R^10) <= [0.00131698628850 +/- 4.13e-15]  (upper end 0.0013169862885);  1/bound = 759.309348  =>  chi(R^10) >= 760 (as an integer bound: chi >= ceil(1/m1); valid if 1/up is not an integer)
