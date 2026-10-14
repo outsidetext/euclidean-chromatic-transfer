@@ -59,7 +59,7 @@ Every finite coloring of the plane has, for all large n, monochromatic pairs at 
 <tbody><tr>
 <td>
 
-**004. Finite unit-distance graphs in ℝ³ attain the measurable density.** The infimum of α(G)/|G| over finite unit-distance graphs in ℝ³ equals m₁(ℝ³); in particular some finite unit-distance graph in ℝ³ has independence ratio below 0.1533. The equality α₁ = m₁ in ℝ³ is verified in Lean. The plane is due to Li–Su and n ≥ 4 to Davies.
+**004. Finite unit-distance graphs in ℝ³ attain the measurable density; an improved density bound.** The infimum of α(G)/|G| over finite unit-distance graphs in ℝ³ equals m₁(ℝ³); in particular some finite unit-distance graph in ℝ³ has independence ratio below 0.1486, using the new bound m₁(ℝ³) ≤ 0.1485113 (previously 0.1532996), certified in ball arithmetic and checked by two independent programs. The equality α₁ = m₁ in ℝ³ is verified in Lean. The plane is due to Li–Su and n ≥ 4 to Davies.
 
 </td>
 </tr></tbody>

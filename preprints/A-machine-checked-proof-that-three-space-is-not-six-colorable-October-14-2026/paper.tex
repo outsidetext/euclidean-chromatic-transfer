@@ -38,7 +38,7 @@ We give a proof, formally verified in Lean~4, that every coloring of $\R^3$ with
 
 The proof extends to $\R^3$ the transfer principle of a recent preprint released by OpenAI, which converts a proper $k$-coloring of the plane into a measurable $k$-coloring whose monochromatic unit pairs form a null set, and whose key rigidity theorem is formalized in Lean. We average over independent rotations of orthogonal coordinate $2$-planes, apply the rigidity theorem block by block through a polarization identity, and remove the remaining axis with an invariant-mean line average. The argument works in every dimension and for every finite set of algebraic forbidden distances, and gives $\chi_D(\R^n)\ge 1/m_D(\R^n)$. With the density bound of DeCorte, Oliveira and Vallentin this yields $\chi(\R^3)\ge7$. Crocker independently posted, on 10 October 2026, the same transfer and its consequences, stated conditionally on the rigidity theorem and with a different treatment of the axis. Our formalization verifies, end to end and with only the standard axioms, the transfer in every dimension for every countable set of algebraic distances, the deduction of $\chi(\R^3)\ge7$ from the published density bound, the existence of a finite non-$6$-colorable unit-distance graph in $\R^3$, and the existence of finite unit-distance graphs in $\R^3$ with independence ratio below $0.1533$. The only input not formalized for $\chi(\R^3)\ge7$ is that numerical density bound, whose published exact verifier we re-ran.
 
-We also show that finite unit-distance graphs in $\R^3$ attain the measurable density, $\inf_G\alpha(G)/|G|=m_1(\R^3)$, which is formally verified, and that $\sup_G\chi_f(G)=\sup_G\chi_{gf}(G)$ for finite unit-distance graphs in every dimension. Consequences of the transfer for colorings avoiding several distances, including formal answers to questions of Soifer, Kahle and Erd\H{o}s, are in a companion paper.
+We improve the density bound to $m_1(\R^3)\le0.1485113$, with a certificate checked in ball arithmetic. We also show that finite unit-distance graphs in $\R^3$ attain the measurable density, $\inf_G\alpha(G)/|G|=m_1(\R^3)$, which is formally verified, and that $\sup_G\chi_f(G)=\sup_G\chi_{gf}(G)$ for finite unit-distance graphs in every dimension. Consequences of the transfer for colorings avoiding several distances, including formal answers to questions of Soifer, Kahle and Erd\H{o}s, are in a companion paper.
 \end{abstract}
 \maketitle
 
@@ -101,7 +101,7 @@ For every $n\ge2$,
 where $G$ ranges over finite unit-distance graphs in $\R^n$ and $\chi_{gf}$ is the geometric fractional chromatic number of~\cite{ACMVZ,MRVZ}.
 \end{theorem}
 
-The first equality is due to Li and Su for $n=2$ and to Davies for $n\ge4$; Crocker~\cite{Crocker} states it for all $n$, conditionally on~\cite[Theorem 2.3]{OAI}. The second answers the question of~\cite{MRVZ} whether $\chi_{gf,0}(\R^d)=\chi_{f,0}(\R^d)$ for some $d\ge3$. In $\R^3$ it gives finite unit-distance graphs with independence ratio below $0.1533$. As in~\cite{DV,LS}, the graphs produced are not explicit.
+The first equality is due to Li and Su for $n=2$ and to Davies for $n\ge4$; Crocker~\cite{Crocker} states it for all $n$, conditionally on~\cite[Theorem 2.3]{OAI}. The second answers the question of~\cite{MRVZ} whether $\chi_{gf,0}(\R^d)=\chi_{f,0}(\R^d)$ for some $d\ge3$. In $\R^3$ it gives finite unit-distance graphs with independence ratio below $0.1486$ (Proposition~\ref{prop:m1}). As in~\cite{DV,LS}, the graphs produced are not explicit.
 
 \subsection*{Acknowledgements}
 The extension to higher dimensions, Theorems~\ref{thm:D} and~\ref{thm:E}, and the Lean formalization were developed with the assistance of Claude (Anthropic). The underlying planar results and their formalization are due to~\cite{OAI}.
@@ -227,6 +227,19 @@ Let $A_i^*$ be the set of Lebesgue density points of $A_i=c^{-1}(i)$. These sets
 The only numerical input is $m_1(\R^3)\le0.1532996$~\cite[Table 2]{DOV}. DeCorte, Oliveira and Vallentin provide the dual solutions and an exact verifier (\texttt{rn\_verify}, GMP/MPFR) as ancillary files. We rebuilt the verifier, after one portability fix that makes a base-class destructor virtual and does not affect the arithmetic, and re-ran it on the published data. For $n=3$ it reports ``Solution checked; bound $=0.153299568560593$''. Since $6\times0.1533<1$, Corollary~\ref{cor:B} excludes proper $6$-colorings of $\R^3$. The same corollary combined with~\cite[Table 2]{DOV} gives $\chi(\R^4)\ge11$; for $n\ge5$ the bounds of Davies~\cite{Davies} are stronger than those obtained from~\cite{DOV,BPT}.
 
 To obtain $\chi(\R^3)\ge8$ in this way one would need $m_1(\R^3)<1/7\approx0.1429$. The derivative constraints of~\cite[Section 9]{Davies} do not improve the bound for $n=3$, since only one radial derivative is admissible there.
+
+\subsection*{An improved density bound}
+The cutting-plane method of~\cite{DOV} can be pushed further in $\R^3$. Separating exactly over the whole correlation polytope of small point configurations (rather than over a fixed list of facets), and optimizing the positions of up to $11$ points, gives the following.
+
+\begin{proposition}\label{prop:m1}
+$m_1(\R^3)\le0.1485113$.
+\end{proposition}
+
+\begin{proof}
+For a periodic unit-distance-free set $A$ of density $\delta$, let $g(r)$ be its radial autocorrelation divided by $\delta$. Then $g(r)=a_0+\int\Omega_3(tr)\,da(t)$ with $\Omega_3(x)=\sin x/x$, $a\ge0$, $a_0+\int da=1$ and $a_0=\delta$, and $g(1)=0$. For points $x_1,\dots,x_N$ and a random rigid motion, the indicators $X_i=\mathbf 1[x_i\in A]$ satisfy $\PP(X_i=1)=\delta$ and $\PP(X_iX_j=1)=\delta g(|x_i-x_j|)$. Every inequality $\sum_{i\le j}z_{ij}X_iX_j\ge0$ valid on $\{0,1\}^N$ therefore yields $\sum z_{ij}g(|x_i-x_j|)\ge0$. We use $23$ such inequalities, all of the form $(b\cdot X)(b\cdot X-1)\ge0$: ten triangle inequalities with $b=(1,1,-1)$ on nearly collinear triangles, and thirteen with $b=(-1,1,\dots,1)$ on four or five points, the latter around nearly regular unit tetrahedra. With multipliers $y_c\ge0$ and $\nu$, the function $G(t)=-\nu\Omega_3(t)+\sum_cy_c\sum z\,\Omega_3(td)$ satisfies $G(t)\le\mu=0.14851123$ for all $t>0$ and $\mu-G(0)\ge1$. Integrating against $a$ gives $0\le a_0G(0)+(1-a_0)\mu\le\mu-\delta$. The certificate is checked in ball arithmetic: by exact enumeration for the inequalities, by Taylor bounds on cells for $t\in(0,2806]$, and by $|\Omega_3(x)|\le1/x$ beyond. It was verified by two independent programs. Periodization is legitimate as in~\cite[Lemma 2.2]{Crocker}.
+\end{proof}
+
+Proposition~\ref{prop:m1} does not change $\chi(\R^3)\ge7$, since $1/0.1485>6.7$. Reaching $\chi(\R^3)\ge8$ in this way needs $m_1(\R^3)<1/7$. The two-point constraints used here saturate near $0.1485$. With Theorem~\ref{thm:D}, which is formalized in $\R^3$, it gives finite unit-distance graphs in $\R^3$ with independence ratio below $0.1486$.
 
 \section{Finite graphs attain the measurable density}\label{sec:finite}
 
