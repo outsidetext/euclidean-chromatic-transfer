@@ -2,11 +2,6 @@
 % Chromatic numbers of the plane with forbidden distances:
 % a seven-color lower bound for {1,(sqrt6+sqrt2)/2} and smaller
 % six-chromatic two-distance graphs.
-%
-% Draft compiled 2026-08-09 from the session results of 2026-08-08/09.
-% TODO (Henry): decide final authorship line and order; the draft lists the
-%   working team neutrally ("compiled by").  All other TODOs are marked
-%   inline with %% TODO.
 % ---------------------------------------------------------------------------
 \documentclass[11pt]{article}
 
@@ -16,6 +11,7 @@
 \usepackage{array}
 \usepackage{enumitem}
 \usepackage{xcolor}
+\usepackage{xurl}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 
 \newtheorem{theorem}{Theorem}[section]
@@ -41,15 +37,9 @@
 \title{Chromatic Numbers of the Plane with Two Forbidden Distances:\\
 a Seven-Color Lower Bound and Smaller Six-Chromatic Graphs}
 
-\author{Henry Bass \and Claude (Anthropic Fable~5)\thanks{%
-This draft was compiled jointly by the two named contributors, who worked as
-a team: search design, implementation, and verification were carried out by
-Claude under the direction of Henry Bass in an interactive session on
-2026-08-08/09.  \textbf{TODO (Henry): decide the final authorship statement}
-(author list vs.\ ``computer-assisted by'' credit vs.\ acknowledgment), and
-add affiliations and contact information.}}
+\author{Henry Bass}
 
-\date{August 9, 2026; revised October 14, 2026 --- working draft, not yet independently reviewed}
+\date{October 2026}
 
 \begin{document}
 \maketitle
@@ -69,38 +59,33 @@ $p_{1+\sqrt3}$ would have to satisfy $p_{\sqrt2}+p_{1+\sqrt3}\ge 1$
 5/11$ (two explicit $12$-point chain configurations whose long-range pairs
 land exactly on the forbidden distances via the identity
 $\dd^2-1=\sqrt2\,\dd$), a contradiction since $1\le 10/11$ is false.  The
-argument realizes an unpublished 2019 sketch of J.~Parts; the contribution
-here is a fully explicit, SAT-certified finite form with substantially
-stronger constants ($5/11$ in place of $\tfrac12-\tfrac1{188}$), each
-component carrying a DRAT proof trace checkable by an independent
-$\sim$1300-line verifier, and the full $32$-point geometry certified in
-exact symbolic arithmetic over explicit quadratic towers.  When this work was done (August 2026) the best published
-bound for two distances was $6$; see the note added below for later
-developments.
+argument realizes a 2019 sketch of J.~Parts in a Polymath16 blog comment;
+the contribution here is a fully explicit finite form with an explicit
+gap ($p_r\le 5/11=\tfrac12-\tfrac1{22}$), each of the three finite
+statements carrying a DRAT proof trace checked by \texttt{drat-trim},
+and the full $32$-point geometry certified in exact symbolic arithmetic
+over explicit quadratic towers.  The argument does not use the
+measurable-to-arbitrary transfer of OpenAI's 2026 proof that
+$\chi(\R^2)\ge6$.
 
-We further prove, with exact-arithmetic and doubly SAT-certified
-verification: a $26$-vertex $6$-chromatic $\{1,\dd\}$-graph (the smallest
-known $6$-chromatic two-distance graph for \emph{any} ratio, improving $31$
-[Parts 2020] and, for this ratio, $117$ [De~Neve et al.\ 2025]); a
-$30$-vertex $6$-chromatic $\{1,\sqrt3\}$-graph (previously $33$); the six-coloring continuum $X_6\supseteq[0.354,0.667504532081]$
-(previously $[0.354,0.657]$); the edge
-bound $e_5\le 2278$ for $5$-chromatic unit-distance graphs via an
-edge-critical trimming of the $509$-vertex record graph (previously
-$2406$); and forced-structure constants for invariant $5$-colorings of the
-plane, including $p_{\sqrt3}\ge 1/12$ by an automated
-linear-programming ``density ledger'' and the single-certificate bounds
-$p_{\sqrt3}\ge 1/28$, $p_{\dd}\ge 1/37$.  Finally, we exhibit the first
-color-count-free finite density caps at radii relevant to five colors
-($p_{1/\sqrt3}\le 1/3$ by four points; $p_{(1+\sqrt5)/2}\le 2/5$ by the
-unit pentagon; a dense family of capped radii from odd star polygons),
-prove that pairwise-conflict mechanisms can never beat $1/2$ at the
-ledger anchors $\sqrt3$ and $2$ (a Niven-type bipartiteness theorem),
-and derive a crisp win condition: any $6$-chromatic $\{1,\sqrt3\}$-graph
-forcing unit-edge monochromatic density above $1/3$ under
-$\sqrt3$-proper $5$-colorings would prove $\chi(\R^2)\ge6$.  All
-certificates and $\sim$60-line
-verifiers are included in the reproducibility bundle
-(Appendix~\ref{app:artifacts}).
+We also give, with exact-arithmetic edge sets and DRAT-certified
+non-colorability: a $26$-vertex $6$-chromatic $\{1,\dd\}$-graph (to our
+knowledge the smallest $6$-chromatic two-distance graph known for any
+ratio, improving $31$ [Parts 2020] and, for this ratio, $117$ [De~Neve
+et al.\ 2025]); a $30$-vertex $6$-chromatic $\{1,\sqrt3\}$-graph
+(previously $33$); the six-coloring continuum
+$X_6\supseteq[0.354,0.667504532081]$ (previously $[0.354,0.657]$), by
+$59$ exact rational tilings; and the edge bound $e_5\le 2278$ for
+$5$-chromatic unit-distance graphs, via a $2278$-edge non-$4$-colorable
+spanning subgraph of the $509$-vertex record graph (previously $2406$).
+As by-products we record forced monochromatic densities
+$p_{\sqrt3}\ge 1/28$, $p_{\dd}\ge 1/37$ and $p_{1/\sqrt3}\ge1/67$ for
+invariant unit-distance $5$-colorings, together with elementary
+color-count-free density caps such as $p_{1/\sqrt3}\le1/3$; since
+$\chi(\R^2)\ge6$ is now known, these statements about $5$-colorings are
+vacuous, and we keep them as finite combinatorial statements.  All
+certificates and verifiers are included in the accompanying
+\texttt{certificates/} folder (Appendix~\ref{app:artifacts}).
 \end{abstract}
 
 \section{Introduction}\label{sec:intro}
@@ -117,21 +102,46 @@ In the \emph{two-distance} variant one forbids two distances
 simultaneously: $\chid{\{1,\dd\}}$ is the chromatic number of the graph on
 $\R^2$ with edges between points at distance $1$ \emph{or} $\dd$.  Finite
 $6$-chromatic witnesses were known for exactly four ratios: the golden
-ratio $(1+\sqrt5)/2$ (Huddleston 2008 \cite{Huddleston08},
-non-explicit; explicit graphs and
-the $31$-vertex record by Parts \cite{Parts20a}), $\dd=2$
+ratio $(1+\sqrt5)/2$ (Huddleston \cite{OTH08}, without an explicit
+graph; an explicit $126$-vertex graph was given by de~Grey in
+Polymath16 \cite{Polymath16}, and the $31$-vertex record is due to Parts
+\cite{Parts20a}), $\dd=2$
 (Exoo--Ismailescu \cite{ExooIsmailescu20}, reduced to $397$ vertices by
-Parts), and $\dd=\sqrt3$ and $\dd=(\sqrt6+\sqrt2)/2$ (De~Neve, Vanden
-Kerchove, Colle, Tavernier, and Pickavet \cite{DeNeve25}, with $33$ and
-$117$ vertices respectively).  For no finite set $D$ of distances was a
+Parts \cite{Parts20a}), and $\dd=\sqrt3$ and $\dd=(\sqrt6+\sqrt2)/2$
+(De~Neve, Vanden Kerchove, Colle, Tavernier, and Pickavet
+\cite{DeNeve25}, with $33$ and $117$ vertices respectively; the lower
+bound $6$ for these two ratios had been obtained earlier by
+P\'alv\"olgyi and \'Agoston with the probabilistic method
+\cite{PalvolgyiAgoston19}).  For no finite set $D$ of distances was a
 bound $\chid{D}\ge 7$ published, although J.~Parts sketched a
 probabilistic argument for exactly this in a 2019 Polymath16 comment
 \cite{Parts19}.
 
-\emph{Note added (October 2026).} After this work was done, OpenAI~\cite{OAI} proved $\chi(\R^2)\ge6$, so every two-distance chromatic number is now at least $6$ and the win condition of Section~\ref{sec:k5caps} is moot; the explicit small $6$-chromatic graphs of Section~\ref{sec:record} remain records. The transfer of~\cite{OAI} extends to finite sets of algebraic distances (see Crocker~\cite{Crocker} and our companion preprint~\cite{BassR3}), giving $\chid{D}\ge 1/m_D(\R^2)$; combined with Bukh's theorem this yields $\chid{\{1,N\}}\ge17$ for all sufficiently large $N$, with no explicit threshold. Theorem~\ref{thm:main} remains the only bound $\chid{D}\ge7$ for an explicit two-distance set that is proved by a finite certificate.
+\emph{Note added (October 2026).} The results of this paper were
+obtained in August 2026.  Since then OpenAI~\cite{OAI} proved
+$\chi(\R^2)\ge6$, so every two-distance chromatic number of the plane is
+at least $6$, the statements about $5$-colorings in
+Sections~\ref{sec:forced} and~\ref{sec:k5caps} are vacuous, and the win
+condition of Section~\ref{sec:k5caps} is moot.  The explicit small
+$6$-chromatic graphs of Section~\ref{sec:record} are unaffected.  The
+transfer principle of~\cite{OAI} extends to countable sets of algebraic
+distances (Crocker~\cite{Crocker}, conditionally on a theorem
+of~\cite{OAI}, and the companion manuscript~\cite{BassR3}, with a Lean
+formalization), giving $\chid{D}\ge 1/m_D(\R^2)$, where $m_D$ is the
+maximal density of a measurable set avoiding $D$.  The companion
+manuscript~\cite{BassMono} combines this with Fourier density
+certificates and obtains, among other things, $\chid{\{1,\dd'\}}\ge7$
+for every algebraic $\dd'\in[1.77,1.92]\cup[7,\infty)$; with Bukh's
+theorem~\cite{Bukh} one also gets $\chid{\{1,N\}}\ge17$ for all
+sufficiently large algebraic $N$, with no explicit threshold.  The value
+$\dd=(\sqrt6+\sqrt2)/2\approx1.932$ lies outside the ranges covered
+there, and Theorem~\ref{thm:main} is proved differently: by three finite
+SAT-certified configurations and an invariant mean, without the
+transfer.  Euclidean Ramsey consequences of the transfer are developed
+in~\cite{BassRamsey}.
 
-This paper reports the results of an intensive computer-assisted session
-(2026-08-08/09).  Throughout, $\dd:=(\sqrt6+\sqrt2)/2=2\cos(\pi/12)\approx
+All searches and certificates described below were computer-assisted.
+Throughout, $\dd:=(\sqrt6+\sqrt2)/2=2\cos(\pi/12)\approx
 1.93185$, whose relevant algebra is
 \begin{equation}\label{eq:identity}
   \dd^{\,2}=2+\sqrt3,
@@ -155,98 +165,105 @@ isometry group) and satisfy the incompatible system
 \end{theorem}
 
 The three displayed inequalities come from three finite configurations
-($8+12+12=32$ points in total), each verified by two independent SAT
-solvers and certified by DRAT proof traces (Section~\ref{sec:seven};
+($8+12+12=32$ points in total), each certified by a DRAT proof trace
+(\texttt{certificates/seven-colors/}; Section~\ref{sec:seven} and
 Appendix~\ref{app:artifacts}).  The framework, its provenance in ZFC, and
-its honest limitations are discussed in
+its limitations are discussed in
 Sections~\ref{sec:prelim}--\ref{sec:seven}; a counting blueprint that
 would replace the framework by a single finite graph is given in
 Section~\ref{sec:blueprint}.
 
-The remaining results are classical finite statements with
-exact-arithmetic certificates:
+The remaining results rest on finite statements with exact-arithmetic
+and DRAT certificates:
 
 \begin{theorem}\label{thm:records}
 \leavevmode
 \begin{enumerate}[label=(\alph*)]
 \item There are $26$ points in the plane spanning $85$ pairs at distance
 exactly $1$ or exactly $\dd$ whose $\{1,\dd\}$-graph has chromatic number
-$6$ and is vertex-critical.  This is the smallest known $6$-chromatic
-two-distance graph for any distance pair (previously $31$
+$6$ and is vertex-critical.  To our knowledge this is the smallest
+$6$-chromatic two-distance graph known for any distance pair (previously $31$
 \cite{Parts20a}; for this pair, $117$ \cite{DeNeve25}).
 \item There are $30$ points spanning $100$ pairs at distance exactly $1$
 or exactly $\sqrt3$ whose graph has chromatic number $6$ and is
 vertex-critical (previously $33$ \cite{DeNeve25}).
 \item The record $509$-vertex $5$-chromatic unit-distance graph
-\cite{Parts20b,deGreyParts22} contains an edge-critical spanning subgraph
-with $2278$ edges that is not $4$-colorable.  Hence $e_5\le 2278$
-(previously $e_5\le 2406$ \cite{deGreyParts22}).
-\item In every isometry-invariant proper $5$-coloring of the plane (unit
-distance forbidden), the monochromatic-pair densities satisfy
-$p_{\sqrt3}\ge 1/28$ and $p_{\dd}\ge 1/37$ (single-graph certificates via
-(a),(b)), and $p_{\sqrt3}\ge 1/12$ (automated density-ledger linear
-program).  The best previously implicit constant, via Parts'
-$397$-vertex $\{1,2\}$-graph, was of order $1/550$.
+\cite{Parts20b,deGreyParts22} contains a spanning subgraph with $2278$
+edges that is not $4$-colorable.  Hence $e_5\le 2278$ (previously
+$e_5\le 2406$ \cite{deGreyParts22}).
+\item For every proper unit-distance $5$-coloring of the plane and every
+invariant mean, the monochromatic-pair densities of
+Definition~\ref{def:pr} satisfy $p_{\sqrt3}\ge 1/28$, $p_{\dd}\ge 1/37$
+and $p_{1/\sqrt3}\ge1/67$.  (Since $\chi(\R^2)\ge6$~\cite{OAI}, no such
+coloring exists; the content is the underlying finite statement, see
+Section~\ref{sec:forced}.)
 \end{enumerate}
 \end{theorem}
 
+Each item is backed by files in \texttt{certificates/}: (a) by
+\texttt{g26/}, (b) by \texttt{g30/}, (c) by \texttt{e5-2278/}, and (d)
+by \texttt{g30/}, \texttt{g26/} and \texttt{forced-density/}
+respectively.
+
 \begin{center}
 \small
-\begin{tabular}{@{}p{6.6cm}llp{3.4cm}@{}}
+\begin{tabular}{@{}p{4.9cm}p{2.8cm}lp{3.5cm}@{}}
 \toprule
-Quantity & Previous & Here & Status \\
+Quantity & Previous & Here & Certificate \\
 \midrule
 Smallest $6$-chromatic two-distance graph, any ratio &
-$31$ \cite{Parts20a} & $\mathbf{26}$ & DRAT-verified \\
+$31$ \cite{Parts20a} & $\mathbf{26}$ & exact edges $+$ DRAT
+(\texttt{g26/}) \\
 \dots\ for $\dd=(\sqrt6+\sqrt2)/2$ &
-$117$ \cite{DeNeve25} & $\mathbf{26}$ & DRAT-verified \\
+$117$ \cite{DeNeve25} & $\mathbf{26}$ & exact edges $+$ DRAT
+(\texttt{g26/}) \\
 \dots\ for $\dd=\sqrt3$ &
-$33$ \cite{DeNeve25} & $\mathbf{30}$ & DRAT-verified \\
+$33$ \cite{DeNeve25} & $\mathbf{30}$ & exact edges $+$ DRAT
+(\texttt{g30/}) \\
 $\chid{\{1,(\sqrt6+\sqrt2)/2\}}$ &
-$\ge 6$ \cite{DeNeve25}; $\ge 7$ sketched \cite{Parts19} &
-$\mathbf{\ge 7}$ & 3 DRAT certificates (invariant framework) \\
+$\ge 6$ \cite{PalvolgyiAgoston19,DeNeve25}; $\ge 7$ sketched
+\cite{Parts19} &
+$\mathbf{\ge 7}$ & exact geometry $+$ 3 DRAT
+(\texttt{seven-colors/}) \\
 Edges of the $509$-vertex $5$-chromatic UD graph &
-$\le 2406$ \cite{deGreyParts22} & $\mathbf{\le 2278}$ & DRAT-verified,
-edge-critical \\
-Forced density $p_{\sqrt3}$ in invariant $5$-colorings &
---- & $\mathbf{\ge 1/12}$ & LP over MaxSAT-exact ledger \\
-Forced density $p_{\dd}$ in invariant $5$-colorings &
-$\sim 1/550$ implicit & $\mathbf{\ge 1/37}$ & MaxSAT-exact \\
-Finite strict-half cap $p_r\le \tfrac12-\varepsilon$, any $k\ge5$ &
-none & $p_r\le \mathbf{5/11}$ ($k=6$) & MaxSAT-exact $+$ DRAT \\
-Color-count-free finite caps &
-none & $p_{1/\sqrt3}\le\mathbf{1/3}$, $p_{(1+\sqrt5)/2}\le\mathbf{2/5}$ &
-elementary proofs \\
+$\le 2406$ \cite{deGreyParts22} & $\mathbf{\le 2278}$ & DRAT
+(\texttt{e5-2278/}) \\
+Six-coloring continuum $X_6$ &
+$[0.354,0.657]$ \cite{MPSZ} & $[0.354,\mathbf{0.6675045}\dots]$ &
+59 exact rational tilings (\texttt{six-coloring-}\linebreak[0]\texttt{continuum/}) \\
+Forced densities $p_{\sqrt3}$, $p_{\dd}$, $p_{1/\sqrt3}$ (vacuous
+since~\cite{OAI}) &
+--- & $\mathbf{1/28}$, $\mathbf{1/37}$, $\mathbf{1/67}$ & DRAT
+(\texttt{g30/}, \texttt{g26/}, \texttt{forced-density/}) \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \paragraph{Attribution.}
 The $\chi\ge7$ argument is, in its skeleton, due to Jaan Parts, who
-sketched it in 2019 in comment~24686 on the fifteenth Polymath16 thread
-\cite{Parts19} and, to our knowledge, never published it.  Our
-contribution is (i) fully explicit finite certificates --- the specific
-$8$- and $12$-point configurations and their SAT/DRAT verification ---
-(ii) much stronger constants ($5/11$ versus $\tfrac12-\tfrac1{188}$ from
-the plain zigzag counting we reconstructed from the sketch), and (iii) a
-choice-free finitization program (Section~\ref{sec:blueprint}).  The
-record graphs of Theorem~\ref{thm:records}(a,b) were seeded from the
-published coordinates of De~Neve et al.\ \cite{DeNeve25}, without which
-the search would not have started.
+sketched it on 24 December 2019 in comment~24686 on the fifteenth
+Polymath16 thread \cite{Parts19} and, to our knowledge, never published
+it.  Our contribution is (i) fully explicit finite certificates --- the
+specific $8$- and $12$-point configurations, their exact geometry, and
+their SAT/DRAT verification --- (ii) the explicit constant $5/11$ for
+the upper bound on $p_r$, and (iii) a counting blueprint toward a
+choice-free finite witness (Section~\ref{sec:blueprint}).  The record
+graphs of Theorem~\ref{thm:records}(a,b) were seeded from the published
+coordinates of De~Neve et al.\ \cite{DeNeve25}.
 
 \paragraph{Organization.}
 Section~\ref{sec:prelim} sets up two-distance graphs and the
 invariant-coloring framework.  Section~\ref{sec:seven} proves
 Theorem~\ref{thm:main}.  Section~\ref{sec:blueprint} describes the
-counting blueprint toward a fully finite witness and the obstruction
-theorems that constrain it.  Section~\ref{sec:record} presents the record
-graphs with complete coordinate tables and verification recipes.
-Section~\ref{sec:ud} contains the unit-distance results
-(Theorem~\ref{thm:records}(c,d)) and the measured structure of
-$5$-colorings.  Section~\ref{sec:k5caps} develops finite caps valid for
-any number of colors, an impossibility theorem at the anchors $\sqrt3$
-and $2$, and the win condition for $\chi(\R^2)\ge6$.
-Section~\ref{sec:open} collects open problems.
+counting blueprint toward a fully finite witness, together with
+computational observations about it.  Section~\ref{sec:record} presents
+the record graphs with complete coordinate tables and verification
+recipes.  Section~\ref{sec:ud} contains the unit-distance results
+(Theorem~\ref{thm:records}(c,d)).  Section~\ref{sec:k5caps} develops
+finite caps valid for any number of colors, a bipartiteness obstruction
+at the distances $\sqrt3$ and $2$, and the (now moot) win condition for
+$\chi(\R^2)\ge6$.  Section~\ref{sec:continuum} extends the six-coloring
+continuum.  Section~\ref{sec:open} collects open problems.
 Appendix~\ref{app:artifacts} documents the artifact bundle.
 
 \section{Preliminaries}\label{sec:prelim}
@@ -262,7 +279,7 @@ holds iff some finite $P$ has $\chi(G(P;D))\ge k$; part of the interest
 of Theorem~\ref{thm:main} is precisely that it does \emph{not} yet come
 with such a finite witness (see Section~\ref{sec:caveat}).
 
-All configurations in Sections~\ref{sec:record} have coordinates in a real
+All configurations in Section~\ref{sec:record} have coordinates in a real
 quadratic-tower field ($\Q(\sqrt3,\sqrt5)$ or $\Q(\sqrt3,\sqrt7)$) with
 denominators dividing $8$, so squared distances are computed in exact
 integer arithmetic and edge membership is decidable with no floating
@@ -315,14 +332,15 @@ Apply $\Lambda$ and use linearity together with the paragraph above,
 which gives $\Lambda_g[\mathbf 1(c(ga_i)=c(gb_i))]=p_{r_i}$.
 \end{proof}
 
-Both $t_{\min}$ and $t_{\max}$ are computed exactly by maximum
-satisfiability (MaxSAT) over the finite graph and certified as follows:
-the optimum is found by an exact MaxSAT solver (RC2 over CaDiCaL), and
-the corresponding decision statement (``a proper $k$-coloring with
-$\ge t_{\max}+1$, resp.\ $\le t_{\min}-1$, monochromatic designated pairs
-exists'') is refuted by CNF unsatisfiability with a DRAT proof trace
-checked by \texttt{drat-trim} \cite{drattrim}.  Realizability of the
-optimum is witnessed by an explicit coloring.
+Only one-sided bounds are needed in applications: a lower bound
+$t\le t_{\min}$ or an upper bound $t\ge t_{\max}$.  Each bound we use is
+certified by refuting the decision statement ``a proper $k$-coloring
+with $\le t-1$ (resp.\ $\ge t+1$) monochromatic designated pairs
+exists'': the statement is encoded as a CNF formula, and its
+unsatisfiability is certified by a DRAT proof trace checked by
+\texttt{drat-trim} \cite{drattrim}.  (The optima were located with an
+exact MaxSAT solver, RC2 over CaDiCaL, and are attained by explicit
+colorings, but only the DRAT-certified direction enters the proofs.)
 
 \subsection{Prior work used directly}
 
@@ -374,15 +392,23 @@ $24$ pairs except the four diagonals are edges.
 Every proper $6$-coloring of $G(I\cup O;\{1,\dd\})$ makes at least $2$ of
 the four diagonal pairs monochromatic.  The bound is exact, and all $11$
 diagonal patterns of weight $\ge2$ are realizable.  Certificate:
-\texttt{v8cert.cnf} (proper $6$-coloring $\wedge$ at most one
-monochromatic diagonal; $84$ variables, $267$ clauses) is UNSAT, with
-DRAT trace \texttt{v8cert.drat} verified by \texttt{drat-trim}.
+\texttt{certificates/seven-colors/v8cert.cnf} (proper $6$-coloring
+$\wedge$ at most one monochromatic diagonal; $84$ variables, $267$
+clauses) is UNSAT, with DRAT trace \texttt{v8cert.drat} verified by
+\texttt{drat-trim}.
 \end{proposition}
 
-Intuitively: six colors on $K_8$ minus a perfect matching leave at most
-six ``private'' colors, so at least two matched pairs must share.
-(The pigeonhole $8-6=2$ is tight because the four diagonal pairs are
-disjoint.)  By Lemma~\ref{lem:transfer} with the four diagonals as
+\begin{proof}
+By Lemma~\ref{lem:v8geom} every color class is either a single vertex or
+one of the four diagonal pairs.  If exactly $j$ diagonals are
+monochromatic, the coloring uses $8-j$ colors, so $8-j\le6$ forces
+$j\ge2$; conversely, for any $j\ge2$ diagonals, coloring each of them
+with its own color and the remaining $8-2j$ vertices with distinct
+further colors uses $8-j\le6$ colors.  The DRAT certificate checks the
+first statement mechanically.
+\end{proof}
+
+By Lemma~\ref{lem:transfer} with the four diagonals as
 designated pairs (two at $\sqrt2$, two at $1+\sqrt3$) and $t_{\min}=2$:
 
 \begin{corollary}\label{cor:v8}
@@ -470,13 +496,15 @@ $r=\sqrt2$; $9$ and $5$ respectively for $r=1+\sqrt3$).  The
 \begin{proposition}[Chain caps]\label{prop:caps}
 For $r=\sqrt2$ (chain $A$) and for $r=1+\sqrt3$ (chain $B$): in every
 proper $6$-coloring of $G(Q_r;\{1,\dd\})$, at most $5$ of the $11$
-charged slots are monochromatic, and $5$ is attained.  Certificates:
-\texttt{capA.cnf} and \texttt{capB.cnf} (proper $6$-coloring $\wedge$ at
-least $6$ monochromatic slots; $188$ variables, $646$ clauses each) are
-UNSAT with DRAT traces \texttt{capA.drat}, \texttt{capB.drat} verified by
-\texttt{drat-trim}; the optima were computed by MaxSAT (RC2/CaDiCaL) and
-confirmed by exhaustive enumeration --- on the \emph{exact} edge lists of
-Section~\ref{sec:exact}.
+charged slots are monochromatic, and $5$ is attained.  Certificates (in
+\texttt{certificates/seven-colors/}): \texttt{capA.cnf} and
+\texttt{capB.cnf} (proper $6$-coloring $\wedge$ at least $6$
+monochromatic slots; $188$ variables, $646$ clauses each) are UNSAT with
+DRAT traces \texttt{capA.drat}, \texttt{capB.drat} verified by
+\texttt{drat-trim}; independently, \texttt{verify\_exact.py} re-proves
+the cap by exhaustive enumeration of slot subsets on the \emph{exact}
+edge lists of Section~\ref{sec:exact} and exhibits a coloring attaining
+$5$.
 \end{proposition}
 
 By Lemma~\ref{lem:transfer} with the eleven slots (all at distance $r$)
@@ -487,16 +515,11 @@ $11\,p_{\sqrt2}\le 5$ and $11\,p_{1+\sqrt3}\le 5$; that is,
 $p_{\sqrt2}\le \tfrac5{11}$ and $p_{1+\sqrt3}\le\tfrac5{11}$.
 \end{corollary}
 
-This is, to our knowledge, the first \emph{finite strict-half} bound
-$p_r\le\tfrac12-\varepsilon$ established for any number of colors
-$k\ge5$: a single $12$-point configuration forcing slot mono-density
-$\le\tfrac5{11}=\tfrac12-\tfrac1{22}$.  Parts' sketch \cite{Parts19}
-obtains $p_r<\tfrac12$ by counting along arbitrarily long zigzag chains;
-our reconstruction of that argument yields $p_r\le\tfrac12-\tfrac1{188}$
-(plain zigzag, chain constant $C(6)=94$), improved to
-$\tfrac12-\tfrac1{146}$ by the mixed-heading word above, while the finite
-$12$-point form with apexes reaches $\tfrac12-\tfrac1{22}$ and is exactly
-optimal for its configuration.
+Thus a single $12$-point configuration forces slot mono-density
+$\le\tfrac5{11}=\tfrac12-\tfrac1{22}$, and $5/11$ is optimal for this
+configuration.  Parts' sketch \cite{Parts19} instead obtains a bound
+$p_r<\tfrac12$ by counting along long zigzag chains, without an explicit
+constant.
 
 \subsection{Exact-arithmetic certification of the chains}\label{sec:exact}
 
@@ -504,7 +527,7 @@ Every geometric statement about $Q_{\sqrt2}$ (chain $A$) and
 $Q_{1+\sqrt3}$ (chain $B$) --- including the apex placements --- has been
 verified in exact symbolic arithmetic; no floating point enters the
 $\chi\ge7$ certificates.  The verifier is
-\texttt{exactverify/verify\_exact.py} ($\sim$250 lines, on
+\texttt{certificates/seven-colors/verify\_exact.py} ($\sim$250 lines, on
 \texttt{sympy} $+$ \texttt{python-sat}); its design:
 
 \begin{itemize}
@@ -536,7 +559,7 @@ $=1$ for chain $B$), confirming Lemma~\ref{lem:closure} independently;
 and \emph{all} $66$ vertex pairs are classified exactly, reproducing
 the $14$-edge sets used by the SAT certificates and confirming that all
 $11$ charged slots are exactly at distance $r$ and are non-edges.  The
-exact coordinates agree with the published float coordinates
+exact coordinates agree with the floating-point coordinate files
 (\texttt{chain12.json}, \texttt{chain12b.json}) to $10^{-9}$.
 \item \emph{Caps on exact edges.}  Proposition~\ref{prop:caps} is
 re-proved on the exact edge lists by exhaustive enumeration: all
@@ -555,7 +578,7 @@ $p_{\sqrt2}+p_{1+\sqrt3}\le\tfrac{10}{11}$.  Contradiction.  Hence no
 proper $6$-coloring exists and $\chid{\{1,\dd\}}\ge7$.
 \end{proof}
 
-\subsection{The framework caveat, honestly}\label{sec:caveat}
+\subsection{The framework caveat}\label{sec:caveat}
 
 Two caveats separate Theorem~\ref{thm:main} from a classical
 finite-witness bound such as de~Grey's $\chi(\R^2)\ge5$.  (A third ---
@@ -575,9 +598,9 @@ this section is exactly its three finite certificates.
 \item \emph{No explicit finite witness yet.}  By the de~Bruijn--Erd\H{o}s
 theorem a finite $7$-chromatic $\{1,\dd\}$-graph exists, but the argument
 does not exhibit one.  Section~\ref{sec:blueprint} makes the
-gap precise, reduces it to a combinatorial design problem --- and
-Section~\ref{sec:verdict} shows the most obvious design vocabulary is
-arithmetically obstructed.
+gap precise and reduces it to a combinatorial design problem;
+Section~\ref{sec:verdict} reports computational evidence that the most
+obvious design vocabulary does not suffice.
 \end{enumerate}
 
 \section{Toward a fully finite witness}\label{sec:blueprint}
@@ -610,137 +633,79 @@ $M\le\tfrac{20}{11}N<2N$.  Contradiction.
 The design problem is thus to realize such an incidence structure with
 actual plane geometry --- every slot at distance $\sqrt2$ or $1+\sqrt3$
 being simultaneously a diagonal of some unit or outer square whose
-V8 completion is present.  A relaxed, defect-tolerant version was worked
-out in the session memos:
-
-\begin{theorem}[Assembly theorem; choice-free finitization --- announced]
-\label{thm:assembly}
-Let a configuration consist of $N$ copies of each chain family with slot
-weights $w_e=(4,8,9,9,8,4)$ on edge slots and $w_a=(5,7,7,7,5)$ on apex
-slots (total weight $73$), together with reflection conflict-pairings
-with defect $\eta$ and V8 completions on all slots with goodness defect
-$\theta$.  If
-\[
-  99\,\theta+111\,\eta<1,
-\]
-the configuration is not $6$-colorable.  No amenability and no choice are
-used.
-\end{theorem}
-
-\noindent
-The proof (a weighted double count refining
-Proposition~\ref{prop:blueprint}) lives in the session memos and should
-be written out in full before publication.  %% TODO: write up the proof
-  %% of Theorem 4.2 from the session memos.
-The catch is quantitative: a naive faithful closure of the required
-incidences is F\o lner-dominated and balloons to roughly $10^{40}$
-vertices unless local \emph{rational-angle cap gadgets} exist.  This
+V8 completion is present.  Exact uniform multiplicity is a strong
+requirement; a defect-tolerant weighted version of
+Proposition~\ref{prop:blueprint}, allowing some slots to be uncovered or
+covered unevenly, appears feasible, but we have not written out a
+complete proof and make no claim about it here.  A naive faithful closure
+of the required incidences is F\o lner-type and very large, which
 motivates:
 
 \begin{question}[Gatekeeper question]\label{q:gatekeeper}
 Does a finite $\{1,\dd\}$-graph exist containing two designated $r$-pairs
 in a rational-angle relative position such that no proper $6$-coloring
-makes both pairs monochromatic?  The sweet spot is ``not both diagonals
-of one unit square monochromatic'' ($90^\circ$, self-supplied by V8s).
+makes both pairs monochromatic?  The natural target is ``not both
+diagonals of one unit square monochromatic'' ($90^\circ$, self-supplied
+by V8s).
 \end{question}
 
-The answer controls whether the finite witness has $\sim10^3$ or
-$\sim10^{40}$ vertices.  Current evidence is negative at small scale:
-in a $1837$-point, $16{,}000$-edge closure of the $\zeta_{24}$ lattice
-(a $12$-fold wheel of De~Neve-style $S$-graphs about a hub, whose output
-ring is a regular $12$-gon with side exactly $\sqrt2$ and $60^\circ$
-chords exactly $1+\sqrt3$, hence self-seeding), colorings making both
-diagonals of a designated unit square monochromatic exist and are found
-quickly.  The same test inside the full $24{,}881$-point universe is
-also negative: growing neighborhoods of a designated unit square through
-eight rounds (to $1837$ points and $16{,}116$ edges) never destroys
-both-diagonals-monochromatic $6$-colorings.  Within the tested horizon,
-no rational-angle cap gadget exists.
+A positive answer would allow far smaller finite witnesses than a naive
+closure.  \emph{Computational observation} (not certified): we
+searched closures of the $\zeta_{24}$ lattice (built from a $12$-fold
+wheel of De~Neve-style gadgets about a hub, whose output ring is a
+regular $12$-gon with side exactly $\sqrt2$ and $60^\circ$ chords
+exactly $1+\sqrt3$), including neighborhoods of a designated unit square
+grown for eight rounds inside a $24{,}881$-point universe, up to $1837$
+points and $16{,}116$ edges.  In all of them, $6$-colorings making both
+diagonals of the designated square monochromatic existed and were found
+quickly.
+Within this horizon we found no rational-angle cap gadget.
 
-\subsection{Obstruction theorems}
+\subsection{Computational observations}\label{sec:verdict}
 
-The session also established, by exhaustive SAT analysis over the
-$6$-color $S$-graph calculus, that several cheaper routes are closed:
-
-\begin{itemize}
-\item \emph{Multiplicity-1:} two copies of a configuration yield at most
-one useful clause; naive duplication does not amplify.
-\item \emph{Trees never force:} tree-like slot incidence structures
-cannot force a monochromatic pair.
-\item \emph{No odd spindle cycles} exist among the relevant angles: no
-integer relation of weight $\le7$ holds among
-$\alpha=\arccos\tfrac{2+\sqrt3}4$, $\beta=\arccos\tfrac34$,
-$\gamma=\arccos\tfrac{2-\sqrt3}4$,
-$\delta'=\arccos\tfrac{3\sqrt6-\sqrt2}8$, and $30^\circ$ (verified
-computationally).
-\item \emph{Two-V8 sharing is logically transparent:} for two V8s
-sharing $4$ points, all $121=11^2$ joint weight-$\ge2$ diagonal patterns
-are feasible; pattern-level (NAND-calculus) reasoning over V8 arrays
-cannot force anything.
-\end{itemize}
-
-\noindent Consequently color-flow arguments or chain-cap gadgets (as in
-Section~\ref{sec:chains}) are \emph{mandatory} ingredients for any
-finite witness; there is no purely pattern-logical shortcut.
-
-\subsection{The design-problem verdict: an arithmetic obstruction}
-\label{sec:verdict}
-
-A second wave of computations settled whether the chain/V8 vocabulary
-\emph{by itself} can realize the blueprint.  The verdict is negative,
-for structural rather than search-depth reasons.  All computations below
-are exact (symbolic module arithmetic, exhaustive SAT pattern
-enumeration); their full write-up is pending.
-%% TODO: the coincidence scans, rank computations, and dual LP live in
-%% the session archive (design7/); write up proofs before publication.
+The following were obtained by exhaustive SAT enumeration and exact
+symbolic computation.  The code and logs are not part of the certificate
+bundle and the arguments have not been written up, so we report them as
+observations that guided the search, not as theorems.
 
 \begin{itemize}
-\item \emph{Complete pattern polytopes.}  The exact sets of achievable
-monochromatic-slot patterns were enumerated for the V8 (all patterns of
-weight $\ge2$, none below) and for both chains (all achievable subsets
-of the $11$ slots).  These sets determine \emph{every} valid linear
-inequality available to any counting argument built from these gadgets.
-\item \emph{Trimmed caps.}  Restricting chain $A$ to the $7$-slot
-subfamily $\{1,2,3,4,7,8,9\}$ yields cap $3/7$; exhaustive search over
-all $2047$ nonempty slot subsets shows $3/7$ is the best (lowest)
-achievable cap ratio of any trimmed chain gadget.
-\item \emph{Max-1-cross.}  Exact coincidence scans over the full hinge
-family ($A$--$A$, $B$--$B$, and the $A$--$B$ $45^\circ$ hinges) show
-that two chain placements can share at most \emph{one} charged slot,
-and the resulting cross-incidence graphs are bipartite.  Slot
-multiplicity therefore cannot be accumulated by crossing chains.
-\item \emph{Placement-module freeness.}  The translation modules
-governing periodic ladder assemblies have full $\Z$-rank --- verified
-exactly over $\Q(\sqrt3,\sqrt7)$ and the towers $K_A$, $K_B$ of
-Section~\ref{sec:exact}, including the joint $A$--$B$ ``marriage''
-modules under all rotation and reflection branches.  The arithmetic
-admits no hidden rational relations, so faithful designs blow up
-combinatorially (box designs of size roughly $(cr)^r$ in the rank $r$).
-\item \emph{Tree defect.}  Within the assembly framework of
-Theorem~\ref{thm:assembly}, tree-shaped (acyclic-incidence) designs
-provably cannot win: the counting inequality tolerates a total defect
-budget of $1/14$, while the best tree designs leak on the order of
-$90\%$.
-\item \emph{Dual emptiness.}  A Farkas-dual linear program over the
-exact pattern polytopes characterizes precisely which gadget
-inventories can certify non-$6$-colorability of a finite assembly.
-With the current inventory (V8s, chains, trimmed chains, and their
-weighted combinations) subject to the coincidence constraints above,
-the dual is empty: \emph{no} assembly of these gadgets alone, at any
-scale, yields a finite contradiction.
+\item \emph{Duplication and trees.}  Two copies of a configuration
+sharing slots contributed at most one useful clause in all cases tested,
+and tree-like slot incidence structures never forced a monochromatic
+pair.
+\item \emph{No short angle relations.}  No integer relation of weight
+$\le7$ was found among $\alpha=\arccos\tfrac{2+\sqrt3}4$,
+$\beta=\arccos\tfrac34$, $\gamma=\arccos\tfrac{2-\sqrt3}4$,
+$\delta'=\arccos\tfrac{3\sqrt6-\sqrt2}8$, and $30^\circ$, so there are
+no short ``odd spindle'' cycles among the relevant angles.
+\item \emph{Two-V8 sharing.}  For two V8s sharing $4$ points, all
+$121=11^2$ joint weight-$\ge2$ diagonal patterns were feasible, so
+pattern-level reasoning over such pairs of V8s forces nothing.
+\item \emph{Pattern sets.}  The sets of achievable monochromatic-slot
+patterns were enumerated for the V8 (all patterns of weight $\ge2$, as in
+Proposition~\ref{prop:v8}) and for both chains.  Restricting chain $A$ to
+a $7$-slot subfamily gives cap $3/7$, the lowest cap ratio among all
+$2047$ nonempty slot subsets.
+\item \emph{Coincidences.}  Coincidence scans over the hinge families
+($A$--$A$, $B$--$B$, and $A$--$B$ at $45^\circ$) found that two chain
+placements share at most one charged slot, and the translation modules
+governing periodic ladder assemblies had full $\Z$-rank in exact
+arithmetic over $\Q(\sqrt3,\sqrt7)$ and the towers $K_A$, $K_B$ of
+Section~\ref{sec:exact}.  This suggests that slot multiplicity cannot be
+accumulated cheaply by crossing chains.
+\item \emph{Linear-programming duals.}  A Farkas-dual linear program over
+the enumerated pattern sets, with the coincidence constraints above, was
+infeasible for the inventory consisting of V8s, chains and trimmed
+chains, suggesting that these gadgets alone do not yield a finite
+contradiction.
 \end{itemize}
 
-Three escape routes survive, in order of assessed promise:
-(i) \emph{generic-position pigeonhole gadgets} --- V8-style pigeonholes
-that operate in generic relative position, bypassing the coincidence
-arithmetic entirely (this is also the direction of
-Question~\ref{q:gatekeeper});
-(ii) the \emph{rank-one marriage door}: rational-norm vectors in the
-$A$-module whose squared lengths match $B$-side slot forms, the single
-coincidence channel the freeness computation leaves open; and
-(iii) \emph{replacement cap gadgets at new radii}, e.g.\ from the
-star-polygon family of Section~\ref{sec:k5caps}, re-anchoring the count
-away from $\sqrt2$ and $1+\sqrt3$.
+If these observations are correct, a finite witness needs further
+ingredients, for example \emph{generic-position pigeonhole gadgets}
+(V8-style pigeonholes operating in generic relative position, which is
+also the direction of Question~\ref{q:gatekeeper}) or \emph{replacement
+cap gadgets at new radii}, such as the star-polygon family of
+Section~\ref{sec:k5caps}.
 
 \section{The record six-chromatic graphs}\label{sec:record}
 
@@ -750,8 +715,9 @@ away from $\sqrt2$ and $1+\sqrt3$.
 The $26$ points of Table~\ref{tab:g26} span $85$ pairs at distance
 exactly $1$ ($48$ pairs) or exactly $\dd$ ($37$ pairs), and the graph on
 these pairs has chromatic number $6$ and is vertex-critical.  Hence
-$\chid{\{1,\dd\}}\ge6$ via a $26$-vertex witness --- the smallest known
-$6$-chromatic two-distance graph for any ratio.
+$\chid{\{1,\dd\}}\ge6$ via a $26$-vertex witness --- to our knowledge
+the smallest $6$-chromatic two-distance graph known for any ratio.
+Certificates: \texttt{certificates/g26/}.
 \end{theorem}
 
 Each vertex is an integer $8$-vector $[a_0,\dots,a_7]$ encoding the point
@@ -809,7 +775,7 @@ The $30$ points of Table~\ref{tab:g30} span $100$ pairs at distance
 exactly $1$ ($72$) or exactly $\sqrt3$ ($28$), and the graph on these
 pairs has chromatic number $6$ and is vertex-critical.  Hence
 $\chid{\{1,\sqrt3\}}\ge6$ via a $30$-vertex witness (previously $33$
-\cite{DeNeve25}).
+\cite{DeNeve25}).  Certificates: \texttt{certificates/g30/}.
 \end{theorem}
 
 Here each vertex is an integer $4$-vector $[a_0,a_1,a_2,a_3]$ encoding
@@ -849,9 +815,6 @@ $\bigl((a_0+a_1\sqrt5)/8,\ (a_2\sqrt3+a_3\sqrt{15})/8\bigr)$.}
 \label{tab:g30}
 \end{table}
 
-A second, distinct $30$-vertex witness (with $99$ edges, differing in one
-vertex) was found by an independent run; both are vertex-critical.
-
 \subsection{Method: SAT-guided iterated local search over module
 closures}\label{sec:method}
 
@@ -876,42 +839,44 @@ critical subgraphs; perturbation kicks (adjacency-weighted candidate
 insertion, remove-$k$, re-descend) escape local minima.  The $30$-vertex
 minimum was reached within $\sim10^4$ oracle calls ($\approx1$ minute on
 an Apple M4~Pro); it shares $23$ vertices with the $33$-vertex seed,
-omits $10$, and adds $7$ new.  The $117\to26$ collapse additionally
-exploited a \emph{pinned-anchor artifact}: the search's symmetry-breaking
-clique had been exempt from deletion, and an unpinned post-pass cascaded
-$29\to26$.
+omits $10$, and adds $7$ new.  In the $\{1,\dd\}$ search the descent
+first stopped at $29$ vertices because the clique used for symmetry
+breaking had been exempted from deletion; a final pass without this
+exemption reduced the graph to $26$ vertices.
 \end{itemize}
 
 \subsection{Verification recipe}\label{sec:verify}
 
 Every claim in Theorems~\ref{thm:g26} and~\ref{thm:g30} is re-derivable
-from the integer vector tables alone:
+from the integer vector tables alone; the files are in
+\texttt{certificates/g26/} and \texttt{certificates/g30/}.
 
 \begin{enumerate}
 \item \emph{Exact edges.}  Recompute all pairwise squared distances in
 integer arithmetic as above; no floating point enters any certificate.
 \item \emph{Non-$5$-colorability.}  The direct $130$-- resp.\
 $150$-variable CNF (one variable per vertex-color pair, no
-symmetry-breaking assumptions) is UNSAT, proven independently by CaDiCaL
-1.9.5 and Glucose 4.2, and certified by DRAT traces
-(\texttt{record26.drat}: an $18{,}518$-step refutation;
-\texttt{record30.drat} likewise) checked with \texttt{drat-trim}
+symmetry-breaking assumptions; \texttt{record26.cnf},
+\texttt{record30.cnf}) is UNSAT, with DRAT traces
+\texttt{record26.drat} ($18{,}518$ lines) and \texttt{record30.drat}
+(compressed as \texttt{record30.drat.xz}) checked by \texttt{drat-trim}
 (\texttt{s VERIFIED}).
 \item \emph{$6$-colorability and criticality.}  Explicit $6$-colorings
-were found by SAT; all single-vertex-deleted subgraphs are $5$-colorable
-(explicit colorings).
-\item \emph{Standalone verifiers.}  \texttt{verify30.py} and
-\texttt{verify117best.py} ($\sim60$ lines each; dependency:
-\texttt{python-sat}) recompute the edge sets exactly from the integer
-vectors and re-solve everything from scratch in seconds.
+exist, and all single-vertex-deleted subgraphs are $5$-colorable; both
+are found by SAT in the verifiers.
+\item \emph{Standalone verifiers.}  \texttt{verify117best.py
+deneve117\_min.json} and \texttt{verify30.py} ($\sim60$ lines each;
+dependency: \texttt{python-sat}) recompute the edge sets exactly from the
+integer vectors and re-solve non-$5$-colorability (for the $26$-vertex
+graph with two different SAT solvers), $6$-colorability and
+vertex-criticality from scratch in seconds.
 \end{enumerate}
 
 \begin{remark}
-Whether a $29$-vertex (or smaller) $6$-chromatic two-distance graph
+Whether a $25$-vertex (or smaller) $6$-chromatic two-distance graph
 exists for any ratio is open.  Note that the bound $v_6\ge42$ for
 unit-distance graphs \cite{deGreyParts22} does not apply to two-distance
-graphs, where only trivial lower bounds are known for $\{1,\sqrt3\}$;
-the $26$-vertex graph is vertex-critical and survived extended attack.
+graphs, where only trivial lower bounds are known for $\{1,\sqrt3\}$.
 \end{remark}
 
 \section{Unit-distance results}\label{sec:ud}
@@ -926,21 +891,32 @@ giving $e_5\le2406$, and noted room for improvement
 
 \begin{theorem}\label{thm:e5}
 The $509$-vertex graph contains a spanning subgraph with $2278$ edges
-($164$ removed) that is not $4$-colorable and is edge-critical: removing
-any single further edge admits a proper $4$-coloring.  Hence
-$e_5\le2278$.
+($164$ removed) that is not $4$-colorable.  Hence $e_5\le2278$.
 \end{theorem}
+
+The subgraph is listed in \texttt{certificates/e5-2278/edge2278\_graph.json}
+(an edge list on the vertex numbering $0,\dots,508$ of the $509$-vertex
+graph).  Its non-$4$-colorability is certified by
+\texttt{edge2278.cnf}/\texttt{edge2278.drat} (compressed with
+\texttt{xz}), checked by \texttt{drat-trim} in about ten seconds.  The
+CNF has one at-least-one-color clause per vertex, one clause per edge
+and color, and three unit clauses fixing the colors of the three
+vertices of one triangle of the subgraph, which is a valid symmetry
+breaking.  The bundle also contains the exact algebraic coordinates of the $509$
+vertices (\texttt{parts509\_coordinates.vtx}, from~\cite{Parts20b}) and a
+script \texttt{check\_unit.py} which confirms, at $60$-digit precision, that
+these points have exactly $2442$ unit-distance pairs, with no near-unit pair,
+and that the $2278$ listed edges are among them.
 
 The trim used the same incremental selector-assumption technique as
 Section~\ref{sec:method}, over edges instead of vertices: repeatedly
 attempt to delete a random edge, keeping the deletion iff the remainder
-is still $4$-uncolorable, until no edge is removable.  The final
-$2278$-edge set is certified non-$4$-colorable by a DRAT trace
-(\texttt{edge2278.cnf}/\texttt{edge2278.drat}, checked with
-\texttt{drat-trim}); criticality is witnessed by explicit $4$-colorings
-of all $2278$ single-edge deletions.  A second, independently seeded run
-terminated at $2279$ edges, indicating the greedy endpoint is
-order-dependent; the true $e_5$ may be lower still.
+is still not $4$-colorable, until no edge is removable.
+\emph{Computational observation} (not part of the certificate bundle):
+the final subgraph is edge-critical, i.e.\ removing any one of its $2278$
+edges leaves a $4$-colorable graph; a second, independently seeded run
+terminated at $2279$ edges, so the greedy endpoint is order-dependent
+and the true $e_5$ may be lower still.
 
 \subsection{Forced structure in $5$-colorings of the plane}\label{sec:forced}
 
@@ -948,7 +924,12 @@ The transfer principle of Section~\ref{sec:framework} applies equally
 with $k=5$ and $D=\{1\}$: a non-$5$-colorable $\{1,\dd'\}$-graph whose
 $m$ $\dd'$-edges cannot all be avoided forces monochromatic pairs at
 distance $\dd'$ in \emph{every} proper unit-distance $5$-coloring of the
-plane (cf.\ Gwyn--Stavrianos \cite{GwynStavrianos20}).
+plane (cf.\ Gwyn--Stavrianos \cite{GwynStavrianos20}).  Since
+$\chi(\R^2)\ge6$~\cite{OAI}, the following corollary is vacuous; we
+record it because its finite content --- the ratio $t/m$ of forced to
+designated pairs in an explicit point set --- was the original
+motivation for the search for small graphs, and because it is the
+quantity in the win condition of Section~\ref{sec:k5caps}.
 
 \begin{corollary}\label{cor:forced}
 In every proper $5$-coloring of $G(\R^2;\{1\})$, with $p_r$ the invariant
@@ -956,7 +937,9 @@ densities of Definition~\ref{def:pr}:
 \[
   p_{\sqrt3}\ \ge\ \tfrac1{28},
   \qquad
-  p_{\dd}\ \ge\ \tfrac1{37}.
+  p_{\dd}\ \ge\ \tfrac1{37},
+  \qquad
+  p_{1/\sqrt3}\ \ge\ \tfrac1{67}.
 \]
 \end{corollary}
 
@@ -964,76 +947,70 @@ densities of Definition~\ref{def:pr}:
 Consider the $30$-point set of Theorem~\ref{thm:g30}.  Any $5$-coloring
 of the plane proper at distance $1$ restricts to a coloring of the $30$
 points proper on the $72$ unit edges; since the full graph is not
-$5$-colorable, at least $t=1$ of the $28$ $\sqrt3$-pairs is
-monochromatic.  (MaxSAT shows $t=1$ exactly: two cannot be forced.)  By
-Lemma~\ref{lem:transfer}, $28\,p_{\sqrt3}\ge1$.  The same argument on
-the $26$-point set (Theorem~\ref{thm:g26}; $37$ $\dd$-pairs, $t=1$)
-gives $37\,p_{\dd}\ge1$.
+$5$-colorable (\texttt{g30/}), at least one of the $28$ $\sqrt3$-pairs is
+monochromatic.  By Lemma~\ref{lem:transfer}, $28\,p_{\sqrt3}\ge1$.  The
+same argument on the $26$-point set (Theorem~\ref{thm:g26},
+\texttt{g26/}; $37$ $\dd$-pairs) gives $37\,p_{\dd}\ge1$.
+
+For the third bound, \texttt{certificates/forced-density/} contains a set
+$S$ of $67$ of the $72$ unit pairs of the same $30$-point set such that
+the graph formed by all $28$ $\sqrt3$-pairs together with $S$ is not
+$5$-colorable (\texttt{record67.cnf}/\texttt{record67.drat}, checked by
+\texttt{drat-trim}; \texttt{verify67.py} also recomputes all distances
+exactly and checks that $S$ is minimal).  Scale the point set by
+$1/\sqrt3$: the $\sqrt3$-pairs become unit pairs and the pairs of $S$
+become pairs at distance $1/\sqrt3$.  For every placement, a coloring of
+the plane proper at distance $1$ is proper on the former $\sqrt3$-pairs,
+so at least one pair of $S$ is monochromatic, and
+Lemma~\ref{lem:transfer} gives $67\,p_{1/\sqrt3}\ge1$.
 \end{proof}
 
-These are the strongest known single-certificate forced-structure
-constants for $5$-colorings; the previous implicit best, via Parts'
-$397$-vertex $\{1,2\}$-graph, was of order $1/550$.  Conversely
-$p_{\dd'}\le\tfrac12$ for all $\dd'\ge\tfrac12$ by a color-count-free
-spindle argument, so any construction achieving $t/m>\tfrac12$ would
-prove $\chi(\R^2)\ge6$; the $t/m$ ladder is a quantitative measure of
-progress toward the fundamental lower bound, and
-Section~\ref{sec:k5caps} lowers the winning threshold from $\tfrac12$
-to $\tfrac13$ at the right radius.  (The pursuit of small $m$
-is what produced the $26$-vertex graph: the session's minimization runs
-plateaued at $m=37$ $\dd$-edges.)
+For comparison, Parts' $397$-vertex $\{1,2\}$-graph \cite{Parts20a}
+implicitly forces $p_2$ to be of order $1/550$ in the same sense.
+Conversely $p_{\dd'}\le\tfrac12$ for all $\dd'\ge\tfrac12$ by a
+color-count-free argument: if $|xa|=|xb|=\dd'$ and $|ab|=1$, at most one
+of the pairs $(x,a)$, $(x,b)$ is monochromatic.  So any construction with
+$t/m>\tfrac12$ would have proved $\chi(\R^2)\ge6$, and
+Section~\ref{sec:k5caps} lowers this threshold to $\tfrac13$ at the
+distance $1/\sqrt3$.
 
-\subsection{An automated density ledger and $p_{\sqrt3}\ge1/12$}
-\label{sec:ledger}
+\begin{remark}[Density ledger; computational observation]
+\label{rem:ledger}
+We also assembled about $143{,}000$ linear inequalities among
+monochromatic-pair densities, each obtained from a small unit-distance
+configuration as in Lemma~\ref{lem:transfer} with MaxSAT-computed
+bounds, and solved the resulting linear program in floating point.  It
+returned the bound $p_{\sqrt3}\ge1/12$ for invariant proper
+$5$-colorings.  The inequalities were not individually certified and the
+linear program was not re-solved in exact arithmetic, so we do not claim
+this bound (which is in any case vacuous now).
+\end{remark}
 
-Single certificates are only the first rung.  The session built an
-automated \emph{density ledger}: approximately $143{,}000$ MaxSAT-exact
-linear inequalities over monochromatic-pair densities, mined from small
-unit-rigid configurations (each inequality of the form
-$\sum_i \alpha_i p_{r_i}\ge t$ or $\le t$, certified as in
-Lemma~\ref{lem:transfer}), coupled with triangle relations among
-densities and solved as a linear program.
-
-\begin{theorem}[Density ledger --- announced]\label{thm:ledger}
-For every isometry-invariant proper $5$-coloring of the plane,
-$p_{\sqrt3}\ \ge\ \tfrac1{12}$.
-The LP also reproduces the classical hexagonal-packing inequality as a
-special case.
-\end{theorem}
-
-The LP is feasible --- the ledger is a quantitative map of how much
-freedom $5$-colorings retain --- and the framework turns ``prove
-$\chi(\R^2)\ge6$'' into the concrete task ``find configurations whose
-inequalities make this LP infeasible.''
-%% TODO: the 1/12 bound rests on the mined inequality files
-%% (ineq_1.jsonl .. ineq_3.jsonl) and the LP in lp2.py/lp_check.py; an
-%% independent exact-rational re-solve of the final LP should be run
-%% before publication.
-
-\subsection{The $5$-coloring wall, measured}\label{sec:wall}
-
-Is any \emph{single} distance forced monochromatic inside an actual
-$5$-chromatic graph?  A sweep over Heule's $803$-vertex $5$-chromatic
-graph \cite{Heule18} tested, for each of the $428$ distance classes with
-at least $40$ point pairs, whether some proper $5$-coloring avoids
-monochromatic pairs in that class entirely.  The answer is yes for every
-class --- no forced single-distance family exists in this graph --- but
-the classes are far from equal: every class resolved in milliseconds to
-seconds, except $d=2$, which required $3.4$ hours of solver time before
-a witness coloring was found.  Distance $2$ --- precisely the distance
-the two-distance theory singles out (Exoo--Ismailescu's $\{1,2\}$
-six-chromatic construction, and $\dd^2-1$-type coincidences) --- is
-where the $5$-coloring solution space is thinnest.
+\begin{remark}[A single-distance sweep; computational observation]
+\label{rem:wall}
+For Heule's $803$-vertex $5$-chromatic unit-distance graph (April
+2018, from the Polymath16 minimization effort
+\cite{Polymath16,Heule18}), we tested, for each of the $428$ distance classes with at
+least $40$ point pairs, whether some proper $5$-coloring avoids
+monochromatic pairs in that class entirely.  The answer was yes for
+every class, so no single distance class is forced monochromatic in
+this graph.  All classes were resolved within seconds except the class
+of distance $2$, which took $3.4$ hours of solver time before a witness
+coloring was found.
+\end{remark}
 
 \section{Strict caps for five colors and a win condition}\label{sec:k5caps}
 
-\emph{(Superseded: this section was written before~\cite{OAI} proved $\chi(\R^2)\ge6$. We keep it for the cap theorems, which remain valid.)}
+\emph{(This section was written before~\cite{OAI} proved
+$\chi(\R^2)\ge6$, which makes the win condition of
+Theorem~\ref{thm:win} moot.  We keep it for the cap statements, which
+remain valid.)}
 
 Corollary~\ref{cor:caps} caps a density strictly below $\tfrac12$ for
 $6$-colorings.  This section develops the analogous theory on the
 unit-distance side: caps valid for colorings with \emph{any} number of
-colors, an impossibility theorem explaining where such caps cannot
-exist, and the resulting explicit win condition for $\chi(\R^2)\ge6$.
+colors, a bipartiteness obstruction explaining where such pairwise caps
+cannot exist, and the resulting win condition for $\chi(\R^2)\ge6$.
 Throughout, ``proper'' means proper at distance $1$, and $p_r$ is the
 invariant density of Definition~\ref{def:pr} for such a coloring.
 
@@ -1082,61 +1059,88 @@ $m=3$ recovers Proposition~\ref{prop:cap13}.  The capped radii
 $1/(2\cos(a\pi/n))$ are dense in $(\tfrac12,\infty)$.
 \end{proposition}
 
-\begin{proof}[Proof sketch]
+\begin{proof}
+If the circumradius is $R$, the step-$k$ chords have length
+$2R\sin(k\pi/n)$; with $2R\sin(2a\pi/n)=1$ the step-$a$ chords have
+length $\sin(a\pi/n)/\sin(2a\pi/n)=1/(2\cos(a\pi/n))$.
 Two step-$a$ chords sharing a vertex, $(v_i,v_{i+a})$ and
 $(v_{i+a},v_{i+2a})$, cannot both be monochromatic: that would force
 $c(v_i)=c(v_{i+2a})$ across the unit step-$2a$ chord.  So monochromatic
 step-$a$ chords are independent in the step-$a$ cycle, which is a
 single \emph{odd} cycle since $\gcd(a,n)=1$ and $n$ is odd; an odd
-$n$-cycle has independence number $(n-1)/2$.  The flower argument is
-the same with spokes in place of chords.
+$n$-cycle has independence number $(n-1)/2$, and
+Lemma~\ref{lem:transfer} gives the cap.  For the flower, consecutive
+spokes $(o,v_i)$, $(o,v_{i+1})$ cannot both be monochromatic because
+$|v_iv_{i+1}|=1$, and the $m$ spokes form an odd $m$-cycle under this
+relation.  Finally, the fractions $a/n$ with $n$ odd, $\gcd(a,n)=1$ and
+$a<n/2$ are dense in $(0,\tfrac12)$, so the radii $1/(2\cos(a\pi/n))$
+are dense in $(\tfrac12,\infty)$.
 \end{proof}
 
-These are, to our knowledge, the first finite sub-half density caps
-relevant to $k\ge5$ --- and they are stronger than needed: they hold
-for arbitrary proper colorings, with no bound on the number of colors.
+These caps hold for arbitrary proper colorings, with no bound on the
+number of colors; they are elementary, and we do not claim priority for
+them.
 
-\subsection{An impossibility theorem at the ledger anchors}
+\subsection{A bipartiteness obstruction at $\sqrt3$ and $2$}
 
 Why do the caps above live at $1/\sqrt3$, $\tau$, $1/(2\cos(a\pi/n))$
-and not at the density-ledger anchors $\sqrt3$ and $2$ where they are
-most wanted?  All of them run on the same fuel: two $r$-slots sharing
-an endpoint conflict when their far endpoints are at distance $1$, and
-the angle subtended at the shared endpoint is then
-$\varphi_1(r)=2\arcsin\frac1{2r}$, with
-$\cos\varphi_1=1-\tfrac1{2r^2}$.  A cap needs \emph{odd} conflict
-cycles, i.e.\ closed walks of such conflicts --- and those exist only
-when $\varphi_1$ is commensurable with $\pi$
-(at $r=1/\sqrt3$: $\cos\varphi_1=-\tfrac12$, $\varphi_1=2\pi/3$; at
-$r=\tau$: $\cos\varphi_1=\tau/2$, $\varphi_1=\pi/5$).
+and not at $\sqrt3$ and $2$, the second distances of the
+$\{1,\sqrt3\}$- and $\{1,2\}$-constructions?  All
+of them use the same mechanism.  For $r\ge\tfrac12$, call an unordered
+pair of points at distance $r$ an \emph{$r$-slot}, and say that two
+$r$-slots $\{x,a\}$, $\{x,b\}$ sharing an endpoint \emph{conflict} if
+$|a-b|=1$.  Two conflicting slots cannot both be monochromatic in a
+proper coloring, since that would give $c(a)=c(x)=c(b)$.  Hence, for a
+finite family $F$ of $r$-slots with conflict graph $\Gamma(F)$ (vertices
+the slots, edges the conflicting pairs), the monochromatic slots of any
+proper coloring form an independent set of $\Gamma(F)$, and
+Lemma~\ref{lem:transfer} gives the \emph{pairwise cap}
+\[
+  p_r\ \le\ \frac{\alpha(\Gamma(F))}{|F|}.
+\]
+Propositions~\ref{prop:cap13}--\ref{prop:capstar} are all of this form,
+with $\Gamma(F)$ an odd cycle.  The angle at the shared endpoint of two
+conflicting slots is $\varphi_1(r)=2\arcsin\frac1{2r}$, with
+$\cos\varphi_1=1-\tfrac1{2r^2}$ (at $r=1/\sqrt3$:
+$\cos\varphi_1=-\tfrac12$, $\varphi_1=2\pi/3$; at $r=\tau$:
+$\cos\varphi_1=\tau/2$, $\varphi_1=\pi/5$).
 
-\begin{theorem}[Pairwise impossibility at $\sqrt3$ and $2$ ---
-announced]\label{thm:impossible}
-At $r=\sqrt3$ and $r=2$ the conflict angle has rational cosine
-($\cos\varphi_1=\tfrac56$ and $\tfrac78$ respectively), so by Niven's
-theorem \cite{Niven56} $\varphi_1$ is an irrational multiple of $\pi$.
-Consequently all conflict cycles are even, every pairwise-conflict
-graph on $r$-slots is bipartite, and the optimal pairwise cap is
-exactly $\tfrac12$: no finite configuration whose only mechanism is
-pairwise slot conflict can prove $p_{\sqrt3}<\tfrac12$ or
-$p_2<\tfrac12$.
-\end{theorem}
+\begin{proposition}[Pairwise caps at $\sqrt3$ and $2$]
+\label{prop:bipartite}
+Let $r\ge\tfrac12$ and suppose $\varphi_1(r)/\pi$ is irrational.  Then
+$\Gamma(F)$ is bipartite for every finite family $F$ of $r$-slots, so
+$\alpha(\Gamma(F))\ge|F|/2$ and every pairwise cap at distance $r$ is
+at least $\tfrac12$.  This applies to $r=\sqrt3$ and $r=2$, where
+$\cos\varphi_1=\tfrac56$ and $\tfrac78$ respectively.
+\end{proposition}
 
-The bipartite bound is tight in practice: SAT verification through
-$45$-point scaffolds, and exhaustive chain scans at $r=\sqrt3$ and
-$r=2$ (all apex/pinch turn words, with and without waist points), all
-plateau at density exactly $\tfrac12$ --- while the same scans at
-$r=1/\sqrt3$ immediately break $\tfrac12$ (best chain found: $3/8$).
-Beating $\tfrac12$ at $\sqrt3$ or $2$ therefore requires non-pairwise,
-de~Grey-scale machinery.
-%% TODO: the formalization of "pairwise-conflict mechanism" and the
-%% proof of the impossibility theorem live in the session memos
-%% (k5caps/); write up before publication.
+\begin{proof}
+Assign to each slot $\{x,a\}$ the direction $\theta(\{x,a\})\in\R/\pi\Z$
+of the line through $x$ and $a$.  If $\{x,a\}$ and $\{x,b\}$ conflict,
+the triangle $xab$ has sides $r,r,1$, so the angle at $x$ is $\varphi_1$
+and $\theta(\{x,b\})=\theta(\{x,a\})\pm\varphi_1$ in $\R/\pi\Z$.  Along a
+closed walk of length $L$ in $\Gamma(F)$ we therefore get
+$(\varepsilon_1+\dots+\varepsilon_L)\varphi_1\in\pi\Z$ with
+$\varepsilon_i=\pm1$.  Since $\varphi_1/\pi$ is irrational,
+$\varepsilon_1+\dots+\varepsilon_L=0$, so $L$ is even.  Hence
+$\Gamma(F)$ has no odd cycle and is bipartite, and the larger side of a
+bipartition is an independent set with at least $|F|/2$ slots.  For
+$r=\sqrt3$ and $r=2$, $\cos\varphi_1=1-\tfrac1{2r^2}$ is rational and
+not in $\{0,\pm\tfrac12,\pm1\}$, so by Niven's theorem \cite{Niven56}
+$\varphi_1/\pi$ is irrational.
+\end{proof}
+
+Thus at $\sqrt3$ and $2$ a cap below $\tfrac12$ needs constraints
+beyond pairwise slot conflicts.  \emph{Computational observation} (not
+certified): SAT computations on scaffolds of up to $45$ points and
+exhaustive scans of chain-like configurations at $r=\sqrt3$ and $r=2$
+never gave a cap below $\tfrac12$, while the same scans at $r=1/\sqrt3$
+found chains with cap $3/8$.
 
 \subsection{The win condition}
 
-The caps convert record-graph engineering into a quantitative attack on
-$\chi(\R^2)\ge6$.
+Before~\cite{OAI}, the caps converted record-graph engineering into a
+quantitative attack on $\chi(\R^2)\ge6$.
 
 \begin{theorem}[Win condition]\label{thm:win}
 Let $G$ be a finite $\{1,\sqrt3\}$-graph with $m$ unit edges such that
@@ -1157,24 +1161,16 @@ $p_{1/\sqrt3}\ge t/m>\tfrac13$, contradicting
 Proposition~\ref{prop:cap13}.  Hence no proper $5$-coloring exists.
 \end{proof}
 
-The current certified value of the ratio is $t/m=1/72$: the $30$-vertex
-graph of Theorem~\ref{thm:g30} has $72$ unit edges and forces $t\ge1$
-(immediate from non-$5$-colorability; MaxSAT shows $t=1$ exactly).  A direct optimizer over the
-$\Q(\sqrt3,\sqrt5)$ module universe --- iterated local search
-minimizing the unit-edge count among $6$-chromatic
-$\{1,\sqrt3\}$-graphs --- has already reached $m=70$ on $30$ vertices
-(ratio $1/70$, pending exact re-verification).
-%% TODO: exactly re-verify the m=70 graphs from the s3ratio runs.
-The golden-ratio variant uses Proposition~\ref{prop:cap25}: a
-$6$-chromatic $\{1,\tau\}$-graph forcing unit-edge monochromatic
-density above $\tfrac25$ under $\tau$-proper $5$-colorings also proves
-$\chi(\R^2)\ge6$; Parts' $31$-vertex graph \cite{Parts20a} measures
-$1/57$ against that threshold.  The gap between $1/70$ and $1/3$ is
-large, but Theorem~\ref{thm:win} makes it a single, well-posed finite
-optimization --- raise $t$ (multi-fold forcing) and lower $m$ --- with
-no invariant-mean caveats attached to the prize:
-by Theorem~\ref{thm:impossible} the route through the caps at
-$1/\sqrt3$ and $1/\tau$ is the only pairwise one available.
+The best certified value of the ratio is $t/m=1/67$
+(\texttt{certificates/forced-density/}; see the proof of
+Corollary~\ref{cor:forced}): the $30$-vertex graph of
+Theorem~\ref{thm:g30} with its $28$ $\sqrt3$-edges and a minimal set of
+$67$ of its $72$ unit edges is already not $5$-colorable, improving the
+ratio $1/72$ of the full graph.  The golden-ratio variant uses
+Proposition~\ref{prop:cap25}: a $\{1,\tau\}$-graph forcing unit-edge
+monochromatic density above $\tfrac25$ under $\tau$-proper
+$5$-colorings would also have proved $\chi(\R^2)\ge6$.  The gap between
+$1/67$ and $1/3$ is large, and the question is now moot.
 
 \section{An extended six-coloring continuum}\label{sec:continuum}
 
@@ -1184,91 +1180,91 @@ Following Mundinger, Pokutta, Spiegel and Zimmer~\cite{MPSZ}, let $X_6$ be the s
 $X_6\supseteq[0.354,\ 0.667504532081]$.
 \end{theorem}
 
-The new part is $[657/1000,\ 667504532081/10^{12}]$. It is covered by $59$ periodic tilings with rational vertex coordinates, each with eight polygonal tiles per period, from a $33$-parameter family whose mirror symmetry is broken. For each tiling an exact rational-arithmetic verifier checks that all tiles are simple polygons, that periodic interiors do not overlap, that the tile areas sum exactly to the area of the lattice cell, and that every same-color diameter and separation inequality holds strictly. The last check yields an open interval of distances $d$ that the sixth color avoids. A second script checks that these $59$ intervals overlap and cover the stated range. The numerical optimum of the family is $d=0.66750453208133\ldots$. At this point $23$ constraints are active with positive multipliers, and the reduced Hessian is negative definite, so it is a strict second-order local maximum of the tiling topology. Period doubling, $2\times2$, $3\times1$, $1\times3$ and $3\times2$ supercells, and all period-two relabelings of the five unit colors return to the same value. The certificates and verifiers are in the reproducibility bundle.
+The new part is $[657/1000,\ 667504532081/10^{12}]$; the rest is
+\cite{MPSZ}.  It is covered by $59$ periodic tilings with rational
+vertex coordinates, each with eight polygonal tiles per period (five
+tile types for the five unit-avoiding colors and three for the sixth
+color), taken from a $33$-parameter family without mirror symmetry.  The
+certificates are in \texttt{certificates/six-coloring-continuum/}.  For
+each tiling, the exact rational-arithmetic verifier
+\texttt{rigorous\_verify.py} checks that all tiles are simple polygons,
+that periodic interiors do not overlap, that the tile areas sum exactly
+to the area of the lattice cell, that each of the five unit-avoiding tile
+types has diameter $<1$ with distinct periodic copies more than $1$
+apart, and that the components of the sixth color have diameter below,
+and mutual separation above, an explicit rational interval of distances
+$d$.  The sixth color then avoids every $d$ in that open interval (with
+any deterministic assignment of boundary points).  The script
+\texttt{verify\_continuum.py} checks that the $59$ intervals overlap and
+cover the stated range, and \texttt{verify\_all.py} regenerates all $59$
+certificates from the stored parameter vectors before running the
+coverage check.
+
+\begin{remark}[Numerical observations]
+The following are floating-point observations and are not part of the
+proof of Theorem~\ref{thm:continuum}.  The numerical optimum of the
+$33$-parameter family is $d=0.66750453208133\ldots$; there $23$
+constraints are active with positive multipliers and the reduced Hessian
+is numerically negative definite, indicating a strict local maximum for
+this tiling topology.  Period doubling, $2\times2$, $3\times1$,
+$1\times3$ and $3\times2$ supercells, and all period-two relabelings of
+the five unit colors returned the same value.
+\end{remark}
 
 \section{Discussion and open problems}\label{sec:open}
-
-\paragraph{Sparsity walls.}
-On the negative side, the session derived quantitative lower bounds
-(``sparsity walls'') showing that forcing results require substantial
-graphs.  Over the Gwyn--Stavrianos framework \cite{GwynStavrianos20},
-the master inequality
-$\sum_{P} q_c(d_{ab}) + t\,e\,p_5(c)\ \ge\ t$
-yields:
-any $5$-color forcing unit-distance graph (a UDG forcing a
-monochromatic pair at some distance $\dd'\ge\tfrac12$ in all proper
-$5$-colorings) has at least $21$ vertices and $90$ edges; for
-$\dd'=1$, at least $32$ vertices; at least $25$ vertices for families in
-Parts' window, and $\approx25(r+1)$ under $r$-robustness; $t$-fold
-forcing needs $n\ge17.9\,t^{3/4}$ vertices.  Moreover every
-unit-distance graph on at most $15$ vertices is $5$-colorable (degeneracy
-plus the exact maximum edge counts $u(n)$), and any $6$-chromatic
-unit-distance certificate must have at least ${\sim}6993$ vertices (via
-Parts' bound $\delta_6<1.43\times10^{-4}$).
-%% TODO: these statements are quoted from the session's theory summary;
-%% their proofs live in the session memos and need full write-up.
 
 \paragraph{Open problems.}
 
 \begin{problem}
 Is there a $25$-vertex $6$-chromatic two-distance graph?  The
-$26$-vertex graph is vertex-critical and has survived extended attack;
-no nontrivial lower bound on the minimum order is known for two-distance
-graphs.
+$26$-vertex graph is vertex-critical and further local search did not
+reduce it; no nontrivial lower bound on the minimum order is known for
+two-distance graphs.
 \end{problem}
 
 \begin{problem}[Finite $7$-chromatic witness]
-Realize the incidence structure of
-Proposition~\ref{prop:blueprint}/Theorem~\ref{thm:assembly} by an actual
-finite $\{1,\dd\}$-point set, or answer Question~\ref{q:gatekeeper}.  A
-positive answer to the gatekeeper question would put a
-$\sim10^3$-vertex witness in reach; a $6$-color forced-same pair (two
-points forced to share a color) would yield a $7$-chromatic graph
-immediately by a spindle, at roughly $2|W|$ vertices.
-\end{problem}
-
-\begin{problem}[Climbing to the win condition]
-Push the ratio of Theorem~\ref{thm:win} from $1/70$ toward $\tfrac13$:
-find $6$-chromatic $\{1,\sqrt3\}$-graphs with few unit edges and, more
-importantly, with \emph{multi-fold} forcing ($t\ge2$) under
-$\sqrt3$-proper $5$-colorings --- no construction with $t\ge2$ is
-currently known.  By Theorem~\ref{thm:impossible}, pairwise mechanisms
-can never beat $\tfrac12$ at the anchors $\sqrt3$ and $2$ themselves,
-so progress must come either through the capped radii ($1/\sqrt3$,
-$1/\tau$, and the star-polygon family), through non-pairwise machinery
-at $\sqrt3$ or $2$, or through new inequalities feeding the
-density-ledger LP of Section~\ref{sec:ledger}.
+Realize the incidence structure of Proposition~\ref{prop:blueprint} by
+an actual finite $\{1,\dd\}$-point set, or answer
+Question~\ref{q:gatekeeper}.  A finite $\{1,\dd\}$-graph $W$ containing
+two points at distance $s\ge\tfrac12$ that receive the same color in
+every proper $6$-coloring would yield a finite non-$6$-colorable graph
+on fewer than $2|W|$ vertices: take two copies of $W$ sharing one of the
+two points, rotated so that the two partner points are at distance $1$.
 \end{problem}
 
 \begin{problem}
 Determine $e_5$.  The greedy endpoint $2278$ is order-dependent
-($2279$ on a second run); no matching lower bound technique for edge
-counts of $5$-chromatic UDGs is known beyond the vertex-based walls
-above.
+($2279$ on a second run), and we know no nontrivial lower bound
+technique for the number of edges of $5$-chromatic unit-distance
+graphs.
 \end{problem}
 
 \appendix
 
 \section{Artifacts and reproducibility}\label{app:artifacts}
 
-All certificates live in the bundle \texttt{hadwiger-nelson/} (session
-archive).  Trusting any UNSAT claim requires trusting only the
-$\sim$1300-line DRAT checker \texttt{drat-trim} \cite{drattrim}
-(included as a single C file) plus integer arithmetic; trusting the SAT
+All certificates are in the folder \texttt{certificates/} next to this
+manuscript; its \texttt{README.md} lists the check for each result, and
+all checks passed on 14 October 2026.  Trusting an UNSAT claim requires
+trusting only the DRAT checker \texttt{drat-trim} \cite{drattrim}
+(available from \url{https://github.com/marijnheule/drat-trim}) and the
+short scripts that build or read the CNF files; trusting the SAT
 (colorability) claims requires only checking explicit colorings; the
 exact-arithmetic chain certificates additionally rest on
 \texttt{sympy}'s multivariate polynomial reduction and
-minimal-polynomial routines.  The $k$-independent cap searches and the
-design-verdict computations (Sections~\ref{sec:verdict}
-and~\ref{sec:k5caps}) live in the session archive directories
-\texttt{k5caps/} and \texttt{design7/}.
+minimal-polynomial routines; the tiling certificates use only Python's
+exact \texttt{Fraction} arithmetic.  The searches and the computational
+observations of Sections~\ref{sec:blueprint}, \ref{sec:ud}
+and~\ref{sec:k5caps} are not part of the bundle.  Files ending in
+\texttt{.xz} must be decompressed first (\texttt{xz -dk}).
 
 \begin{center}
 \small
-\begin{tabular}{@{}llp{7.3cm}@{}}
+\begin{tabular}{@{}p{4.4cm}lp{7.0cm}@{}}
 \toprule
-File(s) & Size & Semantics \\
+File(s) & Size & Content \\
 \midrule
+\multicolumn{3}{@{}l}{\texttt{seven-colors/} (Theorem~\ref{thm:main})}\\
 \texttt{v8cert.cnf/.drat} & 2.7\,KB / 262\,KB &
 proper $6$-coloring of the V8 with $\le1$ monochromatic diagonal:
 UNSAT (Proposition~\ref{prop:v8}); $84$ vars, $267$ clauses. \\
@@ -1279,57 +1275,81 @@ clauses. \\
 \texttt{capB.cnf/.drat} & 7.2\,KB / 21\,KB &
 same for chain $B$ ($r=1+\sqrt3$). \\
 \texttt{chain12.json, chain12b.json, v8.json} & $<$1\,KB each &
-coordinates and designated pairs of the three $\chi\ge7$
+floating-point coordinates and designated pairs of the three
 configurations. \\
-\texttt{record26.cnf/.drat} & 4.9\,KB / 884\,KB &
-$5$-coloring of the $26$-vertex graph: UNSAT ($18{,}518$-step
-refutation). \\
-\texttt{record30.cnf/.drat} & 5.8\,KB / 1.3\,MB &
-$5$-coloring of the $30$-vertex graph: UNSAT. \\
-\texttt{edge2278.cnf/.drat} & 126\,KB / 74\,MB &
-$4$-coloring of the $2278$-edge subgraph: UNSAT. \\
-\texttt{edge2278\_graph.json} & 26\,KB &
-the $2278$-edge subgraph of the $509$-vertex graph. \\
-\texttt{deneve117\_min.json} & $<$1\,KB &
-the $26$ integer vectors (Table~\ref{tab:g26}). \\
-\texttt{verify30.py, verify117best.py, deneve\_verify.py} &
-$\sim$60 lines each &
-standalone verifiers: recompute edges exactly from integer vectors,
-re-solve $5$-/$6$-colorability and vertex-criticality from scratch
-(dependency: \texttt{python-sat}). \\
 \texttt{verify\_exact.py} & $\sim$250 lines &
 exact symbolic certification of chains $A$ and $B$
-(Section~\ref{sec:exact}): tower-degree soundness certificates via
+(Section~\ref{sec:exact}): tower-degree certificates via
 primitive-element minimal polynomials, all $66$ pairwise distances per
-chain resolved in $K_A$ (degree $16$) resp.\ $K_B$ (degree $8$),
-edge/slot sets confirmed against the float files, caps re-proved by
-exhaustive subset enumeration on the exact edge lists (dependencies:
-\texttt{sympy}, \texttt{python-sat}). \\
-\texttt{drat-trim(.c)} & 60\,KB &
-the proof checker; all \texttt{.drat} traces above check as
-\texttt{s VERIFIED}. \\
+chain resolved in $K_A$ resp.\ $K_B$, edge and slot sets confirmed
+against the float files, caps re-proved by exhaustive subset
+enumeration (dependencies: \texttt{sympy}, \texttt{python-sat}). \\
+\midrule
+\multicolumn{3}{@{}l}{\texttt{g26/} (Theorem~\ref{thm:g26}; $p_{\dd}\ge1/37$)}\\
+\texttt{deneve117\_min.json} & $<$1\,KB &
+the $26$ integer vectors (Table~\ref{tab:g26}). \\
+\texttt{record26.cnf/.drat} & 4.9\,KB / 884\,KB &
+$5$-coloring of the $26$-vertex graph: UNSAT. \\
+\texttt{verify117best.py} & $\sim$60 lines &
+exact edges, non-$5$-colorability (two solvers), $6$-colorability,
+vertex-criticality. \\
+\midrule
+\multicolumn{3}{@{}l}{\texttt{g30/} (Theorem~\ref{thm:g30}; $p_{\sqrt3}\ge1/28$)}\\
+\texttt{record30.cnf}, \texttt{record30.drat.xz} & 5.8\,KB / 1.3\,MB &
+$5$-coloring of the $30$-vertex graph: UNSAT. \\
+\texttt{verify30.py} & $\sim$70 lines &
+exact edges, non-$5$-colorability, $6$-colorability,
+vertex-criticality. \\
+\midrule
+\multicolumn{3}{@{}l}{\texttt{forced-density/} ($p_{1/\sqrt3}\ge1/67$)}\\
+\texttt{record67\_graph.json} & 1\,KB &
+the $30$ integer vectors and the $67$ designated unit pairs. \\
+\texttt{record67.cnf/.drat} & 8.8\,KB / 776\,KB &
+$5$-coloring proper on all $\sqrt3$-pairs and the $67$ unit pairs:
+UNSAT. \\
+\texttt{verify67.py} & $\sim$120 lines &
+exact distances, non-$5$-colorability, regeneration of the CNF and DRAT
+files, \texttt{drat-trim} check, minimality of the $67$ pairs. \\
+\midrule
+\multicolumn{3}{@{}l}{\texttt{e5-2278/} (Theorem~\ref{thm:e5})}\\
+\texttt{edge2278\_graph.json} & 26\,KB &
+edge list of the $2278$-edge subgraph of the $509$-vertex graph. \\
+\texttt{edge2278.cnf.xz/.drat.xz} & 123\,KB / 70\,MB &
+$4$-coloring of the subgraph (one triangle's colors fixed): UNSAT
+(sizes uncompressed). \\
+\midrule
+\multicolumn{3}{@{}l}{\texttt{six-coloring-continuum/} (Theorem~\ref{thm:continuum})}\\
+\texttt{certificate\_*.json}, \texttt{asym\_*.npy} & --- &
+the $59$ exact tiling certificates and their parameter vectors. \\
+\texttt{rigorous\_verify.py}, \texttt{verify\_all.py},
+\texttt{verify\_continuum.py} & --- &
+exact check of one tiling; regeneration of all $59$ certificates;
+interval-coverage check. \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \noindent
-Reproduction: \texttt{pip install python-sat}, then
-\texttt{python3 verify30.py} (seconds) and
-\texttt{python3 verify117best.py deneve117\_min.json} (seconds); for any
-UNSAT certificate, \texttt{./drat-trim X.cnf X.drat} and confirm
-\texttt{s VERIFIED}.  All searches ran on a single Apple M4~Pro laptop;
-total compute for the record graphs was minutes, for the edge trim
-hours, and for the density ledger overnight.
+Reproduction: \texttt{pip install python-sat sympy numpy}; then, in the
+respective folders, \texttt{python3 verify\_exact.py},
+\texttt{python3 verify117best.py deneve117\_min.json},
+\texttt{python3 verify30.py},
+\texttt{python3 verify67.py record67\_graph.json} (which looks for
+\texttt{drat-trim} on the \texttt{PATH}, in the environment variable
+\texttt{DRAT\_TRIM}, or as a second argument, and writes its CNF and DRAT
+files to the current directory), and
+\texttt{python3 verify\_continuum.py}; for any UNSAT certificate,
+\texttt{drat-trim X.cnf X.drat} and confirm \texttt{s VERIFIED}.  All
+searches ran on a single laptop (Apple M4~Pro); total compute for the
+record graphs was minutes and for the edge trim hours.
 
 \section*{Acknowledgments}
 We thank Jaan Parts, whose 2019 sketch \cite{Parts19} contains the
 skeleton of Theorem~\ref{thm:main}, and De~Neve, Vanden Kerchove, Colle,
 Tavernier, and Pickavet, whose published coordinate tables
 \cite{DeNeve25} seeded the searches of Section~\ref{sec:record}.
-Autonomous literature-retrieval agents surfaced the open-access
-coordinate tables at the start of the session.
-%% TODO (Henry): consider contacting J. Parts and the De Neve group
-%% before posting; decide venue (Geombinatorics vs arXiv-first).
+The searches, certificates and verification code were developed with the
+assistance of Claude (Anthropic).
 
 \begin{thebibliography}{99}
 
@@ -1338,27 +1358,53 @@ P.~\'Agoston,
 \emph{Probabilistic formulation of the Hadwiger--Nelson problem},
 arXiv:2112.07665 (2021).
 
+\bibitem{BassMono}
+H.~Bass,
+\emph{Monochromatic distances in finite colorings of the plane},
+preprint (October 2026).
+
+\bibitem{BassR3}
+H.~Bass,
+\emph{A machine-checked proof that three-space is not six-colorable},
+preprint (October 2026).
+
+\bibitem{BassRamsey}
+H.~Bass,
+\emph{Euclidean Ramsey theorems for arbitrary colourings via spectral
+rigidity}, preprint (October 2026).
+
+\bibitem{Bukh}
+B.~Bukh,
+\emph{Measurable sets with excluded distances},
+Geom.\ Funct.\ Anal.\ \textbf{18} (2008), 668--697; arXiv:math/0703856.
+
+\bibitem{Crocker}
+C.~Crocker,
+\emph{A conditional transfer for colourings of $\R^n$, with the
+conditional consequence $\chi(\R^3)\ge7$}, Zenodo (10 October 2026),
+doi:10.5281/zenodo.23273952.
+
 \bibitem{deGrey18}
 A.~D.~N.~J. de~Grey,
 \emph{The chromatic number of the plane is at least 5},
-Geombinatorics \textbf{28} (2018), 18--31; arXiv:1804.02385.
+Geombinatorics \textbf{28}(1) (2018), 18--31; arXiv:1804.02385.
 
 \bibitem{deGreyParts22}
 A.~D.~N.~J. de~Grey and J.~Parts,
 \emph{On lower bounds of the order of $k$-chromatic unit distance
-graphs}, Geombinatorics \textbf{32}(2) (2022); arXiv:2303.14714.
-%% TODO: verify exact title/venue pagination of this item.
+graphs}, Geombinatorics \textbf{32}(2) (2022), 72--74; arXiv:2303.14714.
 
 \bibitem{DeNeve25}
 J.~De~Neve, F.~Vanden~Kerchove, D.~Colle, W.~Tavernier, and
 M.~Pickavet,
 \emph{On the chromatic number of the plane with two forbidden
-distances}, Amer.\ Math.\ Monthly \textbf{132}(10) (2025), 1007--1022.
+distances}, Amer.\ Math.\ Monthly \textbf{132}(10) (2025), 1007--1022;
+doi:10.1080/00029890.2025.2559554.
 
 \bibitem{ExooIsmailescu18}
 G.~Exoo and D.~Ismailescu,
 \emph{The chromatic number of the plane is at least 5: a new proof},
-Discrete Comput.\ Geom.\ \textbf{64} (2020), 216--226; arXiv:1805.06055.
+Discrete Comput.\ Geom.\ \textbf{64} (2020), 216--226; arXiv:1805.00157.
 
 \bibitem{ExooIsmailescu20}
 G.~Exoo and D.~Ismailescu,
@@ -1373,23 +1419,39 @@ problem}, arXiv:2008.07987 (2020).
 \bibitem{Heule18}
 M.~J.~H. Heule,
 \emph{Computing small unit-distance graphs with chromatic number 5},
-Geombinatorics \textbf{28} (2018), 32--50; arXiv:1805.12181.
+Geombinatorics \textbf{28}(1) (2018), 32--50; arXiv:1805.12181.
 
-\bibitem{Huddleston08}
-M.~Huddleston, unpublished (2008); as reported in \cite{Parts20a}.
-%% TODO: verify the Huddleston reference (first name, title, venue) from
-%% the citation list of arXiv:2010.12656.
+\bibitem{MPSZ}
+K.~Mundinger, S.~Pokutta, C.~Spiegel, and M.~Zimmer,
+\emph{Extending the continuum of six-colorings}, arXiv:2404.05509
+(2024).
 
 \bibitem{Niven56}
 I.~Niven,
 \emph{Irrational Numbers},
-Carus Mathematical Monographs 11, MAA, 1956.
+Carus Mathematical Monographs 11, Math.\ Assoc.\ America, 1956.
+
+\bibitem{OAI}
+OpenAI,
+\emph{The Euclidean plane is not five-colorable}, preprint (2026),
+\url{https://github.com/openai/math}, with Lean formalization.
+
+\bibitem{OTH08}
+J.~Owings, M.~Tetiva, and M.~Huddleston,
+\emph{Coloring the plane}, Amer.\ Math.\ Monthly \textbf{115}(2) (2008),
+170--172.
+
+\bibitem{PalvolgyiAgoston19}
+D.~P\'alv\"olgyi and P.~\'Agoston, comments in Polymath16, fourteenth
+thread, comment 24460 (21 October 2019), on D.~G.~Mixon's blog
+\emph{Short, Fat Matrices},
+\url{https://dustingmixon.wordpress.com/2019/08/05/polymath16-fourteenth-thread-automated-graph-minimization/}.
 
 \bibitem{Parts19}
-J.~Parts, comment \#24686 on Polymath16 thread 15
-(D.~Mixon's blog, 2019).
-%% TODO: verify the exact URL:
-%% https://dustingmixon.wordpress.com/ ... /#comment-24686
+J.~Parts, comment 24686 (24 December 2019) on \emph{Polymath16,
+fifteenth thread: writing the paper and chasing down loose ends},
+D.~G.~Mixon's blog \emph{Short, Fat Matrices},
+\url{https://dustingmixon.wordpress.com/2019/12/12/polymath16-fifteenth-thread-writing-the-paper-and-chasing-down-loose-ends/#comment-24686}.
 
 \bibitem{Parts20a}
 J.~Parts,
@@ -1399,14 +1461,16 @@ Geombinatorics \textbf{29}(3) (2020), 111--115; arXiv:2010.12656.
 \bibitem{Parts20b}
 J.~Parts,
 \emph{Graph minimization, focusing on the example of 5-chromatic
-unit-distance graphs}, arXiv:2010.12665 (2020).
+unit-distance graphs in the plane}, Geombinatorics \textbf{29}(4)
+(2020), 137--166; arXiv:2010.12665.
 
 \bibitem{Polymath16}
-D.~H.~J. Polymath (Polymath16 project),
-\emph{Hadwiger--Nelson problem},
-\url{https://asone.ai/polymath/index.php?title=Hadwiger-Nelson_problem};
-see also the thread archive at D.~Mixon's blog.
-%% TODO: settle on the canonical Polymath16 citation.
+D.~H.~J. Polymath,
+Polymath16: the Hadwiger--Nelson problem, research threads on
+D.~G.~Mixon's blog \emph{Short, Fat Matrices} (2018--2021), starting at
+\url{https://dustingmixon.wordpress.com/2018/04/14/polymath16-first-thread-simplifying-de-greys-graph/};
+project proposal at
+\url{https://polymathprojects.org/2018/04/10/polymath-proposal-finding-simpler-unit-distance-graphs-of-chromatic-number-5/}.
 
 \bibitem{ShelahSoifer03}
 S.~Shelah and A.~Soifer,
@@ -1421,12 +1485,9 @@ Springer, New York, 2009.
 \bibitem{drattrim}
 N.~Wetzler, M.~J.~H. Heule, and W.~A. Hunt,
 \emph{DRAT-trim: efficient checking and trimming using expressive
-clausal proofs}, SAT 2014, LNCS 8561, 422--429.
+clausal proofs}, in: Theory and Applications of Satisfiability Testing
+--- SAT 2014, LNCS 8561, Springer, 2014, 422--429.
 
-\bibitem{OAI} OpenAI, \emph{The Euclidean plane is not five-colorable}, preprint (23 September 2026), \url{https://github.com/openai/math}, with Lean formalization.
-\bibitem{Crocker} C.~Crocker, \emph{A conditional transfer for colourings of $\R^n$, with the conditional consequence $\chi(\R^3)\ge7$}, Zenodo (10 October 2026), doi:10.5281/zenodo.23273952.
-\bibitem{BassR3} H.~Bass, \emph{A machine-checked proof that three-space is not six-colorable}, preprint (October 2026).
-\bibitem{MPSZ} K.~Mundinger, S.~Pokutta, C.~Spiegel, M.~Zimmer, \emph{Extending the continuum of six-colorings}, arXiv:2404.05509 (2024).
 \end{thebibliography}
 
 \end{document}

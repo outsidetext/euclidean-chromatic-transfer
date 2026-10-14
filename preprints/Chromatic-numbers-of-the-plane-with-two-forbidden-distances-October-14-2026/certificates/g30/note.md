@@ -1,6 +1,6 @@
 # A smaller 6-chromatic two-distance graph in the plane
 
-*Draft note — Henry Bass & Claude (Anthropic Fable 5), August 2026*
+*Note — Henry Bass, August 2026 (developed with the assistance of Claude, Anthropic)*
 
 ## 1. Statement
 

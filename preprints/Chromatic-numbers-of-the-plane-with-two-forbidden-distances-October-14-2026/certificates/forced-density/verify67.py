@@ -10,14 +10,21 @@ Checks performed:
   1. every pair of S is EXACTLY at distance 1, and every forbidden edge EXACTLY at sqrt3
      (integer arithmetic: 64 d^2 = (rat, irr), d=1 <=> (64,0), d=sqrt3 <=> (192,0));
   2. the sqrt3-pairs used are ALL sqrt3-pairs present in the point set (nothing hidden);
-  3. non-5-colorability, CaDiCaL with a DRAT proof + independent Glucose cross-check;
+  3. non-5-colorability: Glucose with a DRAT proof (checked by drat-trim if available)
+     + independent CaDiCaL cross-check;
   4. minimality of S: removing any single pair restores 5-colorability.
+
+Usage:  python3 verify67.py [record67_graph.json] [path/to/drat-trim]
+drat-trim is taken from the second argument, else from the environment variable
+DRAT_TRIM, else from the PATH.  The script writes record67.cnf and record67.drat to the
+current directory (so run it from a scratch directory if you want to keep the shipped
+copies untouched).
 """
-import json, sys, subprocess, os
+import json, sys, subprocess, os, shutil
 from pysat.solvers import Cadical153, Glucose42
 
 K = 5
-D = json.load(open(sys.argv[1] if len(sys.argv) > 1 else "trim1_seedonly.json"))
+D = json.load(open(sys.argv[1] if len(sys.argv) > 1 else "record67_graph.json"))
 U = [tuple(v) for v in D["univ"]]
 S = [tuple(e) for e in D["S"]]
 n = len(U)
@@ -71,11 +78,11 @@ proof = s.get_proof() if not sat else None
 s.delete()
 if sat:
     sys.exit("FAIL: instance is 5-colorable")
-print("CaDiCaL: UNSAT (non-5-colorable)  OK")
+print("Glucose: UNSAT (non-5-colorable)  OK")
 
-g = Glucose42(bootstrap_with=cl)
+g = Cadical153(bootstrap_with=cl)
 sat2 = g.solve(); g.delete()
-print(f"Glucose cross-check: {'UNSAT  OK' if not sat2 else 'SAT  ** DISAGREE **'}")
+print(f"CaDiCaL cross-check: {'UNSAT  OK' if not sat2 else 'SAT  ** DISAGREE **'}")
 if sat2:
     sys.exit("FAIL: solver disagreement")
 
@@ -88,12 +95,19 @@ with open("record67.drat", "w") as f:
     f.write("\n".join(proof) + "\n")
 print(f"wrote record67.cnf ({len(cl)} clauses) and record67.drat ({len(proof)} lines)")
 
-dt = "/Users/henry/hadwiger-nelson/drat-trim"
-if os.path.exists(dt):
+dt = (sys.argv[2] if len(sys.argv) > 2 else None) or os.environ.get("DRAT_TRIM") \
+    or shutil.which("drat-trim")
+if dt and os.path.exists(dt):
     r = subprocess.run([dt, "record67.cnf", "record67.drat"],
-                       capture_output=True, text=True, timeout=1800)
-    tail = [l for l in r.stdout.splitlines() if l.startswith("s ")]
-    print("drat-trim:", tail[-1] if tail else r.stdout.splitlines()[-1] if r.stdout else "no output")
+                       capture_output=True, text=True, errors="replace", timeout=1800)
+    out = (r.stdout or "") + (r.stderr or "")
+    tail = [l for l in out.splitlines() if l.startswith("s ")]
+    print("drat-trim:", tail[-1] if tail else "no 's' line in drat-trim output")
+else:
+    print("drat-trim not found: skipping the DRAT check.  Pass its path as the second "
+          "argument, set DRAT_TRIM, or put drat-trim on the PATH "
+          "(https://github.com/marijnheule/drat-trim); or run "
+          "'drat-trim record67.cnf record67.drat' yourself.")
 
 # ---- 4: minimality ----
 print("checking minimality of S ...")
