@@ -69,6 +69,12 @@ status:
     - declaration: OAI.Soifer.soifer_quantitative
       file: OAI/Soifer/Quantitative.lean
 
+    - declaration: OAI.HN3.Indep.erdos188_R3
+      file: OAI/HN3/Translates.lean
+
+    - declaration: OAI.HN3.Indep.erdos214_R3
+      file: OAI/HN3/Translates.lean
+
 automation:
   methods:
     - method: agent
