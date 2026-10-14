@@ -1,6 +1,6 @@
 # Manuscript collection
 
-**3 manuscripts covering 10 result families.**
+**4 manuscripts covering 10 result families.**
 
 ## Manuscript map
 
@@ -59,14 +59,14 @@ Every finite coloring of the plane has, for all large n, monochromatic pairs at 
 <tbody><tr>
 <td>
 
-**011. Erdős Problem #188: unit-step progressions, k ≥ 8 (previously k ≥ 6).** Every red/blue coloring of the plane with no two red points at distance 1 contains a blue unit-step 7-term arithmetic progression, so 8 ≤ k ≤ 6330. Proof: transfer + rigidity gives Bessel-mixture red pair correlations with atom ≥ δ²; pattern linear programs on 7 collinear points (k ≥ 7) and on a 2×12 strip of the triangular lattice (k ≥ 8). Exact rational certificates, Arb-checked, and re-verified by an independent brute-force checker.
+**011. Erdős Problem #188: unit-step progressions, k ≥ 8 (previously k ≥ 6).** Every red/blue coloring of the plane with no two red points at distance 1 contains a blue unit-step 7-term arithmetic progression, so 8 ≤ k ≤ 6330; an explicit certified periodic disc colouring improves the upper bound to 68, so 8 ≤ k ≤ 68. Proof: transfer + rigidity gives Bessel-mixture red pair correlations with atom ≥ δ²; pattern linear programs on 7 collinear points (k ≥ 7) and on a 2×12 strip of the triangular lattice (k ≥ 8). Exact rational certificates, Arb-checked, and re-verified by an independent brute-force checker.
 
 </td>
 </tr></tbody>
 <tbody><tr>
 <td>
 
-&emsp;[Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf)
+&emsp;[Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf)
 
 </td>
 </tr></tbody>

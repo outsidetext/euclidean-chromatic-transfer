@@ -1,0 +1,6 @@
+tail -0.9588238366187232
+cells: 10100, certified 7878, not certified 2222
+uncertified region: a in [0.657, 0.997], b in [0.707, 0.997]
+min-side/longest over uncertified cells >= 0.655
+
+[exited with code 0]

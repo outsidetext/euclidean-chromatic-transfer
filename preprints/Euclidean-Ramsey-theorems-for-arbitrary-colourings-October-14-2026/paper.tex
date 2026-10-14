@@ -1,0 +1,189 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{booktabs}
+\usepackage[no-math]{fontspec}
+\newfontfamily\leanfont{Menlo}[Scale=0.8]
+\usepackage{fancyvrb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\PP}{\mathbb{P}}
+\DeclareMathOperator{\Haar}{Haar}
+
+\title[Euclidean Ramsey theorems for arbitrary colourings]{Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity}
+\author{Henry Bass}
+\date{October 2026}
+
+\begin{document}
+\begin{abstract}
+OpenAI's spectral rigidity theorem converts statements about pair correlations of arbitrary colourings of the plane into statements about Bessel mixtures. We use it to prove Euclidean Ramsey theorems for colourings with no regularity assumptions. (i) Every red/blue colouring of the plane contains a monochromatic congruent copy of every collinear triple $\{0,a,a+b\}$ with $a/b$ algebraic, and of every triangle with algebraic side ratios whose shortest side is at most $0.654$ times its longest; previously only $3$-term progressions were known for arbitrary colourings. (ii) In Erd\H{o}s Problem \#188 the answer $k$ satisfies $8\le k\le 68$, improving $6\le k\le6330$: every red/blue colouring of the plane with no red unit pair has a blue unit-step $7$-term progression, and an explicit periodic colouring by discs avoids blue unit-step $68$-term progressions. (iii) Every red/blue colouring of $\R^3$ with no red unit pair has a blue unit-step $11$-term progression (previously $6$). (iv) Polychromatic colourings of the plane whose avoided distances have algebraic ratios need at least $5$ colours, and at least $7$ in $\R^3$. We also determine which constraints the averaging argument transfers: exactly those defined by pair correlations. All finite certificates are checked in exact and ball arithmetic and re-checked by independent programs.
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+
+Euclidean Ramsey theory asks which configurations must appear monochromatically in colourings of $\R^n$. Many results are known only for measurable colourings, where Fourier analysis applies; for arbitrary colourings the methods are combinatorial and the known cases are sparse. OpenAI~\cite{OAI} recently proved that the plane is not $5$-colourable. A key step is a transfer principle: averaging a colouring over the algebraic points along F\o lner sets of the amenable group $E\rtimes K$ (algebraic translations and rotations) produces an invariant random colouring, and their Theorem~2.3 shows that the part of a rotation-invariant vector invisible to continuous characters has zero correlation at every nonzero displacement. Consequently pair correlations of the random colouring are Bessel mixtures, exactly as for measurable colourings. In~\cite{BassR3,BassMono} we used this for colourings avoiding sets of distances. Here we observe that the same input gives Euclidean Ramsey theorems whenever the relevant constraint is controlled by pair correlations, combined either with a single inequality (for $2$-colourings and triangles) or with a pattern linear program on a finite configuration (for progressions), and we complement the lower bounds by an explicit certified construction.
+
+\emph{Notation.} $J_0$ is the Bessel function, $\Omega_3(s)=\sin s/s$, $m_1(\R^n)$ the supremal density of a measurable set with no two points at distance~$1$; $m_1(\R^2)\le0.2470$~\cite{ACMVZ} and $m_1(\R^3)\le0.1485113$~\cite{BassR3}. The averaging framework and the correlation lemma are as in~\cite{BassMono}, Section on Erd\H{o}s Problem \#188, which we reproduce in Section~\ref{sec:188}.
+
+\section{Two-colourings and triangles; polychromatic colourings}\label{sec:twocol}
+
+The transfer also applies when no colour class avoids a distance, provided the configuration is controlled by pair correlations. For $2$-colourings and $3$-point configurations this is automatic.
+
+\begin{theorem}\label{thm:tri}
+Let $T$ be a triangle, possibly degenerate, with side lengths $a,b,c$ whose ratios are algebraic. If
+\[
+S_T(t)=J_0(at)+J_0(bt)+J_0(ct)>-1\qquad\text{for all }t\ge0,
+\]
+then every red/blue colouring of $\R^2$ contains a monochromatic congruent copy of $T$. In particular this holds for every collinear triple $\{0,a,a+b\}$ with $a/b$ algebraic, and for every triangle with algebraic side ratios whose shortest side is at most $0.654$ times its longest side.
+\end{theorem}
+
+\begin{proof}
+Scale so that $a,b,c$ are algebraic; then $T$ has a congruent copy with algebraic vertices. Average the colouring along F\o lner sets of $E\rtimes K$ as in Section~\ref{sec:188}, and let $\sigma=\pm1$ be the colour at the origin, so $\sigma$ is $K$-fixed. By~\cite[Theorem 2.3]{OAI} the component of $\sigma$ orthogonal to the continuous vectors has zero correlation at every $z\ne0$, so $C(z)=\E\,\sigma(0)\sigma(z)=a_0+\int_{(0,\infty)}J_0(|z|t)\,d\nu(t)$ for $z\in E\setminus\{0\}$, with $a_0\ge0$ and $a_0+\nu(0,\infty)\le\|\sigma\|^2=1$. For three points, $\mathbf 1[\text{monochromatic}]=\frac14(1+\sigma_1\sigma_2+\sigma_1\sigma_3+\sigma_2\sigma_3)$. Hence a random copy of $T$ is monochromatic with probability
+\[
+\tfrac14\bigl(1+C(a)+C(b)+C(c)\bigr)=\tfrac14\Bigl(1+3a_0+\int S_T\,d\nu\Bigr)\ \ge\ \tfrac14\bigl(1+\min(0,\inf S_T)\bigr)>0,
+\]
+and a configuration of positive probability occurs in some isometric image of the original colouring. For collinear triples, $\inf_{t\ge0,\,\kappa\in[0,1]}\bigl(J_0(t)+J_0(\kappa t)+J_0((1+\kappa)t)\bigr)\ge-0.7346$, attained near $\kappa=1$ (the unit $3$-term progression); ratios $\kappa>1$ reduce to $1/\kappa$ by scaling. For $t\ge7.5$ this follows from $J_0\ge-0.40276$ and $|J_0(x)|\le\sqrt{2/(\pi x)}$; on $[0,7.5]\times[0,1]$ from a grid of step $5\cdot10^{-4}$ with Lipschitz error at most $0.003$. The triangle statement is certified in the same way on cells of width $0.005$ in the shape space, with $t\le12$.
+\end{proof}
+
+For measurable colourings the criterion is due to Shkredov~\cite[Theorems 1, 6, 9]{Shkredov} (numbering of the arXiv version); the argument above is self-contained and uses only the $J_0$-mixture representation. For collinear triples Shkredov checks only $\kappa=1$; the verification for all ratios is new. By~\cite[Theorem 1]{EGMRSS3}, Theorem~\ref{thm:tri} also gives, for algebraic $a/b$, a monochromatic equilateral triangle of side $a$, $b$ or $a+b$ in every $2$-colouring. The equilateral triangle fails it ($3\min J_0<-1.2$), consistent with the classical colouring by half-open strips that has no monochromatic unit equilateral triangle. Erd\H{o}s, Graham, Montgomery, Rothschild, Spencer and Straus conjectured that every non-equilateral triangle is monochromatic in every $2$-colouring of the plane~\cite[Problem \#173]{EP173}. Theorem~\ref{thm:tri} proves this for all triangles with algebraic side ratios outside a neighbourhood of the equilateral shape. For $3$-term progressions $\{0,a,2a\}$ the statement is due to Currier, Moore and Yip~\cite{CMY}; for other collinear triples it was known only for measurable colourings~\cite{Shkredov}.
+
+By Section~\ref{sec:which}, for triangles with algebraic side ratios the $2$-colour problem is equivalent to its measurable version, so any measurable method applies to the near-equilateral shapes not covered by Theorem~\ref{thm:tri}.
+
+\emph{Polychromatic colourings.} A colouring of $\R^n$ is polychromatic if each colour class avoids some distance $d_i$ (depending on the class). Raiskii proved that every polychromatic colouring of the plane uses at least $4$ colours; Stechkin's construction uses $6$.
+
+\begin{proposition}\label{prop:poly}
+If every colour class of a $k$-colouring of $\R^n$ avoids some distance and the avoided distances have algebraic ratios, then $k\ge\lceil1/m_1(\R^n)\rceil$; this holds in the strict form $k>1/m_1(\R^n)$ when $1/m_1$ is not an integer. In particular $k\ge5$ in the plane and $k\ge7$ in $\R^3$. Equivalently, for every $4$-colouring of the plane and every $\lambda>0$, some colour class realizes every distance in $\lambda\overline{\mathbb Q}_{>0}$.
+\end{proposition}
+
+\begin{proof}
+Scale so that all $d_i$ are algebraic and average as above. Colour class $i$ of the random colouring is a.s.\ $d_i$-avoiding, so its density $\delta_i$ is at most $\alpha_1(\R^n)$ at scale $d_i$, which equals $m_1(\R^n)$ (the finite graphs in the proof of $\alpha_1=m_1$ in~\cite{BassR3} have algebraic coordinates). Since $\sum_i\delta_i=1$, $k\,m_1(\R^n)\ge1$. Use $m_1(\R^2)\le0.2470$~\cite{ACMVZ} and $m_1(\R^3)\le0.1485113$~\cite{BassR3}.
+\end{proof}
+
+\section{Unit-step progressions in the plane: lower bound}\label{sec:188}
+
+Erd\H{o}s asked~\cite[Problem \#188]{EP188} for the least $k$ such that the plane can be colored red and blue with no two red points at distance $1$ and no blue $k$-term arithmetic progression with step $1$ (a blue congruent copy of $\ell_k=\{0,1,\dots,k-1\}$). Tsaturian~\cite{Tsaturian} showed that every such coloring contains a blue $\ell_5$, and Currier, Mody, Xie and Zhang~\cite{CMXZ} constructed a coloring with no blue $\ell_{6330}$; thus $6\le k\le6330$.
+
+\begin{theorem}\label{thm:188}
+Every red/blue coloring of the plane with no two red points at distance $1$ contains a blue unit-step $7$-term arithmetic progression. Hence $k\ge8$ in Erd\H{o}s Problem \#188.
+\end{theorem}
+
+The proof combines the transfer with a pattern linear program. Restrict the coloring to the field-$F$ points $E$ and average along F\o lner sets of the amenable group $E\rtimes K$, as in~\cite[\S2.2]{OAI}. This gives an $E\rtimes K$-invariant probability measure on red/blue colorings of $E$ in which, almost surely, no two red points are at distance $1$ and every unit-step $\ell_k$ in $E$ has a red point. Let $f$ be the indicator that the origin is red, $\delta=\E f$, and $F(z)=\langle f,U_zf\rangle=\Pr(0,z\text{ red})$. Since $f$ is $K$-fixed, \cite[Theorem 2.3]{OAI} shows that the component of $f$ orthogonal to the continuous vectors has zero correlation at every $z\ne0$. Hence, for $z\in E\setminus\{0\}$,
+\[
+F(z)=a_0+\int_{(0,\infty)}J_0(|z|t)\,d\nu(t),\qquad a_0\ge\delta^2,\quad a_0+\nu(0,\infty)\le\delta,
+\]
+where $a_0$ is the mass at $0$ of the spectral measure of the continuous part $Qf$. Indeed $a_0$ is the squared norm of the projection of $Qf$ onto the invariant vectors, which is at least $\langle Qf,\mathbf 1\rangle^2=\delta^2$, and the total mass is $\|Qf\|^2\le\|f\|^2=\delta$. Moreover $F(z)=0$ for $|z|=1$.
+
+Now let $X=\{x_1,\dots,x_m\}\subset E$ be finite and let $q(s)=z_0+\sum_ia_is_i+\sum_{i<j}y_{ij}s_is_j$ be nonnegative on every red pattern $s\in\{0,1\}^X$ allowed by the two rules. Taking expectations over the invariant measure and writing $Y_r=\sum_{|x_i-x_j|=r}y_{ij}$ and $h(t)=\sum_rY_rJ_0(rt)$, we get
+\[
+0\le z_0+\delta\sum_ia_i+a_0h(0)+\int h\,d\nu\le z_0+\delta\sum_ia_i+\lambda\delta+(h(0)-\lambda)\delta^2
+\]
+whenever $h\le\lambda$ on $[0,\infty)$ and $h(0)\le\lambda$. A certificate is a choice of $q$ and $\lambda$ for which the right side is negative on an interval of $\delta$; certificates covering $[0,1]$ prove that the two rules are incompatible.
+
+\emph{Blue $\ell_6$.} Take seven collinear points $0,u,\dots,6u$ with $|u|=1$. The allowed patterns have no two adjacent reds and a red in each of the windows $s_0\dots s_5$ and $s_1\dots s_6$; there are $31$. The form
+\begin{multline*}
+q(s)=-15+5s_0+15(s_1+\dots+s_5)+5s_6-5(s_0s_2+s_4s_6+s_0s_3+s_3s_6+s_0s_4+s_2s_6)\\
+-(s_0s_5+s_1s_6)+5s_0s_6-14(s_1s_3+s_3s_5+s_1s_4+s_2s_5)-2s_1s_5-10s_2s_4
+\end{multline*}
+is nonnegative on all $31$ patterns ($20$ are tight). Adding the free term $-\tfrac{339}{4}F(1)=0$ gives $Y=(-\tfrac{339}4,-48,-38,-12,-2,5)$ at distances $1,\dots,6$, $h(0)=-\tfrac{719}4$, and $h\le\lambda=\tfrac{126}5$ on $[0,\infty)$ (the maximum is about $25.19603$, near $t=3.5652$). The resulting quadratic $-15+110.2\,\delta-204.95\,\delta^2$ has discriminant $-152.96<0$. So every coloring contains a blue $\ell_6$, and $k\ge7$.
+
+\emph{Blue $\ell_7$.} Lines alone leave $\delta\in[0.22,0.285]$ feasible. The configuration $\{a+b\omega:0\le a<12,\ b\in\{0,1\}\}$, $\omega=e^{i\pi/3}$, a $2\times12$ strip of the unit triangular lattice, has $24$ points, $12$ unit-step $7$-term progressions along its rows, and $5206$ allowed patterns. Its cross-row distances $\sqrt3,\sqrt7,\sqrt{13},\dots$ close the gap. Four rational certificates cover $\delta\in[0,0.1752]$, $[0,0.2142]$, $[0,0.2565]$ and $[0.2026,1]$.
+
+\emph{Verification.} Each certificate is checked in exact rational arithmetic for the pattern inequalities. The inequality $h\le\lambda$ is checked with ball arithmetic (Arb) on adaptive cells using $|J_0''|\le1$, and for large $t$ by $|J_0(x)|\le\sqrt{2/(\pi x)}$, which follows from Nicholson's formula~\cite[\S13.74]{Watson}. The quadratic in $\delta$ is checked exactly. A second program, written independently, enumerates all $2^{24}$ patterns by brute force and reproduces every check; the $\ell_7$ margins in $h\le\lambda$ are about $3\cdot10^{-4}$. The same method finds blue $\ell_5$ forced from a single window, consistent with~\cite{Tsaturian}. It stalls at $\ell_8$: strips $2\times14$ and $3\times10$ leave $\delta\in[0.20,0.26]$ feasible.
+
+\section{Unit-step progressions in the plane: upper bound}\label{sec:188up}
+
+\begin{theorem}\label{thm:188up}
+There is a red/blue colouring of the plane with no two red points at distance $1$ and no blue unit-step $68$-term arithmetic progression. Hence $k\le68$ in Erd\H{o}s Problem \#188.
+\end{theorem}
+
+The colouring is periodic. Its period lattice is spanned by $b_1=(1560129/157588,\,0)$ and $b_2=(897883/157088,\,897883/78544)$ (a near-hexagonal lattice with shortest vectors of length about $11.43$, chosen far from integers to weaken resonances), and the red set is the union of the open discs of radius $1/2$ centred at $27$ rational points per period and their lattice translates (data in the accompanying certificate \texttt{cand\_w68.json}). Distinct lifted centres are at distance at least $2$ (checked exactly), so two red points lie in one disc (distance $<1$) or in different discs (distance $>1$). To check that every unit-step $68$-term progression meets a red disc we cover the directions $\theta\in[0,\pi]$ by arcs; on an arc of angular width $\eta$ starting at $u_0$, the $j$-th point of a progression with direction $u$ in the arc moves by at most $j\cdot2\sin(\eta/2)$, so it suffices that every start $x$ in a fundamental parallelogram has some $j<68$ with $x+ju_0$ in a disc of radius $\tfrac12-j\cdot2\sin(\eta/2)$. In coordinates along and across $u_0$, and on strips of the transverse coordinate, the set of starts blocked by a given eroded disc at step $j$ contains an explicit interval (by convexity), and the check reduces to covering an interval by finitely many intervals. All computations use margins $10^{-9}$, which dominate the floating-point error; arcs and strips are refined adaptively. Two independent programs certify the colouring ($4017$ and $4499$ arcs). The colouring was found by optimising disc positions against the failures reported by the certifier; the binding directions are near resonances $u\approx\lambda/q$ for short period vectors $\lambda$ with $|\lambda|$ close to an integer multiple of $q$. The previous bound $6330$~\cite{CMXZ} came from a random colouring of hexagonal cells and a union bound.
+
+\section{Three dimensions}\label{sec:R3}
+
+The same method in $\R^3$, with $\Omega_3(s)=\sin s/s$ in place of $J_0$, gives the following.
+
+\begin{theorem}\label{thm:188R3}
+Every red/blue colouring of $\R^3$ with no two red points at distance $1$ contains a blue unit-step $11$-term arithmetic progression; that is, $E^3\to(\ell_2,\ell_{11})$.
+\end{theorem}
+
+Previously $E^3\to(\ell_2,\ell_6)$ was known (Arman and Tsaturian; it also follows from the finite graphs of~\cite{BassR3}). In $\R^3$ the averaging group contains algebraic rotations about one axis only, so we argue with the continuous factor: let $Q$ be the conditional expectation onto the translation-continuous vectors, $p=Qf$ and $f'=\mathbf 1[p>0]$. Since $p\ge0$ and $\langle p,T_xp\rangle=0$ for $|x|=1$, $f'$ has no unit pairs; since $Q$ is positive and commutes with translations, $\sum_{i<k}T_{iu}p\ge1$, so every unit-step $k$-term progression meets $f'$; both statements extend to all real vectors by strong continuity. Averaging the pattern laws of $f'$ over $O(3)$ and applying Bochner's theorem gives $\Pr(x,y\in f')=a_0+\int\Omega_3(|x-y|t)\,d\nu(t)$ with $a_0\ge\delta'^2$, $a_0+\nu(0,\infty)=\delta'=\E f'$, and $\delta'\le m_1(\R^3)\le0.1485113$~\cite{BassR3}. A pattern linear program on $14$ collinear unit-spaced points ($975$ allowed patterns, four $11$-term progressions), with the translation equality between the laws on the first and last $13$ points, then has no solution for $\delta'\in[0,0.1489]$; five rational certificates are checked in exact arithmetic and ball arithmetic, and re-checked by an independent program. The method does not reach $\ell_{12}$: lines and FCC patches leave $\delta'\in[0.1405,0.1484]$ feasible.
+
+\section{Which constraints transfer}\label{sec:which}
+
+Call a constraint on a finite configuration $T=(t_1,\dots,t_m)$ of algebraic points with allowed colour patterns $A\subseteq[k]^m$ \emph{pair-exact} if there are functions $\lambda_{jl}\colon[k]^2\to\R$ and $\lambda_j\colon[k]\to\R$ such that $\Lambda(c)=\sum_{j<l}\lambda_{jl}(c_j,c_l)+\sum_j\lambda_j(c_j)$ attains its minimum over $[k]^m$ exactly on $A$. Forbidden distances (monochromatic pairs) are pair-exact, and so is ``not monochromatic'' for $2$ colours on $3$ points: with $\sigma=\pm1$, $\Lambda=\sum_{j<l}\sigma_j\sigma_l$ equals $3$ on monochromatic and $-1$ on all other patterns.
+
+\begin{theorem}\label{thm:pairexact}
+For a countable family of pair-exact constraints with algebraic coordinates, there is a colouring of $\R^2$ in which every congruent copy of every $T^\alpha$ has its pattern in $A^\alpha$ if and only if there is a measurable colouring in which this holds for almost every copy.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Average as before. By~\cite[Theorem 2.3]{OAI}, applied to the colour indicators and their sums, the one- and two-point statistics of the random colouring at nonzero displacements coincide with those of the fuzzy colouring $p=(Qf_i)_i$, where $Q$ is the projection onto continuous vectors. Hence the expectation of $\Lambda^\alpha$ on a copy equals the expectation of its multilinear extension evaluated at independent draws from $p$ at the vertices. The former is $\min\Lambda^\alpha$; the latter is at least $\min\Lambda^\alpha$, with equality only if every pattern in the support lies in $A^\alpha$. By continuity in the rotation this holds for all rotations, and sampling as in~\cite[\S4]{OAI} gives the measurable colouring. The converse uses density points and compactness.
+\end{proof}
+
+The theorem gives Corollary: for triangles with algebraic side ratios, every $2$-colouring of the plane contains a monochromatic copy if and only if every measurable one does; and the polychromatic number with algebraically related avoided distances equals its measurable version. Passing from almost-everywhere to everywhere validity in the measurable colouring, as in~\cite[Lemma B.1]{Davies} for distances, we have only sketched for these constraints.
+
+The restriction to pair-exact constraints is necessary for the method. Monochromatic $3$-term progressions in $3$- or $4$-colourings, and monochromatic $4$-point configurations in $2$-colourings, are not pair-exact. For progressions there is an explicit obstruction:
+
+\begin{proposition}\label{prop:counter}
+Let $D$ be the compact dual group of the additive group $E$ of algebraic points, viewed as homomorphisms $E\to\R/4\Z$, let $(d,\theta)$ be Haar-distributed on $D\times\R/4\Z$, and colour $z\in E$ by $c(z)=\lfloor |z|^2+2d(z)+\theta\rfloor\in\{0,1,2,3\}$. This random colouring is $E\rtimes K$-invariant, has no monochromatic unit-step $3$-term progression for any sample, and its colours at any two distinct points are independent and uniform. Its fuzzy colouring is constant ($p_i\equiv1/4$), so the measurable colouring produced by the transfer is constant and full of monochromatic progressions.
+\end{proposition}
+
+\begin{proof}
+For $\varphi_t=|x+tv|^2+2d(x+tv)+\theta$ with $|v|=1$, the second difference $\varphi_0-2\varphi_1+\varphi_2=2|v|^2=2\pmod4$, since the linear terms cancel; three phases in one unit interval have second difference in $(-2,2)$, never $\equiv2\pmod 4$. Translation by $s$ acts by $(d,\theta)\mapsto(d+\langle s,\cdot\rangle,\theta+|s|^2+2d(s))$, which preserves Haar measure; rotations act on $d$ only. For $z\ne0$, $d(z)$ is uniform and independent of $\theta$, which gives pairwise independence and $p_i\equiv1/4$.
+\end{proof}
+
+This is the classical spherical colouring of Erd\H{o}s, Graham, Montgomery, Rothschild, Spencer and Straus with a wild linear phase. It shows that pair rigidity carries no information about $3$-term progressions in colourings with $\ge3$ colours.
+
+\section*{Data and verification}
+All certificates and verifiers are in the accompanying repository: \texttt{triangles173/} (Theorem~\ref{thm:tri}), \texttt{erdos188/} and \texttt{erdos188/indep\_claude/} (Theorem~\ref{thm:188}), \texttt{erdos188\_upper/} (Theorem~\ref{thm:188up}, two certifiers), \texttt{ramsey3d/} (Theorem~\ref{thm:188R3}, two verifiers).
+
+\begin{thebibliography}{99}
+\bibitem{ACMVZ} G.~Ambrus, A.~Csisz\'arik, M.~Matolcsi, D.~Varga, P.~Zs\'amboki, \emph{The density of planar sets avoiding unit distances}, Math.\ Program.\ (2023); arXiv:2207.14179.
+\bibitem{Bukh} B.~Bukh, \emph{Measurable sets with excluded distances}, Geom.\ Funct.\ Anal.\ 18 (2008), 668--697; arXiv:math/0703856.
+\bibitem{DOV} E.~DeCorte, F.~M.~de Oliveira Filho, F.~Vallentin, \emph{Complete positivity and distance-avoiding sets}, Math.\ Program.\ (2022); arXiv:1804.09099.
+\bibitem{Crocker} C.~Crocker, \emph{A conditional transfer for colourings of $\R^n$, with the conditional consequence $\chi(\R^3)\ge7$}, Zenodo (10 October 2026), doi:10.5281/zenodo.23273952.
+\bibitem{BassRecords} H.~Bass, \emph{Chromatic numbers of the plane with two forbidden distances: a seven-color lower bound and smaller six-chromatic graphs}, preprint (2026).
+\bibitem{BassR3} H.~Bass, \emph{A machine-checked proof that three-space is not six-colorable}, preprint (October 2026).
+\bibitem{CFG} H.~T.~Croft, K.~J.~Falconer, R.~K.~Guy, \emph{Unsolved Problems in Geometry}, Springer, 1991 (corrected reprint 1994).
+\bibitem{DaviesOdd} J.~Davies, \emph{Odd distances in colourings of the plane}, Geom.\ Funct.\ Anal.\ (2024); arXiv:2209.15598.
+\bibitem{DMP} J.~Davies, R.~McCarty, M.~Pilipczuk, \emph{Prime and polynomial distances in colourings of the plane}, arXiv:2308.02483.
+\bibitem{Davies} J.~Davies, \emph{Measurable obstructions for unmeasurable colourings}, arXiv:2610.12301 (2026).
+\bibitem{EP} T.~F.~Bloom, \emph{Erd\H{o}s Problems}, \url{https://www.erdosproblems.com}, Problem \#706.
+\bibitem{Falconer} K.~J.~Falconer, \emph{The realization of small distances in plane sets of positive measure}, Bull.\ London Math.\ Soc.\ 18 (1986), 475--477.
+\bibitem{GRS} R.~L.~Graham, B.~L.~Rothschild, E.~G.~Straus, \emph{Are there $n+2$ points in $E^n$ with odd integral distances?}, Amer.\ Math.\ Monthly 81 (1974), 21--25.
+\bibitem{Steinhardt} J.~Steinhardt, \emph{On coloring the odd-distance graph}, Electron.\ J.\ Combin.\ 16 (2009), N12; arXiv:0908.1452.
+\bibitem{Watson} G.~N.~Watson, \emph{A Treatise on the Theory of Bessel Functions}, 2nd ed., Cambridge Univ.\ Press, 1944.
+\bibitem{AAR} G.~E.~Andrews, R.~Askey, R.~Roy, \emph{Special Functions}, Cambridge Univ.\ Press, 1999.
+\bibitem{Erdos81} P.~Erd\H{o}s, \emph{On the combinatorial problems which I would most like to see solved}, Combinatorica 1 (1981), 25--42.
+\bibitem{BassMono} H.~Bass, \emph{Monochromatic distances in finite colorings of the plane}, preprint (October 2026).
+\bibitem{EP188} T.~F.~Bloom, \emph{Erd\H{o}s Problems}, \url{https://www.erdosproblems.com/188}, Problem \#188.
+\bibitem{Tsaturian} S.~Tsaturian, \emph{A Euclidean Ramsey result in the plane}, arXiv:1703.10723 (2017).
+\bibitem{CMXZ} G.~Currier, P.~Mody, Z.~Xie, J.~Zhang, \emph{Improved bounds for lines and $1$-separated sets in Euclidean Ramsey theory}, arXiv:2606.17194 (2026).
+\bibitem{Shkredov} I.~D.~Shkredov, \emph{On some problems of Euclidean Ramsey theory}, arXiv:1507.02727 (2015).
+\bibitem{CMY} G.~Currier, K.~Moore, C.~H.~Yip, \emph{Any two-coloring of the plane contains monochromatic 3-term arithmetic progressions}, Combinatorica 44 (2024), 1367--1380; arXiv:2402.14197.
+\bibitem{EGMRSS3} P.~Erd\H{o}s, R.~L.~Graham, P.~Montgomery, B.~L.~Rothschild, J.~Spencer, E.~G.~Straus, \emph{Euclidean Ramsey theorems III}, in Infinite and Finite Sets, Colloq.\ Math.\ Soc.\ J.\ Bolyai 10 (1975), 559--583.
+\bibitem{EP173} T.~F.~Bloom, \emph{Erd\H{o}s Problems}, \url{https://www.erdosproblems.com/173}, Problem \#173.
+\bibitem{FKW} H.~Furstenberg, Y.~Katznelson, B.~Weiss, \emph{Ergodic theory and configurations in sets of positive density}, in Mathematics of Ramsey Theory, Springer (1990).
+\bibitem{Naslund} E.~Naslund, \emph{The chromatic number of $\R^n$ with multiple forbidden distances}, arXiv:2205.12312.
+\bibitem{OAI} OpenAI, \emph{The Euclidean plane is not five-colorable}, preprint (2026), \url{https://github.com/openai/math}, with Lean formalization.
+\bibitem{OV} F.~M.~de Oliveira Filho, F.~Vallentin, \emph{Fourier analysis, linear programming, and densities of distance avoiding sets in $\R^n$}, J.\ Eur.\ Math.\ Soc.\ 12 (2010).
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,2 @@
+tail bound for t>=T0: -0.9854518920183286 > -1: True
+grid min S = -0.731817 at t=4.5280, k=1.0000; Lipschitz error <= 0.00276; certified inf S >= -0.73458 > -1: True
