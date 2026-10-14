@@ -1,4 +1,4 @@
-import OAI.HN3.Corollary
+import OAI.HN3.Finite
 open MeasureTheory
 
 /-- Restated self-contained: any proper k-coloring of ℝ³ (modelled as ℂ × ℝ with the Euclidean
@@ -18,3 +18,8 @@ open OAI.HN3 in
 #check @no_six_coloring_of_density
 open OAI.HN3 in
 #print axioms no_six_coloring_of_density
+
+open OAI.HN3 in
+#check @exists_finite_not_six_colorable
+open OAI.HN3 in
+#print axioms exists_finite_not_six_colorable

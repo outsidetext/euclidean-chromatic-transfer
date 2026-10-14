@@ -1,21 +1,31 @@
-# Arbitrary colorings of Euclidean space are no easier than measurable ones
+# Euclidean chromatic numbers: transfer theorems and records
 
-Paper: [`paper/transfer.pdf`](paper/transfer.pdf) (source in `paper/transfer.tex`).
+A small manuscript collection on the chromatic number of Euclidean spaces, with Lean
+formalizations and machine-checkable certificates. The layout follows
+[openai/math](https://github.com/openai/math).
 
-**Main results**
-- **Transfer in every dimension.** If ℝⁿ (n ≥ 2) has a proper k-coloring with arbitrary color classes, it has a
-  measurable k-coloring whose monochromatic unit pairs form a null set. This extends the planar transfer theorem
-  of OpenAI, "The Euclidean plane is not five-colorable" (2026). It uses the planar Haar-rigidity theorem block by
-  block over a maximal torus of rotations, and an invariant-mean line average on the remaining axis.
-- **Consequently χ(ℝⁿ) ≥ ⌈1/m₁(ℝⁿ)⌉.** This gives χ(ℝ³) ≥ 7 (previously 6), χ(ℝ⁴) ≥ 11, χ(ℝ⁸) ≥ 53, and
-  χ(ℝⁿ) ≥ (1.268+o(1))ⁿ (previously (1.239+o(1))ⁿ).
-- **Finite graphs attain the measurable density.** inf over finite unit-distance graphs of α(G)/|G| equals m₁(ℝⁿ).
-  In the plane this proves the first part of the Dúcz–Varga conjecture: f(N) = (m₁(ℝ²)+o(1))N.
+- [**CONTENTS.md**](CONTENTS.md): the result families and their manuscripts.
+- [`preprints/`](preprints/): one folder per manuscript (`paper.pdf`, `paper.tex`, and any certificates).
+- [`lean/`](lean/): the Lean 4 / Mathlib development and its catalog [`formalization.yaml`](lean/formalization.yaml).
+- [**history.md**](history.md): dated record of the results and of related work.
 
-**Formal verification** ([`lean/`](lean/)). The ℝ³ transfer (`three_space_transfer`) and the implication
-`DensityBound 0.1532996 → no proper 6-coloring of ℝ³` are verified in Lean 4 / Mathlib, using only the standard
-axioms. The density bound itself is DeCorte–Oliveira–Vallentin's certificate, re-verified with their exact program
-in [`numerics/dov-verifier/`](numerics/dov-verifier/).
+**Status.** Nothing here has been refereed. The Lean statements are machine-checked
+with only the standard axioms (`propext`, `Classical.choice`, `Quot.sound`). Numerical
+density bounds from the literature appear as explicit hypotheses.
 
-The `lean/OAI/{Analysis,Geometry,MeasureTheory}` modules are from github.com/openai/math, used under the
-Apache License 2.0.
+## Build and check
+```
+cd lean
+lake exe cache get              # Mathlib oleans (pinned commit d13f23b)
+lake build OAI.HNN.Corollary OAI.HN3.Finite OAI.HN3.IndepFolner
+lake env lean CheckN.lean       # n-dimensional transfer and corollaries: prints axioms
+lake env lean Check3.lean       # three-dimensional development
+lake env lean CheckIndep.lean   # finite graphs attain the density in R^3
+```
+Certificates for the record graphs are checked by the scripts beside them; see
+[`preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/certificates/README.md`](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/certificates/README.md).
+
+## License
+Lean sources and scripts: Apache License 2.0 (see [LICENSE](LICENSE)). The modules under
+`lean/OAI/{Analysis,Geometry,MeasureTheory}` are from github.com/openai/math, used
+unmodified under the Apache License 2.0 (see `lean/LICENSE-openai-math`).

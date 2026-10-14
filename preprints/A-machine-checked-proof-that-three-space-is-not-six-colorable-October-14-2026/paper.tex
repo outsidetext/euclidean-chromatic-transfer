@@ -1,0 +1,322 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{booktabs}
+\usepackage[no-math]{fontspec}
+\newfontfamily\leanfont{Menlo}[Scale=0.8]
+\usepackage{fancyvrb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\PP}{\mathbb{P}}
+\DeclareMathOperator{\Haar}{Haar}
+
+\title[A machine-checked proof that three-space is not six-colorable]{A machine-checked proof that three-space is not six-colorable}
+\author{Henry Bass}
+\date{October 2026}
+
+
+
+\begin{document}
+\begin{abstract}
+We give a proof, formally verified in Lean~4, that every coloring of $\R^3$ with six colors, with arbitrary color classes, contains two points at distance $1$ of the same color. Thus $\chi(\R^3)\ge7$; the previous unconditional bound was $\chi(\R^3)\ge6$ (Nechushtan, 2002).
+
+The proof extends to $\R^3$ the transfer principle of a recent preprint released by OpenAI, which converts a proper $k$-coloring of the plane into a measurable $k$-coloring whose monochromatic unit pairs form a null set, and whose key rigidity theorem is formalized in Lean. We average over independent rotations of orthogonal coordinate $2$-planes, apply the rigidity theorem block by block through a polarization identity, and remove the remaining axis with an invariant-mean line average. The argument works in every dimension and for every finite set of algebraic forbidden distances, and gives $\chi_D(\R^n)\ge 1/m_D(\R^n)$. With the density bound of DeCorte, Oliveira and Vallentin this yields $\chi(\R^3)\ge7$. Crocker independently posted, on 10 October 2026, the same transfer and its consequences, stated conditionally on the rigidity theorem and with a different treatment of the axis. Our formalization verifies, end to end and with only the standard axioms, the transfer in every dimension for every countable set of algebraic distances, the deduction of $\chi(\R^3)\ge7$ from the published density bound, the existence of a finite non-$6$-colorable unit-distance graph in $\R^3$, and the existence of finite unit-distance graphs in $\R^3$ with independence ratio below $0.1533$. The only input not formalized for $\chi(\R^3)\ge7$ is that numerical density bound, whose published exact verifier we re-ran.
+
+We also record consequences: finite unit-distance graphs in $\R^3$ attain the measurable density (one direction formalized); the number of colors needed to avoid $k$ distances in the plane exceeds $4.0486^k$, answering Erd\H{o}s Problem \#706; and every finite coloring of the plane realizes every sufficiently large algebraic distance monochromatically. These were also obtained conditionally by Crocker; for $n\ge4$ and rational squared distances they are due to Davies.
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+
+A proper $k$-coloring of $\R^n$ is a map $c\colon\R^n\to\{1,\dots,k\}$ with $c(x)\neq c(y)$ whenever $|x-y|=1$. The chromatic number $\chi(\R^n)$ is the least such $k$, with no regularity imposed on the color classes. For the plane, Nelson and Isbell showed $4\le\chi(\R^2)\le7$ around 1950. De Grey raised the lower bound to $5$ in 2018~\cite{deGrey}. A preprint released by OpenAI in September 2026~\cite{OAI} proves $\chi(\R^2)\ge6$, with a Lean formalization that we have rebuilt and checked. In three dimensions the best previous bounds were $6\le\chi(\R^3)\le15$~\cite{Nechushtan,Coulson,RT}.
+
+The measurable chromatic number $\chi_m(\R^n)$ requires measurable color classes. It is bounded below by $1/m_1(\R^n)$. Here
+\[
+m_1(\R^n)=\sup\{\overline{\delta}(A): A\subseteq\R^n\text{ measurable, no two points of }A\text{ at distance }1\},
+\]
+and $\overline\delta$ denotes upper density with respect to centered cubes. Fourier-analytic and semidefinite methods~\cite{OV,BPT,DOV} give much stronger lower bounds for $\chi_m$ than combinatorial methods give for $\chi$. In particular $\chi_m(\R^3)\ge7$~\cite{OV,DOV}.
+
+\begin{theorem}\label{thm:main}
+$\chi(\R^3)\ge7$.
+\end{theorem}
+
+The OpenAI argument has two parts. The first is a transfer theorem~\cite[Theorem 1.3]{OAI}: the plane has a proper $k$-coloring if and only if it has a \emph{weak measurable} $k$-coloring. The second shows that weak measurable $5$-colorings do not exist. The transfer averages a coloring of the algebraic points over algebraic translations and rotations. This needs the group $\R^2_{\mathrm{alg}}\rtimes SO(2)_{\mathrm{alg}}$ to be amenable, which holds because it is solvable. Matolcsi, Ruzsa, Varga and Zs\'amboki~\cite{MRVZ} use the same kind of averaging for fractional colorings, and point out that it ``cannot automatically be extended to higher dimensions.''
+
+\begin{definition}\label{def:weak}
+A \emph{weak measurable $k$-coloring} of $\R^n$ is a Lebesgue measurable $c\colon\R^n\to\{1,\dots,k\}$ with classes $A_i=c^{-1}(i)$ such that for every $R>0$
+\[
+\sum_{i=1}^k\int_{B(0,R)}\int_{S^{n-1}}\mathbf 1_{A_i}(x)\,\mathbf 1_{A_i}(x+u)\,d\sigma(u)\,dx=0 ,
+\]
+where $\sigma$ is normalized surface measure on the unit sphere.
+\end{definition}
+
+\begin{theorem}[Transfer in every dimension]\label{thm:A}
+Let $n\ge2$ and $k\ge1$. If $\R^n$ has a proper $k$-coloring, then it has a weak measurable $k$-coloring.
+\end{theorem}
+
+The converse holds by the density-point argument of~\cite[Lemma 4.3 and proof of Theorem 1.3]{OAI}, which is dimension-free. Thus $\chi(\R^n)$ equals the weak measurable chromatic number for every $n$.
+
+\begin{corollary}\label{cor:B}
+If $\R^n$ has a proper $k$-coloring, then there are pairwise disjoint Borel sets $A_1^*,\dots,A_k^*\subseteq\R^n$, whose union has null complement, such that no $A_i^*$ contains two points at distance $1$. Consequently
+\[
+\chi(\R^n)\ \ge\ \lceil 1/m_1(\R^n)\rceil .
+\]
+\end{corollary}
+
+Theorem~\ref{thm:main} follows from Corollary~\ref{cor:B} and the bound $m_1(\R^3)\le0.1532996<1/6$ of DeCorte, Oliveira and Vallentin~\cite[Table 2]{DOV}, which was published with an exact verification program that we rebuilt and re-ran (Section~\ref{sec:numerics}).
+
+\emph{Relation to the work of Crocker.} After this work was done, we learned of a note by Crocker~\cite{Crocker}, posted on 10 October 2026, which proves Theorem~\ref{thm:A} for all $n$ and all sets of algebraic distances, the bound $\chi(\R^3)\ge7$, and the consequences in Theorems~\ref{thm:D} and~\ref{thm:E}, each stated conditionally on~\cite[Theorem 2.3]{OAI}. He uses the same averaging group. He handles the axis by a Bohr-averaging lemma, where we use an invariant-mean line average. Since~\cite[Theorem 2.3]{OAI} is formalized in Lean, our formalization of the three-dimensional case (Theorem~\ref{thm:lean}) makes $\chi(\R^3)\ge7$ unconditional, relative to the published numerical density bound and the Lean kernel.
+
+\emph{Relation to the work of Davies.} Shortly before this paper, Davies~\cite{Davies} proved $\chi_D(\R^n)=\chi_D^{(m)}(\R^n)$ and $\alpha_D(\R^n)=m_D(\R^n)$ for $n\ge4$ and finite distance sets $D$ with rational squares, together with $\chi(\R^n)\ge(2+o(1))^n$ and strong bounds for $5\le n\le24$. His method embeds lattice Cayley graphs that approximate the copositive certificates of~\cite{DOV}. It does not apply to $n=3$, which he leaves open, writing that he hopes his techniques extend to dimensions $2$ and $3$. For $n\ge4$, Corollary~\ref{cor:B} recovers his chromatic inequality $\chi\ge1/m_1$ by a different route. It also holds for every finite set of algebraic distances (Section~\ref{sec:remarks}).
+
+\begin{theorem}[Formal verification]\label{thm:lean}
+The following are formally verified in Lean~4 with Mathlib: Theorem~\ref{thm:A} in the form of Corollary~\ref{cor:B} for every $n\ge2$ and every countable set of positive algebraic forbidden distances (Theorem~\ref{thm:E}(1)); the deductions $\chi(\R^n)\ge\lceil1/\delta\rceil$ from a density bound $m_1(\R^n)\le\delta$, in particular $\chi(\R^3)\ge7$ from $m_1(\R^3)\le0.1532996$, and the bounds for $4\le n\le8$ from~\cite[Table 2]{DOV}; their finite forms (finite point sets with no proper coloring); and, in $\R^3$, the inequality $\alpha_1(\R^3)\le m_1(\R^3)$ of Theorem~\ref{thm:D}. The proof depends only on the standard axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}.
+\end{theorem}
+
+Section~\ref{sec:lean} describes the formal development. It builds on the Lean library accompanying~\cite{OAI}, in particular on its formal proof of the planar rigidity theorem. The inputs not formalized are the numerical density bounds of~\cite{DOV}, which appear as explicit hypotheses, Bukh's theorem used in Theorem~\ref{thm:E}(2), and the inequality $m_1\le\alpha_1$.
+
+Finally, the same method applied to random independent sets gives a statement about finite graphs. For a finite unit-distance graph $G\subset\R^n$ let $\alpha_1(G)=\alpha(G)/|G|$, and set $\alpha_1(\R^n)=\inf_G\alpha_1(G)$. Averaging translates gives $m_1(\R^n)\le\alpha_1(\R^n)$. In the plane, Ambrus et al.~\cite{ACMVZ} and Matolcsi et al.~\cite{MRVZ} expected the inequality to be strict, ``an interesting example of a natural infinite graph for which the measurable and the non-measurable variants of a parameter have different values.'' D\'ucz and Varga~\cite{DV} disproved the planar conjecture $\alpha_1(\R^2)=1/4$, and conjectured instead that $f(N)/N=m_1(\R^2)+o(1)$, where $f(N)$ is the least independence number of an $N$-point unit-distance graph in the plane. Li and Su~\cite{LS} recently proved this, with a Lean formalization, by applying the transfer of~\cite{OAI} to a single color class. Davies~\cite{Davies} proved $\alpha_1(\R^n)=m_1(\R^n)$ for $n\ge4$. The torus averaging of Theorem~\ref{thm:A} treats all dimensions uniformly, as does the conditional argument of Crocker~\cite{Crocker}.
+
+\begin{theorem}\label{thm:D}
+For every $n\ge2$,
+\[
+\alpha_1(\R^n)=m_1(\R^n)\quad\text{and}\quad\sup_{G}\chi_f(G)=\sup_G\chi_{gf}(G)=1/m_1(\R^n),
+\]
+where $G$ ranges over finite unit-distance graphs in $\R^n$ and $\chi_{gf}$ is the geometric fractional chromatic number of~\cite{ACMVZ,MRVZ}.
+\end{theorem}
+
+The first equality is due to Li and Su for $n=2$ and to Davies for $n\ge4$; Crocker~\cite{Crocker} states it for all $n$, conditionally on~\cite[Theorem 2.3]{OAI}. The second answers the question of~\cite{MRVZ} whether $\chi_{gf,0}(\R^d)=\chi_{f,0}(\R^d)$ for some $d\ge3$. In $\R^3$ it gives finite unit-distance graphs with independence ratio below $0.1533$. As in~\cite{DV,LS}, the graphs produced are not explicit.
+
+\subsection*{Acknowledgements}
+The extension to higher dimensions, Theorems~\ref{thm:D} and~\ref{thm:E}, and the Lean formalization were developed with the assistance of Claude (Anthropic). The underlying planar results and their formalization are due to~\cite{OAI}.
+
+\section{Setting and inputs}\label{sec:setting}
+
+Let $F=\overline{\Q}\cap\R$ be the field of real algebraic numbers, $E=F(i)\subset\C$, and $K=\{u\in E:|u|=1\}$, a countable divisible abelian group. Write $n=2m$ or $n=2m+1$ and identify $\R^n$ with $\C^m$ or $\C^m\times\R$. The algebraic points form the countable dense subgroup
+\[
+V=E^m\quad\text{or}\quad V=E^m\times F .
+\]
+The group $K^m$ acts on $V$ by rotating the $j$-th coordinate plane by the $j$-th component and fixing the last axis. These maps are linear isometries of $\R^n$. The group $G=V\rtimes K^m$ is solvable, hence amenable.
+
+For a unitary representation $U$ of a discrete group $A$ that is a dense subgroup of a Euclidean space (here $E$, $F$ or $V$), let
+\[
+\cH_c(U)=\{v:\ \|U_zv-v\|\to0\ \text{as }z\to0\text{ in the Euclidean topology}\}.
+\]
+This is a closed subspace. We use three results of~\cite{OAI}.
+
+\begin{theorem}[{\cite[Theorem 2.3]{OAI}}, Hilbert-space form]\label{thm:rigidity}
+Let $U\colon E\to\mathcal U(\cH)$ and $W\colon K\to\mathcal U(\cH)$ be unitary representations with $W_kU_z=U_{kz}W_k$. If $v\perp\cH_c(U)$ and $W_kv=v$ for all $k\in K$, then $\langle v,U_zv\rangle=0$ for every $z\in E\setminus\{0\}$.
+\end{theorem}
+
+In the Lean library of~\cite{OAI} this is \texttt{PlaneFiveColor.Spectral.residual\_fourier}. It is deduced there from the rigidity of $K$-invariant probability measures on the dual of $E$ that give no mass to the continuous characters.
+
+\begin{lemma}[{\cite[Lemma 4.1]{OAI}}]\label{lem:factor}
+If $U$ is the Koopman representation of a measure-preserving action of $A$ on a probability space, then $\cH_c(U)$ is the $L^2$ space of a factor. Hence its orthogonal projection is a conditional expectation: it preserves $0\le f\le1$ and fixes constants. Translations act continuously on $\cH_c(U)$ and extend to a strongly continuous, positivity-preserving unitary representation of the ambient Euclidean space.
+\end{lemma}
+
+The proof in~\cite{OAI} is stated for $A=E$ but uses only that $\cH_c$ is closed, contains constants, and is stable under products of bounded elements and under Lipschitz maps. It applies verbatim to $A=F$ and $A=V$.
+
+\begin{lemma}[{\cite[\S2.2]{OAI}}]\label{lem:mean}
+There is a positive, $F$-translation-invariant linear functional $I$ on bounded, boundedly supported functions $F\to\C$ with $I(\varphi|_F)=\int_\R\varphi$ for all $\varphi\in C_c(\R)$. It integrates bounded Hilbert-valued functions weakly, with $\|I(\Phi)\|\le I(\|\Phi\|)$.
+\end{lemma}
+
+\section{Two lemmas}
+
+\begin{lemma}\label{lem:comm}
+Let $U$ be a unitary representation as above and $Y$ a bounded operator commuting with every $U_z$. Then $Y\cH_c(U)\subseteq\cH_c(U)$. If moreover $Y$ is unitary, or self-adjoint, then $Y\cH_c(U)^\perp\subseteq\cH_c(U)^\perp$, and $Y$ commutes with the orthogonal projection onto $\cH_c(U)$.
+\end{lemma}
+
+\begin{proof}
+$\|U_zYv-Yv\|=\|Y(U_zv-v)\|\le\|Y\|\,\|U_zv-v\|$. In the unitary or self-adjoint case $Y^*$ also commutes with $U$, so $\langle Yw,h\rangle=\langle w,Y^*h\rangle=0$ for $w\perp\cH_c$ and $h\in\cH_c$. Splitting $v=Pv+(v-Pv)$ gives $PYv=YPv$.
+\end{proof}
+
+\begin{lemma}[Twisted rigidity]\label{lem:twisted}
+Let $U,W$ be as in Theorem~\ref{thm:rigidity}, and let $Y$ be unitary and commute with every $U_z$ and every $W_k$. If $v\perp\cH_c(U)$ is $W$-fixed, then $\langle v,U_zYv\rangle=0$ for every $z\in E\setminus\{0\}$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:comm}, $Yv$ is $W$-fixed and orthogonal to $\cH_c(U)$, and so is $v+sYv$ for every $s\in\C$. Theorem~\ref{thm:rigidity} applied to $v$, $Yv$ and $v+sYv$ gives
+\[
+0=s\,\langle v,U_zYv\rangle+\bar s\,\langle Yv,U_zv\rangle\qquad(s\in\C).
+\]
+Taking $s=1$ and $s=i$ shows that both coefficients vanish.
+\end{proof}
+
+\section{Proof of Theorem~\ref{thm:A}}\label{sec:proofA}
+
+We prove a slightly more general statement, which is also used in Section~\ref{sec:finite}.
+
+\begin{proposition}[One-label transfer]\label{prop:onelabel}
+Let $\mu$ be a $G$-invariant Borel probability measure on a compact metrizable $G$-space $\Omega$. Let $T_a$ $(a\in V)$ and $R_\kappa$ $(\kappa\in K^m)$ be the Koopman operators on $\cH=L^2(\Omega,\mu)$, so that $R_\kappa T_aR_\kappa^{-1}=T_{\kappa a}$. Let $f\in\cH$ satisfy $0\le f\le 1$, $R_\kappa f=f$ for all $\kappa$, and
+\[
+\langle f,T_af\rangle=0\qquad\text{for every }a\in V\text{ with }|a|=1 .
+\]
+Let $Q$ be the orthogonal projection onto $\cH_c(T)$, the vectors continuous for the whole $V$-action. Then $p=Qf$ satisfies $0\le p\le 1$, $\E p=\E f$, and $\langle p,T_xp\rangle=0$ for every $x\in\R^n$ with $|x|=1$, where $T_x$ is the extension of Lemma~\ref{lem:factor}.
+\end{proposition}
+
+\begin{proof}
+For a block $j\le m$ let $U^{(j)}_z=T_{\iota_jz}$, where $\iota_jz$ places $z\in E$ in the $j$-th coordinate plane. Let $W^{(j)}$ be the rotations of that plane, and $P_j$ the projection onto $\cH_c(U^{(j)})$. In odd dimension let $S_t=T_{(0,\dots,0,t)}$ for $t\in F$, and let $P_0$ be the projection onto $\cH_c(S)$.
+
+\emph{Commutation.} All translations commute with one another and with rotations of the other blocks, and axis translations commute with all rotations. By Lemma~\ref{lem:comm}, each $P_j$ (and $P_0$) commutes with every $T_a$, with the rotations of the other blocks, and, through the self-adjoint case of Lemma~\ref{lem:comm}, with the other projections. Covariance gives $\|U^{(j)}_zR_\kappa v-R_\kappa v\|=\|U^{(j)}_{\kappa^{-1}z}v-v\|$, so $P_j$ also commutes with the rotations of its own block. A vector continuous in every block and along the axis is continuous for $V$, so
+\[
+Q=P_m\cdots P_1\quad\text{or}\quad Q=P_0P_m\cdots P_1 .
+\]
+Each factor is a conditional expectation (Lemma~\ref{lem:factor}). Hence $0\le p\le1$, and $\E p=\langle f,Q1\rangle=\E f$.
+
+\emph{The plane blocks.} Call a unit vector $a\in V$ \emph{generic} if all of its block components $a_j\in E$ are nonzero. Let $g^{(0)}=f$ and $g^{(j)}=P_jg^{(j-1)}$; these are rotation-fixed. Put $v=(1-P_j)g^{(j-1)}$, which is $W^{(j)}$-fixed and orthogonal to $\cH_c(U^{(j)})$. Write $T_a=U^{(j)}_{a_j}Y$, where $Y=T_{a-\iota_ja_j}$ commutes with $U^{(j)}$ and $W^{(j)}$. Lemma~\ref{lem:twisted} gives $\langle v,T_av\rangle=0$. The cross terms vanish by Lemma~\ref{lem:comm}, so
+\[
+\langle g^{(j)},T_ag^{(j)}\rangle=\langle g^{(j-1)},T_ag^{(j-1)}\rangle\qquad(a\text{ generic}).
+\]
+With $g=g^{(m)}$ this gives $\langle g,T_ag\rangle=\langle f,T_af\rangle=0$ for generic $a$.
+
+\emph{Even $n$.} Here $g=p$. The rational points are dense in $S^{n-1}$ (inverse stereographic projection), and the non-generic ones lie in finitely many proper subspheres. So generic algebraic unit vectors are dense, and continuity of $x\mapsto\langle p,T_xp\rangle$ finishes the proof.
+
+\emph{Odd $n$: the axis.} Let $w=g-p\perp\cH_c(S)$. Both $p$ and $w$ lie in the range of $P_m\cdots P_1$, so block translations act continuously on them and extend to real arguments. Since $P_0$ commutes with $T_a$,
+\begin{equation}\label{eq:split}
+\langle p,T_ap\rangle=-\langle w,T_aw\rangle\qquad(a\text{ generic}).
+\end{equation}
+Fix an algebraic direction $u$ in the plane blocks with all block components nonzero, and let $\rho(t)=\sqrt{1-t^2}$. For $t\in F\cap(-1,1)$ the vector $a(t)=(\rho(t)u,t)$ is a generic algebraic unit vector, because $F$ is real closed. Let $b(t)=\langle p,T_{(\rho(t)u,t)}p\rangle$; it is continuous in real $t$.
+
+Fix a real $\varphi\in C_c((-1,1))$. The window $\Phi(t)=\varphi(t)\,T_{(\rho(t)u,0)}w$ is continuous with compact support, hence uniformly continuous. Let
+\[
+\mathcal V=I_t\bigl(S_t\Phi(t)\bigr).
+\]
+Every $S_t\Phi(t)$ lies in the closed subspace $\cH_c(S)^\perp$, so $\mathcal V$ does too. By translation invariance of $I$,
+\[
+\|S_s\mathcal V-\mathcal V\|\le I_t\bigl(\|\Phi(t-s)-\Phi(t)\|\bigr)\to0\quad(s\to0),
+\]
+so $\mathcal V\in\cH_c(S)\cap\cH_c(S)^\perp=\{0\}$. Pairing $\mathcal V$ with $c\,w$ ($c\in\C$) and using~\eqref{eq:split} and Lemma~\ref{lem:mean},
+\[
+0=I_t\Bigl(\varphi(t)\,\mathrm{Re}\bigl(\bar c\,\langle w,T_{a(t)}w\rangle\bigr)\Bigr)=-\int_\R\varphi(t)\,\mathrm{Re}\bigl(\bar c\,b(t)\bigr)\,dt .
+\]
+Taking $c\in\{1,i\}$ and applying the fundamental lemma of the calculus of variations gives $b\equiv0$ on $(-1,1)$. Algebraic directions are dense, so by continuity $\langle p,T_xp\rangle=0$ for every real unit vector $x$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:A}]
+Restrict the given coloring to $V$. Let $\Omega\subseteq\{1,\dots,k\}^V$ be the nonempty, closed, $G$-invariant set of proper labelings of the unit-distance graph on $V$, and let $\mu$ be a $G$-invariant probability on $\Omega$, obtained by F\o lner averaging. Let $f_i=\mathbf 1[\ell(0)=i]$. These are rotation-fixed, satisfy $\sum_if_i=1$, and $\langle f_i,T_af_i\rangle=\mu\{\ell(0)=i=\ell(a)\}=0$ for algebraic unit $a$. Proposition~\ref{prop:onelabel} gives $p_i=Qf_i\in[0,1]$ with $\sum_ip_i=Q1=1$ and zero correlation at every real unit vector.
+
+Choose jointly measurable fields $H_i(x,\omega)\in[0,1]$ representing $T_xp_i$ for almost every $x$, as in~\cite[proof of Proposition 4.2]{OAI}. Then
+\[
+\int_\Omega\sum_i\int_{B(0,R)}\int_{S^{n-1}}H_i(x,\omega)H_i(x+u,\omega)\,d\sigma\,dx\,d\mu=|B(0,R)|\sum_i\int_{S^{n-1}}\langle p_i,T_up_i\rangle\,d\sigma=0 .
+\]
+Fix $\omega$ such that all these inner integrals vanish for rational $R$, and such that $\sum_iH_i(\cdot,\omega)=1$ almost everywhere. Color each $x$ by the least $i$ with $H_i(x,\omega)>0$. This coloring is measurable, and its monochromatic unit pairs form a $dx\,d\sigma$-null set.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:B}]
+Let $A_i^*$ be the set of Lebesgue density points of $A_i=c^{-1}(i)$. These sets are Borel and pairwise disjoint, and their union is conull by the Lebesgue differentiation theorem. By~\cite[Lemma 4.3]{OAI}, whose proof is dimension-free, $A_i^*$ contains no two points at distance $1$. Since $\sum_i|A_i^*\cap[-T,T]^n|=(2T)^n$ for every $T$, some class has upper density at least $1/k$. Hence $1/k\le m_1(\R^n)$.
+\end{proof}
+
+\section{Numerical input}\label{sec:numerics}
+
+The only numerical input is $m_1(\R^3)\le0.1532996$~\cite[Table 2]{DOV}. DeCorte, Oliveira and Vallentin provide the dual solutions and an exact verifier (\texttt{rn\_verify}, GMP/MPFR) as ancillary files. We rebuilt the verifier, after one portability fix that makes a base-class destructor virtual and does not affect the arithmetic, and re-ran it on the published data. For $n=3$ it reports ``Solution checked; bound $=0.153299568560593$''. Since $6\times0.1533<1$, Corollary~\ref{cor:B} excludes proper $6$-colorings of $\R^3$. The same corollary combined with~\cite[Table 2]{DOV} gives $\chi(\R^4)\ge11$; for $n\ge5$ the bounds of Davies~\cite{Davies} are stronger than those obtained from~\cite{DOV,BPT}.
+
+To obtain $\chi(\R^3)\ge8$ in this way one would need $m_1(\R^3)<1/7\approx0.1429$. The derivative constraints of~\cite[Section 9]{Davies} do not improve the bound for $n=3$, since only one radial derivative is admissible there.
+
+\section{Finite graphs attain the measurable density}\label{sec:finite}
+
+\begin{proof}[Proof of Theorem~\ref{thm:D}]
+\emph{(i) $m_1\le\alpha_1$.} Let $A$ be measurable and unit-distance-free, with densities $d_j\to d$ along centered cubes $Q_j$. For a finite unit-distance graph $G$,
+\[
+\frac1{|Q_j|}\int_{Q_j}|(A-x)\cap G|\,dx=\sum_{g\in G}\frac{|A\cap(Q_j+g)|}{|Q_j|}\to d|G| ,
+\]
+so some translate of $A$ meets $G$ in an independent set of size at least $(d-\varepsilon)|G|$. (This also shows that the definition of $m_1$ via $\inf_X\sup_A\lambda(A)/\lambda(X)$ used in~\cite{MRVZ} agrees with ours.)
+
+\emph{(ii) $\sup_G\chi_f(G)\ge 1/m_1$.} Suppose every finite subgraph of the unit-distance graph on $V$ has $\chi_f\le w$. Normalizing optimal fractional colorings gives, for each finite $H\subset V$, a random independent set of $H$ covering \emph{each} vertex with probability at least $1/w$. (Because the bound holds at every vertex, it survives the averaging below; compare~\cite[Remark 5.4]{LS}.) A weak-$*$ limit in $\{0,1\}^V$, in which cylinder events are clopen, yields a random independent set $I$ of $V$ with $\PP(v\in I)\ge1/w$ for all $v$. F\o lner averaging over $G$ makes its law invariant without affecting these properties.
+
+Apply Proposition~\ref{prop:onelabel} to $f=\mathbf 1[0\in I]$, and let $H(x,\omega)$ be jointly measurable versions of $T_xp$. For almost every $\omega$, $H(x)H(x+u)=0$ for $dx\,d\sigma$-almost every $(x,u)$. The cube averages $X_T(\omega)=|Q_T|^{-1}\int_{Q_T}H(x,\omega)\,dx\in[0,1]$ have mean $\E p\ge1/w$, so by reverse Fatou $\PP(\limsup_TX_T\ge1/w)>0$. For such an $\omega$, the density points of $\{H(\cdot,\omega)>0\}$ form a measurable unit-distance-free set of upper density at least $1/w$. Hence $w\ge1/m_1$.
+
+\emph{(iii)} The proof of~\cite[Theorem 2]{MRVZ}, $\sup_G\chi_f(G)=1/\alpha_1$, uses only translations through a lattice cube and holds verbatim in $\R^n$. Together with (i) and (ii) this gives $\alpha_1=m_1$.
+
+\emph{(iv) $\chi_{gf}(G)\le1/m_1$.} This is~\cite[Corollary 2]{ACMVZ}, whose proof works in $\R^n$: given $\varepsilon>0$, truncating a unit-distance-free set to a large cube, removing a boundary layer of width $1$ and repeating periodically gives a $\Lambda$-periodic measurable unit-distance-free set $A$ with $\delta(A)\ge m_1-\varepsilon$. Let $g(x)=\phi x+\tau$ with $\phi$ Haar-random in $O(n)$ and $\tau$ independent and uniform in a fundamental domain of $\Lambda$, and put $\gamma(S)=\PP(gG\cap A=gS)/\delta(A)$ for $S\subseteq G$. Then $\gamma$ vanishes off independent sets, $\sum_{S\ni x}\gamma(S)=\PP(gx\in A)/\delta(A)=1$, and $\sum_S\gamma(S)=1/\delta(A)$. If $S'=\rho S+b$ with $\rho\in O(n)$, then $gS'=(\phi\rho)S+(\phi b+\tau)$, and $(\phi\rho,\phi b+\tau)$ has the same law as $(\phi,\tau)$ modulo $\Lambda$. So $\sum_{T\supseteq S}\gamma(T)=\PP(gS\subseteq A)/\delta(A)$ satisfies the congruence constraints, and $\chi_{gf}(G)\le1/\delta(A)$. Since $\chi_f\le\chi_{gf}$, all three suprema coincide.
+
+Finally, $f$ is subadditive (place copies far apart), so Fekete's lemma gives $f(N)/N\to\inf_Nf(N)/N=\alpha_1(\R^2)=m_1(\R^2)$, recovering~\cite[Theorem 1.1]{LS}. In the plane, $\sup_G\chi_f(G)=1/m_1(\R^2)>4.0486$ by the bound $m_1(\R^2)\le0.246998$~\cite[Section 8]{ACMVZ}.
+\end{proof}
+
+\section{Many forbidden distances}\label{sec:multi}
+
+For a finite set $D\subset(0,\infty)$ let $\chi_D(\R^n)$ be the least number of colors in a coloring of $\R^n$ with no monochromatic pair at a distance in $D$, and let $m_D(\R^n)$ be the supremal upper density of a measurable set with no two points at a distance in $D$. Let $F_n(k)=\sup_{|D|=k}\chi_D(\R^n)$. Erd\H{o}s~\cite{Erdos81} asked whether $F_2(k)$ grows polynomially in $k$ (Bukh~\cite{Bukh} records this as a conjecture), and Croft, Falconer and Guy~\cite[Problem G11]{CFG} asked whether it grows exponentially. In the plane the best lower bound was $F_2(k)\ge ck\sqrt{\log k}$, from the square grid~\cite{CFG,Naslund}. Bukh~\cite{Bukh} answered the measurable version: $m_D(\R^n)\ge m_1(\R^n)^k$ for every $k$-element $D$, and $m_{t_1D_1\cup\dots\cup t_kD_k}(\R^n)\to\prod_i m_{D_i}(\R^n)$ when all ratios $t_i/t_{i+1}$ tend to infinity. Davies~\cite[Theorems 1.2, 1.3]{Davies} transferred this to arbitrary colorings in dimensions $n\ge4$ for distances with rational squares. Crocker~\cite[Corollaries 8.2, 8.3]{Crocker} states the following theorem conditionally on~\cite[Theorem 2.3]{OAI}, including the application to the questions of Soifer and Kahle.
+
+\begin{theorem}\label{thm:E}
+Let $n\ge2$.
+\begin{enumerate}
+\item For every finite set $D$ of positive real algebraic numbers, $\chi_D(\R^n)\ge1/m_D(\R^n)$.
+\item For every $k\ge1$ and $\varepsilon>0$ there is $R$ such that $\chi_D(\R^n)\ge(m_1(\R^n)+\varepsilon)^{-k}$ for every set $D=\{d_1<\dots<d_k\}$ of positive real algebraic numbers with $d_{i+1}/d_i\ge R$. In particular
+\[
+F_2(k)\ \ge\ m_1(\R^2)^{-k}\ >\ 4.0486^k\qquad\text{and}\qquad F_3(k)\ \ge\ m_1(\R^3)^{-k}\ >\ 6.523^k .
+\]
+\item For every coloring of $\R^n$ with finitely many colors there is $R>0$ such that every positive real algebraic $r\notin[1/R,R]$ is the distance between two points of the same color (which color may depend on $r$).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) We run the proof of Theorem~\ref{thm:A} and Corollary~\ref{cor:B} with the unit sphere replaced by the spheres of radii $d\in D$. Proposition~\ref{prop:onelabel} holds with the hypothesis and conclusion stated for $|a|\in D$ and $|x|\in D$, with the same proof. Properness gives $\langle f_i,T_af_i\rangle=0$ for algebraic $a$ with $|a|\in D$. The block step uses only Lemma~\ref{lem:twisted}, whose conclusion holds at every generic $a$ regardless of its length, because Theorem~\ref{thm:rigidity} gives zero correlation at every nonzero $z\in E$. In odd dimension the axis step uses the curves $t\mapsto(\sqrt{d^2-t^2}\,u,t)$, $|t|<d$, which consist of algebraic points because $d$ is algebraic and $F$ is real closed, with test functions $\varphi\in C_c((-d,d))$. Algebraic points are dense on each sphere of algebraic radius. The density-point lemma~\cite[Lemma 4.3]{OAI} applies to each $d\in D$. So a proper $k$-coloring yields $k$ measurable $D$-avoiding sets covering $\R^n$ up to a null set, and one of them has upper density at least $1/k$.
+
+(2) Since $m_D$ is scale-invariant, it depends only on the consecutive ratios of $D$. If for some $\varepsilon$ no $R$ worked, there would be sets $D_j$ with all consecutive ratios at least $j$ and $m_{D_j}>(m_1+\varepsilon)^k$, contradicting~\cite[Theorem 1]{Bukh} with $D_i=\{1\}$ (whose distances are listed in decreasing order there). Hence there is $R$ with $m_D(\R^n)\le(m_1(\R^n)+\varepsilon)^k$ whenever all consecutive ratios are at least $R$. Choosing the $d_i$ rational shows that $F_n(k)\ge(m_1+\varepsilon)^{-k}$ for every $\varepsilon$. The numerical bounds use $m_1(\R^2)\le0.246998$~\cite[Section 8]{ACMVZ} and $m_1(\R^3)\le0.1532996$~\cite{DOV}.
+
+(3) Let the coloring use $c$ colors, and let $B$ be the set of real algebraic $r>0$ that are not monochromatic distances. Choose $k$ with $(m_1(\R^n)+\varepsilon)^{-k}>c$ for some $\varepsilon>0$, and let $R_k$ be as in (2). If $B$ were unbounded, it would contain $d_1<\dots<d_k$ with $d_{i+1}/d_i\ge R_k$. The coloring avoids $D=\{d_1,\dots,d_k\}$, so $c\ge\chi_D(\R^n)>c$, a contradiction. If $B$ contained elements arbitrarily close to $0$, choose instead $d_k<\dots<d_1$ in $B$ with $d_i/d_{i+1}\ge R_k$; the same contradiction follows.
+\end{proof}
+
+By the de Bruijn--Erd\H{o}s theorem, $F_2(k)$ is also the supremum of the chromatic numbers of finite graphs in the plane whose edges are the pairs at distances in a $k$-element set. So (2) answers Erd\H{o}s Problem \#706 of~\cite{EP}, ``is it true that $L(r)\le r^{O(1)}$?'', in the negative. Davies~\cite[Theorem 1.2]{Davies} states Bukh's limit in the same uniform form for $n\ge4$.
+
+Part (3) is the analogue for arbitrary colorings of the theorem of Furstenberg, Katznelson and Weiss~\cite{FKW} that a measurable set of positive upper density realizes every sufficiently large distance. In the plane it contains, as special cases, that every finite coloring has a monochromatic pair at an odd distance~\cite{DaviesOdd} and at a prime distance~\cite{DMP}. It strengthens these to \emph{all} sufficiently large integers. It also answers the questions of Soifer and of Kahle recorded in~\cite[Problems 5.4, 5.5]{DMP}: every finite coloring of the plane has a monochromatic pair at distance $2^j$, and one at distance $j!$, for all sufficiently large $j$. The authors of~\cite{DMP} remark that they do not know a single infinite subset of $\mathbb N$ that a finite coloring of the plane can avoid. By (3) there is none, and the same holds for infinite sets of algebraic numbers that are unbounded or accumulate at $0$.
+
+\section{Formal verification}\label{sec:lean}
+
+The Lean development (Lean 4.34.1, Mathlib commit \texttt{d13f23b}) builds on the 70 modules of the library of~\cite{OAI} on which its planar result depends, in particular its formal proof of~\cite[Theorem 2.3]{OAI} (\texttt{PlaneFiveColor.Spectral.residual\_fourier}). It has three parts.
+\begin{itemize}
+\item \texttt{OAI/HN3} (about 1{,}850 lines) treats $\R^3$ as $\C\times\R$. Its main statements are \texttt{three\_space\_transfer}, \texttt{no\_six\_coloring\_of\_density} and \texttt{exists\_finite\_not\_six\_colorable}.
+\item \texttt{OAI/HNN} (about 2{,}200 lines) treats $\R^n$ for every $n\ge2$, modelled as $\C^m\times\R^r$ with $r\in\{0,1\}$ and transported to \texttt{EuclideanSpace R (Fin n)}. Its main statements are \texttt{euclidean\_transfer\_set} (any countable set $D$ of positive algebraic distances), \texttt{colors\_ge\_of\_densityE}, \texttt{no\_6\_coloring\_R3} through \texttt{no\_52\_coloring\_R8}, and \texttt{exists\_finite\_not\_colorableE}.
+\item \texttt{OAI/HN3/Indep*} (about 1{,}900 lines) proves \texttt{finite\_ratio\_of\_density} and \texttt{alpha1\_le\_m1}: for every $\varepsilon>0$ there is a finite point set in $\R^3$ whose unit-distance graph has independence ratio at most $\delta+\varepsilon$ whenever $m_1(\R^3)\le\delta$. It averages a positive functional, obtained from F\o lner boxes in the finitely generated subgroups of the algebraic points, instead of a point mass.
+\end{itemize}
+\texttt{DensityBound}~$\delta$ states that every measurable unit-distance-free set has upper density at most $\delta$ along the cubes $[-T,T]^n$. \texttt{\#print axioms} reports only \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound} for every statement listed.
+
+\section{Remarks}\label{sec:remarks}
+
+\emph{Why the torus suffices.} Theorem~\ref{thm:A} needs neither invariance under all of $SO(n)$ nor a disintegration of spectral measures. A maximal torus $K^m$ of algebraic rotations is abelian, so averaging over it is possible. Rigidity applied to one block at a time, via Lemma~\ref{lem:twisted}, then removes every spectral component that is discontinuous in some block. The remaining axis in odd dimension is handled by the invariant mean, as in~\cite[Lemma 2.5]{OAI}.
+
+\emph{Other forbidden distances.} The proof uses only that the forbidden distance is algebraic. For a finite set $D\subset(0,\infty)$ of real algebraic numbers, the averaged labels have zero correlation at every algebraic vector whose length lies in $D$. The block step is unchanged, and the axis step uses the curves $t\mapsto(\sqrt{d^2-t^2}\,u,t)$ for $d\in D$. Hence $\chi_D(\R^n)$ equals the weak measurable $D$-chromatic number and $\chi_D(\R^n)\ge1/m_D(\R^n)$ for every $n\ge2$. This includes distance sets such as $\{1,\sqrt[3]{2}\}$ that are not covered by the rational-square hypothesis of~\cite{Davies}.
+
+\emph{The plane.} By~\cite[Theorem 1.3]{OAI}, deciding between $\chi(\R^2)=6$ and $7$ is equivalent to deciding whether weak measurable $6$-colorings of the plane exist. Density and fractional methods cannot settle this, since by Theorem~\ref{thm:D} they are capped at $1/m_1(\R^2)\le 1/0.2293<4.37$.
+
+\begin{thebibliography}{99}
+\bibitem{ACMVZ} G.~Ambrus, A.~Csisz\'arik, M.~Matolcsi, D.~Varga, P.~Zs\'amboki, \emph{The density of planar sets avoiding unit distances}, Math.\ Program.\ (2023); arXiv:2207.14179.
+\bibitem{Bukh} B.~Bukh, \emph{Measurable sets with excluded distances}, Geom.\ Funct.\ Anal.\ 18 (2008), 668--697; arXiv:math/0703856.
+\bibitem{BPT} C.~Bachoc, A.~Passuello, A.~Thiery, \emph{The density of sets avoiding distance 1 in Euclidean space}, Discrete Comput.\ Geom.\ 53 (2015); arXiv:1401.6140.
+\bibitem{Coulson} D.~Coulson, \emph{A 15-colouring of 3-space omitting distance one}, Discrete Math.\ 256 (2002).
+\bibitem{DOV} E.~DeCorte, F.~M.~de Oliveira Filho, F.~Vallentin, \emph{Complete positivity and distance-avoiding sets}, Math.\ Program.\ (2022); arXiv:1804.09099.
+\bibitem{Crocker} C.~Crocker, \emph{A conditional transfer for colourings of $\R^n$, with the conditional consequence $\chi(\R^3)\ge7$}, Zenodo (10 October 2026), doi:10.5281/zenodo.23273952.
+\bibitem{CFG} H.~T.~Croft, K.~J.~Falconer, R.~K.~Guy, \emph{Unsolved Problems in Geometry}, Springer, 1991 (corrected reprint 1994).
+\bibitem{DaviesOdd} J.~Davies, \emph{Odd distances in colourings of the plane}, Geom.\ Funct.\ Anal.\ (2024); arXiv:2209.15598.
+\bibitem{DMP} J.~Davies, R.~McCarty, M.~Pilipczuk, \emph{Prime and polynomial distances in colourings of the plane}, arXiv:2308.02483.
+\bibitem{Davies} J.~Davies, \emph{Measurable obstructions for unmeasurable colourings}, arXiv:2610.12301 (2026).
+\bibitem{deGrey} A.~de Grey, \emph{The chromatic number of the plane is at least 5}, Geombinatorics 28 (2018).
+\bibitem{EP} T.~F.~Bloom, \emph{Erd\H{o}s Problems}, \url{https://www.erdosproblems.com}, Problem \#706.
+\bibitem{Erdos81} P.~Erd\H{o}s, \emph{On the combinatorial problems which I would most like to see solved}, Combinatorica 1 (1981), 25--42.
+\bibitem{FKW} H.~Furstenberg, Y.~Katznelson, B.~Weiss, \emph{Ergodic theory and configurations in sets of positive density}, in Mathematics of Ramsey Theory, Springer (1990).
+\bibitem{DV} \'A.~D\'ucz, D.~Varga, \emph{A unit-distance graph in the plane with independence ratio below 1/4}, arXiv:2606.28157 (2026).
+\bibitem{LS} S.~Li, Y.~Su, \emph{Every $n$ points in the plane contain $(m_1+o(1))n$ points with no unit distance}, arXiv:2610.15424 (2026).
+\bibitem{MRVZ} M.~Matolcsi, I.~Z.~Ruzsa, D.~Varga, P.~Zs\'amboki, \emph{The fractional chromatic number of the plane is at least 4}, arXiv:2311.10069.
+\bibitem{Nechushtan} O.~Nechushtan, \emph{On the space chromatic number}, Discrete Math.\ 256 (2002).
+\bibitem{Naslund} E.~Naslund, \emph{The chromatic number of $\R^n$ with multiple forbidden distances}, arXiv:2205.12312.
+\bibitem{OAI} OpenAI, \emph{The Euclidean plane is not five-colorable}, preprint (2026), \url{https://github.com/openai/math}, with Lean formalization.
+\bibitem{OV} F.~M.~de Oliveira Filho, F.~Vallentin, \emph{Fourier analysis, linear programming, and densities of distance avoiding sets in $\R^n$}, J.\ Eur.\ Math.\ Soc.\ 12 (2010).
+\bibitem{RT} R.~Radoi\v{c}i\'c, G.~T\'oth, \emph{Note on the chromatic number of the space}, in Discrete and Computational Geometry, Springer (2003).
+\end{thebibliography}
+
+\end{document}

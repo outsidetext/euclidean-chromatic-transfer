@@ -1,0 +1,61 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# Catalog of papers with a formalized main result. Paths are relative to lean/.
+version: "v0.4"
+
+project:
+  name: "Euclidean chromatic numbers: transfer and records"
+  description: "Lean formalizations accompanying a small manuscript collection on chromatic numbers of Euclidean spaces."
+  authors: ["Henry Bass"]
+  license: "Apache-2.0"
+
+sources:
+  - title: "A machine-checked proof that three-space is not six-colorable"
+    authors: ["Henry Bass"]
+    id: ../preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf
+    type: article
+
+related_formalizations:
+  - id: https://github.com/leanprover-community/mathlib4
+    relationship: builds-on
+
+  - id: https://github.com/openai/math
+    relationship: builds-on
+
+status:
+  scope: "Main results formalized; numerical density bounds (DeCorte-Oliveira-Vallentin) are explicit hypotheses."
+  main_results:
+    - declaration: OAI.HNN.euclidean_transfer_set
+      file: OAI/HNN/Euclid.lean
+
+    - declaration: OAI.HNN.colors_ge_of_densityE
+      file: OAI/HNN/Corollary.lean
+
+    - declaration: OAI.HNN.no_6_coloring_R3
+      file: OAI/HNN/Corollary.lean
+
+    - declaration: OAI.HNN.exists_finite_not_colorableE
+      file: OAI/HNN/Corollary.lean
+
+    - declaration: OAI.HN3.no_six_coloring_of_density
+      file: OAI/HN3/Corollary.lean
+
+    - declaration: OAI.HN3.exists_finite_not_six_colorable
+      file: OAI/HN3/Finite.lean
+
+    - declaration: OAI.HN3.Indep.finite_ratio_of_density
+      file: OAI/HN3/IndepFolner.lean
+
+    - declaration: OAI.HN3.Indep.alpha1_le_m1
+      file: OAI/HN3/IndepFolner.lean
+
+automation:
+  methods:
+    - method: agent
+
+review:
+  status: unchecked
+
+acknowledgements: >-
+  The planar rigidity theorem, invariant means and stationary measures come from the Lean
+  library of OpenAI, "The Euclidean plane is not five-colorable" (github.com/openai/math),
+  used unmodified under the Apache License 2.0.
