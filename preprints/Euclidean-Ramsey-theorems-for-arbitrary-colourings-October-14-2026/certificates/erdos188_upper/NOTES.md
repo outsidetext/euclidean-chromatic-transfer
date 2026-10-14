@@ -1,8 +1,19 @@
-# Erdős #188 — explicit periodic upper bounds (work in progress)
+# Erdős #188 — explicit periodic upper bounds
+
+**Result: E^2 -/-> (l_2, l_54).**  There is a periodic red/blue colouring of the plane with no
+two red points at distance 1 and no blue unit-step 54-term AP.  (Previous best upper bound
+6330, Currier–Mody–Xie–Zhang, random construction; lower bound 8, ../erdos188.)
+
+* Colouring: `best.json` (= `cand_w54.json`): period lattice P with rational basis
+  (|b1| ~ |b2| ~ 11.224, angle ~ 60 deg; the (3,3)-supercell shape of a hexagonal lattice, rationalised), 27 OPEN discs of radius 1/2 per period, every two centres
+  >= 2 apart (exact rational check); red density 0.1945.  `python3 describe.py best.json`.
+* Verify: `python3 certify.py best.json 54 0.0007`  (~50 s) and independently
+  `python3 indep_claude/cert2.py best.json 54 4000`.  Logs: cert_w54_54.txt, cert2_w54.txt.
+* k = 53 is NOT certified for this colouring (certify.py fails at theta = 176.769 deg).
+* Certified history: 105 -> 85 -> 74 -> 72 -> 68 -> 56 -> 55 -> 54.
 
 Problem: least k such that R^2 can be 2-coloured with no red unit distance and no blue
-unit-step k-AP (x, x+u, ..., x+(k-1)u, |u|=1).  Known: 8 <= k (ours, ../erdos188) and
-k <= 6330 (Currier–Mody–Xie–Zhang, random hexagonal-cell colouring).
+unit-step k-AP (x, x+u, ..., x+(k-1)u, |u|=1).
 
 ## Model
 
@@ -150,3 +161,22 @@ Start: slp3 (a,b)=(3,3), sigma=1.1 (27 discs/period, hexagonal period lattice wi
 (raster max 67->65) then run_w6 certifier-driven loop: passes 72, 70, 68 quickly; 66 fails
 (386 arcs).  certify.py: CERTIFIED k=68 (4499 arcs, 11 splits, 55 s); cert2.py: ALL ARCS OK
 (k=68); k=67 not certified (true sup N of this colouring is 68).
+
+### certified k = 55  (best.json = cand_w55.json; same colouring as cand_w56.json)
+Pipeline (pipeline.sh) on slp3_3_3_1.10.json[1] (27 discs/period, hex period lattice
+|b1| = |b2| = 11.4316, density 0.1874): raster witness optimisation (10 min, raster sample
+max 54), then the certifier-driven loop passes 72, 70, ..., 56 without needing a single LP
+step; 54 fails (83 arcs).  certify.py: k=56 CERTIFIED (99 splits) and **k=55 CERTIFIED**;
+cert2.py (independent): ALL ARCS OK for k=56 and k=55.
+Observation: the (3,3) family (|lambda_1| = 11.43, eta = 0.43 away from integers) is much
+better than the (4,1) family (|lambda_1| = 10.08, eta = 0.08) -- consistent with the
+resonance picture.  Larger cells ((5,2), (6,1), n = 39-43) reach smaller r* (0.10-0.12)
+but start with raster max 94-144 near short-vector directions (|lambda| = 13.49 has 2|lambda|
+= 26.98, a q=27 resonance; |lambda| = 14.43 similar), not pursued further.
+
+### certified k = 54  (best.json = cand_w54.json)
+pipeline.sh on slp3_3_3_1.08.json[0]: (3,3) supercell at sigma = 1.08 (|lambda_1| = 11.224,
+denser: red density 0.1945, 27 discs/period).  Raster stage: sample max 46; certifier-driven
+stage passes 62 ... 54 with no LP step; 52 fails (81 arcs).  certify.py: **k=54 CERTIFIED**
+(50 s), k=53 FAILS (theta = 176.769 deg); cert2.py: ALL ARCS OK (k=54, 4054 arcs).
+(slp3_3_3_1.10.json[2] gave 58 passing / 56 failing.)
