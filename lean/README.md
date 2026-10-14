@@ -15,7 +15,7 @@ This package formally verifies:
 * `OAI.HNN.euclidean_transfer_set`: for every `n ≥ 2` and countable set `D` of positive algebraic distances, a
   `D`-avoiding coloring of `EuclideanSpace ℝ (Fin n)` yields measurable, disjoint, conull, `D`-avoiding classes.
 * `OAI.HNN.colors_ge_of_densityE`, `no_6_coloring_R3` … `no_52_coloring_R8`, `exists_finite_not_colorableE`.
-* `OAI.HN3.exists_finite_not_six_colorable`, `OAI.HN3.Indep.finite_ratio_of_density`, `OAI.HN3.Indep.alpha1_le_m1`.
+* `OAI.HN3.exists_finite_not_six_colorable`, `OAI.HN3.Indep.finite_ratio_of_density`, `OAI.HN3.Indep.alpha1_le_m1`, `OAI.HN3.Indep.alpha1_eq_m1`.
 
 ## Contents
 * `OAI/HN3/*.lean` (about 3,800 lines) and `OAI/HNN/*.lean` (about 2,200 lines): the new development.

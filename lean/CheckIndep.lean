@@ -1,4 +1,4 @@
-import OAI.HN3.IndepFolner
+import OAI.HN3.IndepEq
 open OAI.HN3 OAI.HN3.Indep
 
 #check @finite_ratio_of_density
@@ -11,3 +11,6 @@ open OAI.HN3 OAI.HN3.Indep
 #print axioms alpha1_le_m1
 #check @alpha1_le_of_DOV
 #print axioms alpha1_le_of_DOV
+
+#check @OAI.HN3.Indep.alpha1_eq_m1
+#print axioms OAI.HN3.Indep.alpha1_eq_m1
