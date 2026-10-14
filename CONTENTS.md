@@ -1,6 +1,6 @@
 # Manuscript collection
 
-**2 manuscripts covering 10 result families.**
+**3 manuscripts covering 10 result families.**
 
 ## Manuscript map
 
@@ -50,9 +50,9 @@ We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with 
 <tbody><tr>
 <td>
 
-&emsp;[A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf)
+&emsp;[Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf)
 
-We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with six colors contains two points at distance 1 of the same color, so χ(ℝ³) ≥ 7. The proof extends OpenAI's planar transfer principle to every dimension and to every finite set of algebraic distances by torus averaging, and records consequences for finite graphs and for many forbidden distances.
+Every finite coloring of the plane has, for all large n, monochromatic pairs at distance 2ⁿ and at distance n!; the number of colors needed to avoid r distances grows exponentially (Erdős #706), with explicit distance sets; quantitative bounds for odd, lacunary and two-distance problems; the main qualitative statements are formally verified in Lean.
 
 </td>
 </tr></tbody>
@@ -130,7 +130,7 @@ We prove χ(ℝ², {1, (√2+√6)/2}) ≥ 7 with explicit SAT- and exact-arithm
 <tbody><tr>
 <td>
 
-&emsp;[A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf)
+&emsp;[Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf)
 
 </td>
 </tr></tbody>
@@ -144,7 +144,7 @@ We prove χ(ℝ², {1, (√2+√6)/2}) ≥ 7 with explicit SAT- and exact-arithm
 <tbody><tr>
 <td>
 
-&emsp;[A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf)
+&emsp;[Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf)
 
 </td>
 </tr></tbody>
@@ -158,7 +158,7 @@ We prove χ(ℝ², {1, (√2+√6)/2}) ≥ 7 with explicit SAT- and exact-arithm
 <tbody><tr>
 <td>
 
-&emsp;[A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf)
+&emsp;[Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf)
 
 </td>
 </tr></tbody>

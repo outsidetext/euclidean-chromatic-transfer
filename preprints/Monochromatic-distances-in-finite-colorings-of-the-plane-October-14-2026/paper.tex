@@ -1,0 +1,234 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{booktabs}
+\usepackage[no-math]{fontspec}
+\newfontfamily\leanfont{Menlo}[Scale=0.8]
+\usepackage{fancyvrb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\PP}{\mathbb{P}}
+\DeclareMathOperator{\Haar}{Haar}
+
+\title[Monochromatic distances in finite colorings of the plane]{Monochromatic distances in finite colorings of the plane}
+\author{Henry Bass}
+\date{October 2026}
+
+\begin{document}
+\begin{abstract}
+We show that every coloring of the plane with finitely many colors has, for all sufficiently large $n$, two points of the same color at distance $2^n$, and two at distance $n!$, answering questions of Soifer and of Kahle. More generally no finite coloring avoids an unbounded set of algebraic distances. We also show that the number of colors needed to avoid $r$ distances in the plane grows exponentially in $r$, answering Erd\H{o}s Problem \#706 in the negative, with explicit distance sets: every coloring avoiding the distances $1,q,\dots,q^{K-1}$ uses more than $\frac{22}{15}(2.5^K-1)$ colors when $q\ge4096$ is algebraic. These results, and a quantitative form of Soifer's question, are formally verified in Lean~4 with only the standard axioms.
+
+The proofs combine the transfer principle of OpenAI's proof that the plane is not five-colorable, extended to sets of algebraic distances, with explicit Fourier certificates. They also give quantitative bounds: every $k$-coloring of the plane has a monochromatic odd distance below $18k^2$, a monochromatic distance $2^i<k^{6.2}$, and a monochromatic distance in any set meeting every interval $[X,2X]$ below a fixed power of $k$; in $\R^3$ the odd distance can be taken at most $k$. For two distances, $\chi(\R^2,\{1,d\})\ge7$ for every algebraic $d\ge7$, and $\ge10$ for $d\ge150$.
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+
+For a set $D\subset(0,\infty)$ let $\chi_D(\R^n)=\chi(\R^n,D)$ be the least number of colors in a coloring of $\R^n$ with no two points of the same color at a distance in $D$; no regularity is imposed on the color classes. For $D=\{1\}$ this is the chromatic number of $\R^n$; in the plane OpenAI~\cite{OAI} recently proved $\chi(\R^2)\ge6$. Its first step is a transfer theorem: a proper coloring of the plane yields a measurable coloring whose monochromatic unit pairs form a null set. In a companion paper~\cite{BassR3} we extend the transfer to every dimension and to every countable set of algebraic distances, with a Lean formalization; Crocker~\cite{Crocker} independently stated the same extension conditionally on~\cite[Theorem 2.3]{OAI}. This paper develops the consequences for colorings that avoid several distances.
+
+Three questions motivate it. Erd\H{o}s asked whether $\sup_{|D|=r}\chi_D(\R^2)$ grows polynomially in $r$~\cite{Erdos81,EP}; the best lower bound was of order $r\sqrt{\log r}$~\cite{CFG,Naslund}. Davies proved that every finite coloring of the plane has a monochromatic pair at an odd distance~\cite{DaviesOdd}, and Davies, McCarty and Pilipczuk did the same for primes and polynomial values~\cite{DMP}. They asked whether powers of $2$ (Soifer) and factorials (Kahle) behave likewise, and remarked that they knew of no infinite subset of $\mathbb N$ that a finite coloring of the plane can avoid. Davies~\cite{Davies} answered the analogous questions in dimensions $n\ge4$ for distances with rational squares.
+
+\emph{Relation to~\cite{Crocker}.} Crocker's note states the transfer for algebraic distance sets, the unavoidability of unbounded sets, and the exponential growth for widely separated distances, conditionally on~\cite[Theorem 2.3]{OAI} and without explicit distances or quantitative bounds. Here the qualitative statements are machine-checked, which makes them unconditional relative to the Lean kernel since~\cite[Theorem 2.3]{OAI} is itself formalized, and the distance sets and bounds are explicit.
+
+\subsection*{Acknowledgements}
+The results and the Lean formalization were developed with the assistance of Claude (Anthropic). The planar transfer and its formalization are due to~\cite{OAI}.
+
+\section{Transfer for sets of algebraic distances}\label{sec:multi}
+
+
+For a finite set $D\subset(0,\infty)$ let $\chi_D(\R^n)=\chi(\R^n,D)$ be the least number of colors in a coloring of $\R^n$ with no monochromatic pair at a distance in $D$, and let $m_D(\R^n)$ be the supremal upper density of a measurable set with no two points at a distance in $D$. Let $F_n(k)=\sup_{|D|=k}\chi_D(\R^n)$. Erd\H{o}s~\cite{Erdos81} asked whether $F_2(k)$ grows polynomially in $k$ (Bukh~\cite{Bukh} records this as a conjecture), and Croft, Falconer and Guy~\cite[Problem G11]{CFG} asked whether it grows exponentially. In the plane the best lower bound was $F_2(k)\ge ck\sqrt{\log k}$, from the square grid~\cite{CFG,Naslund}. Bukh~\cite{Bukh} answered the measurable version: $m_D(\R^n)\ge m_1(\R^n)^k$ for every $k$-element $D$, and $m_{t_1D_1\cup\dots\cup t_kD_k}(\R^n)\to\prod_i m_{D_i}(\R^n)$ when all ratios $t_i/t_{i+1}$ tend to infinity. Davies~\cite[Theorems 1.2, 1.3]{Davies} transferred this to arbitrary colorings in dimensions $n\ge4$ for distances with rational squares. Crocker~\cite[Corollaries 8.2, 8.3]{Crocker} states the following theorem conditionally on~\cite[Theorem 2.3]{OAI}, including the application to the questions of Soifer and Kahle.
+
+\begin{theorem}\label{thm:E}
+Let $n\ge2$.
+\begin{enumerate}
+\item For every finite set $D$ of positive real algebraic numbers, $\chi_D(\R^n)\ge1/m_D(\R^n)$.
+\item For every $k\ge1$ and $\varepsilon>0$ there is $R$ such that $\chi_D(\R^n)\ge(m_1(\R^n)+\varepsilon)^{-k}$ for every set $D=\{d_1<\dots<d_k\}$ of positive real algebraic numbers with $d_{i+1}/d_i\ge R$. In particular
+\[
+F_2(k)\ \ge\ m_1(\R^2)^{-k}\ >\ 4.0486^k\qquad\text{and}\qquad F_3(k)\ \ge\ m_1(\R^3)^{-k}\ >\ 6.523^k .
+\]
+\item For every coloring of $\R^n$ with finitely many colors there is $R>0$ such that every positive real algebraic $r\notin[1/R,R]$ is the distance between two points of the same color (which color may depend on $r$).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) This is the transfer for sets of algebraic distances of~\cite{BassR3}, formalized there as \texttt{euclidean\_transfer\_set}; we recall the argument. One runs the transfer proof of~\cite{BassR3} (and, in the plane, of~\cite[Section 4]{OAI}) with the unit sphere replaced by the spheres of radii $d\in D$. The one-label transfer of~\cite{BassR3} holds with the hypothesis and conclusion stated for $|a|\in D$ and $|x|\in D$, with the same proof. Properness gives $\langle f_i,T_af_i\rangle=0$ for algebraic $a$ with $|a|\in D$. The block step uses only the twisted rigidity lemma of~\cite{BassR3}, whose conclusion holds at every generic $a$ regardless of its length, because~\cite[Theorem 2.3]{OAI} gives zero correlation at every nonzero $z\in E$. In odd dimension the axis step uses the curves $t\mapsto(\sqrt{d^2-t^2}\,u,t)$, $|t|<d$, which consist of algebraic points because $d$ is algebraic and $F$ is real closed, with test functions $\varphi\in C_c((-d,d))$. Algebraic points are dense on each sphere of algebraic radius. The density-point lemma~\cite[Lemma 4.3]{OAI} applies to each $d\in D$. So a proper $k$-coloring yields $k$ measurable $D$-avoiding sets covering $\R^n$ up to a null set, and one of them has upper density at least $1/k$.
+
+(2) Since $m_D$ is scale-invariant, it depends only on the consecutive ratios of $D$. If for some $\varepsilon$ no $R$ worked, there would be sets $D_j$ with all consecutive ratios at least $j$ and $m_{D_j}>(m_1+\varepsilon)^k$, contradicting~\cite[Theorem 1]{Bukh} with $D_i=\{1\}$ (whose distances are listed in decreasing order there). Hence there is $R$ with $m_D(\R^n)\le(m_1(\R^n)+\varepsilon)^k$ whenever all consecutive ratios are at least $R$. Choosing the $d_i$ rational shows that $F_n(k)\ge(m_1+\varepsilon)^{-k}$ for every $\varepsilon$. The numerical bounds use $m_1(\R^2)\le0.246998$~\cite[Section 8]{ACMVZ} and $m_1(\R^3)\le0.1532996$~\cite{DOV}.
+
+(3) Let the coloring use $c$ colors, and let $B$ be the set of real algebraic $r>0$ that are not monochromatic distances. Choose $k$ with $(m_1(\R^n)+\varepsilon)^{-k}>c$ for some $\varepsilon>0$, and let $R_k$ be as in (2). If $B$ were unbounded, it would contain $d_1<\dots<d_k$ with $d_{i+1}/d_i\ge R_k$. The coloring avoids $D=\{d_1,\dots,d_k\}$, so $c\ge\chi_D(\R^n)>c$, a contradiction. If $B$ contained elements arbitrarily close to $0$, choose instead $d_k<\dots<d_1$ in $B$ with $d_i/d_{i+1}\ge R_k$; the same contradiction follows.
+\end{proof}
+
+By the de Bruijn--Erd\H{o}s theorem, $F_2(k)$ is also the supremum of the chromatic numbers of finite graphs in the plane whose edges are the pairs at distances in a $k$-element set. So (2) answers Erd\H{o}s Problem \#706 of~\cite{EP}, ``is it true that $L(r)\le r^{O(1)}$?'', in the negative. Davies~\cite[Theorem 1.2]{Davies} states Bukh's limit in the same uniform form for $n\ge4$.
+
+Part (3) is the analogue for arbitrary colorings of the theorem of Furstenberg, Katznelson and Weiss~\cite{FKW} that a measurable set of positive upper density realizes every sufficiently large distance. In the plane it contains, as special cases, that every finite coloring has a monochromatic pair at an odd distance~\cite{DaviesOdd} and at a prime distance~\cite{DMP}. It strengthens these to \emph{all} sufficiently large integers. It also answers the questions of Soifer and of Kahle recorded in~\cite[Problems 5.4, 5.5]{DMP}: every finite coloring of the plane has a monochromatic pair at distance $2^j$, and one at distance $j!$, for all sufficiently large $j$. The authors of~\cite{DMP} remark that they do not know a single infinite subset of $\mathbb N$ that a finite coloring of the plane can avoid. By (3) there is none, and the same holds for infinite sets of algebraic numbers that are unbounded or accumulate at $0$.
+
+
+\section{Fourier certificates and quantitative bounds}\label{sec:quant}
+
+Theorem~\ref{thm:E}(1) also turns quantitative density bounds into bounds for arbitrary colorings. Let $D\subset(0,\infty)$ be finite. If real numbers $v_d$ ($d\in D$) satisfy
+\begin{equation}\label{eq:LPcert}
+h(t)\;=\;1+\sum_{d\in D}v_d\,J_0(dt)\ \ge\ 0\qquad(t\ge0),
+\end{equation}
+then $m_D(\R^2)\le 1/(1+\sum_d v_d)$~\cite{OV}. Since $D$ is bounded, $m_D$ is the supremum of the densities of periodic $D$-avoiding sets (truncate to a large cube, remove a boundary layer of width $\max D$, and repeat periodically, as in~\cite[Lemma 2.2]{Crocker}). The radial autocorrelation $f$ of a periodic $D$-avoiding set of density $\delta$ is $f(r)=\int J_0(tr)\,d\mu(t)$ for a positive measure $\mu$ of mass $\delta$ with $\mu(\{0\})\ge\delta^2$, and $f(d)=0$ for $d\in D$. Hence $\delta=\int h\,d\mu\ge h(0)\delta^2$.
+
+\begin{theorem}\label{thm:odd}
+For every $N\ge1$, $\chi(\R^2,\{1,3,5,\dots,2N-1\})\ge 1+N/(2.5\sqrt N+1)$. Consequently every coloring of the plane with $k$ colors has two points of the same color at an odd distance less than $18k^2$.
+\end{theorem}
+
+\begin{proof}
+Let $F_N(x)=\sum_{|j|<N}(1-|j|/N)e^{ijx}=\sin^2(Nx/2)/(N\sin^2(x/2))$ be the Fej\'er kernel, and $P(u)=\cos u\,F_N(2u)$. Expanding the product shows $P(u)=\sum_{j=0}^{N-1}c_j\cos((2j+1)u)$ with $c_j\ge0$ and $\sum_jc_j=P(0)=N$. By $J_0(x)=\frac1\pi\int_0^\pi\cos(x\sin\theta)\,d\theta$,
+\[
+G(t):=\sum_jc_jJ_0((2j+1)t)=\frac2\pi\int_0^{\pi/2}P(t\sin\theta)\,d\theta\ \ge\ -\frac2\pi\int_{\{u\in[0,t]:\cos u<0\}}\frac{F_N(2u)\,du}{\sqrt{t^2-u^2}} .
+\]
+The integral is empty for $t\le\pi/2$. Use $F_N(2u)\le\min(N,\pi^2/(4Ns^2))$ with $s=\operatorname{dist}(u,\pi\mathbb Z)$, $\int F_N(2u)\,du=\pi$ over each period, and $(t^2-u^2)^{-1/2}\le(t(t-u))^{-1/2}$. The peaks of $F_N(2u)$ in $\{\cos u<0\}$ sit at odd multiples of $\pi$, which are $2\pi$ apart. A peak $u_\ell$ with $t-u_\ell\ge\pi$ contributes at most $\pi\sqrt2/\sqrt{t(t-u_\ell)}$, and these values of $t-u_\ell$ are at least $\pi$ and $2\pi$ apart, so together they contribute at most $\sqrt{2\pi/t}\,\sum_{m\le t/(2\pi)}(2m-1)^{-1/2}\le\sqrt2$. At most one peak lies in $(t-\pi,t+\pi/2)$, since the peaks are $2\pi$ apart. Its contribution is bounded by the Hardy--Littlewood rearrangement inequality. The one-sided kernel $y^{-1/2}\mathbf 1_{y>0}$ has symmetric decreasing rearrangement $(2|y|)^{-1/2}$, so the bound is $t^{-1/2}\int_{\R}\min(N,\pi^2/(4Ns^2))(2|s|)^{-1/2}ds=\tfrac83\sqrt{\pi}\sqrt N\,t^{-1/2}$, with $t\ge\pi/2$. Altogether $G(t)\ge-\frac2\pi\bigl(\tfrac{8}{3}\sqrt{\pi}\sqrt{2/\pi}\,\sqrt N+\sqrt2\bigr)\ge-(2.5\sqrt N+1)$, so~\eqref{eq:LPcert} holds with $v_{2j+1}=c_j/(2.5\sqrt N+1)$. This gives $m_D(\R^2)\le(1+N/(2.5\sqrt N+1))^{-1}$, and Theorem~\ref{thm:E}(1) gives the first claim. For the second, take $N=9k^2$, for which $N/(2.5\sqrt N+1)\ge k$.
+\end{proof}
+
+For measurable colorings the order $\sqrt N$ is implicit in Steinhardt's spectral argument~\cite{Steinhardt}. For arbitrary colorings, the proof in~\cite{DaviesOdd} that the odd-distance graph has infinite chromatic number is not quantitative: it gives no explicit bound on the odd distance.
+
+\begin{theorem}\label{thm:lacunary}
+Let $q\ge4096$ be a real algebraic number and $K\ge1$. Then
+\[
+\chi\bigl(\R^2,\{1,q,q^2,\dots,q^{K-1}\}\bigr)\ \ge\ 1+\tfrac{22}{15}\bigl(2.5^K-1\bigr).
+\]
+Consequently $\sup_{|D|=k}\chi_D(\R^2)\ge 2.5^k$ with explicit distance sets $D$, and every coloring of the plane with $k\ge2$ colors has two points of the same color at a distance $2^i<k^{6.2}$.
+\end{theorem}
+
+\begin{proof}
+Put $\lambda=5/2$, $v_j=\frac{11}{5}\lambda^j$, $A=\tfrac12$, $\rho=0.4028\ge-\min J_0$, and $\kappa=\sqrt{2/(\pi A)}\,\frac{\lambda/\sqrt q}{1-\lambda/\sqrt q}\le0.046$. We use $J_0\ge-\rho$, $J_0(x)\ge1-x^2/4$, and $|J_0(x)|\le\sqrt{2/(\pi x)}$ for $x>0$. Fix $t>0$ and let $m$ be the largest index $j\le K-1$ with $q^jt\le A$, or $m=-1$ if there is none. The terms with $j\le m$ have arguments at most $Aq^{j-m}$ and contribute at least $\sum_{j\le m}v_j-\frac{A^2}{4}v_m(1+10^{-6})$. The term $j=m+1$ contributes at least $-\rho v_{m+1}$. The terms $j\ge m+2$ have arguments greater than $Aq^{j-m-1}$ and contribute at least $-\kappa v_{m+1}$. Hence
+\[
+h(t)=1+\sum_jv_jJ_0(q^jt)\ \ge\ 1+v_m\Bigl(\tfrac{\lambda(1-\lambda^{-m-1})}{\lambda-1}-\tfrac{A^2}{4}(1+10^{-6})-\rho\lambda-\kappa\lambda\Bigr)
+\]
+for $m\ge0$, and $h(t)\ge1-v_0(\rho+\kappa)$ for $m=-1$. The bracket is at least $1.4-0.063-1.007-0.115>0$ for $m\ge1$. For $m=0$ it is at least $1-0.063-1.007-0.115>-0.19$, and $1-\frac{11}{5}\cdot0.19>0$. For $m=-1$, $1-\frac{11}{5}(0.4028+0.046)>0$. So~\eqref{eq:LPcert} holds, $\sum_jv_j=\frac{22}{15}(2.5^K-1)$, and Theorem~\ref{thm:E}(1) applies. For the last claim, rerun the argument with $q=32$, $\lambda=1.75$, $v_j=\frac54\lambda^j$ and $A=0.83$. Then $\kappa\le0.3923$, and the loss term is $\frac{A^2}{4}(1-\frac1{\lambda q^2})^{-1}\le0.1724$. The three cases give brackets $1.5714-0.1724-0.7049-0.6866>0$, then $1+\frac54(1-0.1724-0.7049-0.6866)>0$, then $1-\frac54(0.40276+0.3923)>0$. So $\chi(\R^2,\{32^j:j<K\})\ge1+\frac53(1.75^K-1)$. With $K=\lceil\log_{1.75}k\rceil$ this exceeds $k$, so some $32^j$ with $j\le K-1$ is a monochromatic distance, and $32^{K-1}<k^{5/\log_21.75}<k^{6.2}$.
+\end{proof}
+
+In $\R^3$ the radial kernel is $\Omega_3(x)=\sin x/x$, and the odd-distance bound becomes linear.
+
+\begin{theorem}\label{thm:odd3}
+For every $N\ge1$, $\chi(\R^3,\{1,3,\dots,2N-1\})\ge 1+2N$. Consequently every coloring of $\R^3$ with $k$ colors has two points of the same color at an odd distance at most $k$.
+\end{theorem}
+
+\begin{proof}
+With $c_j$ as in the proof of Theorem~\ref{thm:odd} and $P(u)=\cos u\,F_N(2u)$,
+\[
+G_3(t):=\sum_jc_j\,\Omega_3((2j+1)t)=\frac1t\int_0^tP(u)\,du=\frac1t\sum_jc_j\frac{\sin((2j+1)t)}{2j+1}=\frac{\pi}{2t}\,\sigma(t),
+\]
+where $\sigma$ is the Fej\'er mean of order $2N$ of the square wave $\operatorname{sgn}(\sin t)$, since $c_j=2(1-\frac{2j+1}{2N})$ for $j<N$. Hence $|\sigma|\le1$. On $[0,\pi]$, $\sigma\ge0$: the partial sums $\sum_{j\le n}\sin((2j+1)t)/(2j+1)=\int_0^t\frac{\sin(2(n+1)u)}{2\sin u}\,du$ are positive on $(0,\pi)$ (Fej\'er; see~\cite[\S 4.1]{AAR}), and Abel summation with the decreasing coefficients $c_j$ preserves this. So $G_3(t)\ge0$ for $t\le\pi$ and $G_3(t)\ge-\pi/(2t)\ge-\frac12$ for $t\ge\pi$. The certificate $v_{2j+1}=2c_j$ satisfies~\eqref{eq:LPcert} with $\Omega_3$ in place of $J_0$, so $m_D(\R^3)\le(1+2N)^{-1}$, and Theorem~\ref{thm:E}(1) gives the first claim. For the second, take $N=\lceil k/2\rceil$.
+\end{proof}
+
+Since at most four points of $\R^3$ have pairwise odd distances, this bound is not a clique bound. The optimal certificates give about $5.3N$.
+
+The proof uses only that consecutive distances have ratio at least $q$: the arguments satisfy $d_jt\le Aq^{j-m}$ for $j\le m$ and $d_jt>Aq^{j-m-1}$ for $j>m$. So the bounds hold for any $K$ positive algebraic distances $d_0<\dots<d_{K-1}$ with $d_{j+1}/d_j\ge q$. Since $(n+1)!/n!=n+1\ge32$ for $n\ge31$, the second parameter set gives a quantitative form of Kahle's question.
+
+\begin{corollary}\label{cor:kahle}
+Every coloring of the plane with $k\ge2$ colors has two points of the same color at distance $n!$ for some $n\le 31+\log_{1.75}k$.
+\end{corollary}
+
+\begin{corollary}\label{cor:dense}
+Let $S$ be a set of positive real algebraic numbers that meets every interval $[X,2X]$ with $X\ge X_0$; for example the primes, the integers and the powers of $2$ ($X_0=1$), or the perfect squares ($X_0=2$). Then every coloring of the plane with $k\ge2$ colors has two points of the same color at a distance $s\in S$ with $s\le2X_0k^{7.44}$.
+\end{corollary}
+
+\begin{proof}
+Choose $s_0\in S\cap[X_0,2X_0]$ and $s_{j+1}\in S\cap[32s_j,64s_j]$. With $K=\lceil\log_{1.75}k\rceil$, the distances $s_0,\dots,s_{K-1}$ have consecutive ratios at least $32$, so some $s_j$ with $j\le K-1$ is monochromatic, and $s_{K-1}\le2X_0\cdot64^{K-1}<2X_0k^{6/\log_21.75}<2X_0k^{7.44}$. For integer-valued polynomials with positive leading coefficient the hypothesis holds for some $X_0$ depending on the polynomial.
+\end{proof}
+
+This makes the theorems of~\cite{DaviesOdd,DMP} on odd, prime and polynomial distances effective, with polynomial bounds. For odd distances Theorem~\ref{thm:odd} gives the better bound $18k^2$.
+
+For lacunary distances in $\R^3$ the Bessel function is likewise replaced by $\Omega_3(x)=\sin x/x$, which satisfies $\Omega_3\ge-0.21724$, $\Omega_3(x)\ge1-x^2/6$ and $|\Omega_3(x)|\le1/x$. The same case analysis with $\lambda=4$, $v_j=4\lambda^j$, $A=\frac12$ and $\kappa=2\frac{\lambda/q}{1-\lambda/q}\le0.0318$ gives the following, with brackets at least $0.21$, $-0.04$ and $1-4(0.21724+0.0318)>0$ in the three cases.
+
+\begin{theorem}\label{thm:lacunary3}
+For real algebraic $q\ge256$ and $K\ge1$, $\chi(\R^3,\{1,q,\dots,q^{K-1}\})\ge1+\frac43(4^K-1)$. Consequently every coloring of $\R^3$ with $k\ge2$ colors has two points of the same color at a distance $2^i<k^{2.58}$; for this take $q=8$, $\lambda=2.24$, $v_j=1.99\lambda^j$, $A=1.38$, with brackets $1.4464-0.3197-0.4867-0.6313>0$, $1+1.99(1-0.3197-0.4867-0.6313)>0$ and $1-1.99(0.21724+0.2818)>0$, so that $\chi(\R^3,\{8^j:j<K\})\ge1+1.6(2.24^K-1)$ and $8^{\lceil\log_{2.24}k\rceil-1}<k^{2.58}$.
+\end{theorem}
+
+For two distances a direct two-term certificate does better.
+
+\begin{corollary}\label{cor:twodist}
+For every real algebraic $d\ge10^4$, $\chi(\R^2,\{1,d\})\ge12$ and $\chi(\R^3,\{1,d\})\ge31$. For $d\ge10^{10}$, $\chi(\R^2,\{1,d\})\ge13$.
+\end{corollary}
+
+\begin{proof}
+Take $h(t)=1+aJ_0(t)+bJ_0(dt)$ and $A>0$. If $t>A$, then $h\ge1-\rho a-b\sqrt{2/(\pi dA)}$. If $t\le A<dt$, then $h\ge1+a(1-A^2/4)-\rho b$. If $dt\le A$, both Bessel values are positive. With $\rho=0.40276$, $A=0.3$, $a=2.1976$, $b=7.8131$ the first two bounds are $0.0011$ and $0.0013$ for all $d\ge10^4$, and $1+a+b>11$. With $A=0.05$, $a=2.4794$, $b=8.6317$ they are $0.0011$ and $0.0013$ for $d\ge10^{10}$, and $1+a+b>12$. In $\R^3$, use $\Omega_3$, $\rho=0.21724$, $1-A^2/6$ and the envelope $1/(dA)$, with $A=0.3$, $a=4.5595$, $b=25.2703$: the bounds are $0.0010$ and $0.0013$, and $1+a+b>30$.
+\end{proof}
+
+Covering a range of $d$ by intervals, each with a single certificate valid for all its values of $d$, gives the following.
+
+\begin{theorem}\label{thm:seven}
+For every real algebraic $d\in[1.77,1.92]\cup[7,\infty)$, $\chi(\R^2,\{1,d\})\ge7$.
+\end{theorem}
+
+\begin{proof}
+For $d\ge10^4$ this follows from Corollary~\ref{cor:twodist}. For $d\in[d_1,d_2]\subset[7,10^4]$ we use $h(t)=1+aJ_0(t)+bJ_0(dt)$ with $b\ge0$ and bound $J_0(dt)$ below by $\min\{J_0(x):d_1t\le x\le d_2t\}$, computed from a tabulation of $J_0$ on $[0,2050]$ with spacing $10^{-4}$ and a grid error term, and by $-\sqrt{2/(\pi d_1t)}$ when $d_1t>2000$. Positivity is checked on a $t$-grid with a Lipschitz margin, and beyond a cutoff $T$ by the envelope bound. Thirteen intervals cover $[7,10^4]$ and two cover $[1.77,1.92]$, each with $1+a+b>6$. The intervals and coefficients are listed in the accompanying files. All covers in this section were re-verified independently with ball arithmetic (Arb), including the exact decimal endpoints, with margins at least $0.01$.
+\end{proof}
+
+The same method certifies larger values: $\chi(\R^2,\{1,d\})\ge8$ for every algebraic $d\ge16$, $\ge9$ for $d\ge40$, and $\ge10$ for $d\ge150$, using $12$, $11$ and $10$ intervals in $[16,10^4]$, $[40,10^4]$ and $[150,10^4]$ together with Corollary~\ref{cor:twodist}.
+
+The same certificate shows that measurable sets avoiding $\{1,q,\dots,q^{K-1}\}$ have density at most $(1+\frac{22}{15}(2.5^K-1))^{-1}$. By Bukh's theorem the optimal base for widely separated distances is $1/m_1(\R^2)>4.04$, but that version gives no explicit distances. Numerically, the optimal certificates in~\eqref{eq:LPcert} give about $2.9\sqrt N$ for odd distances, about $1.3^K$ for $D=\{1,2,4,\dots,2^{K-1}\}$, and faster than linear growth for $D=\{1,4,9,\dots,N^2\}$. Rounded and shrunk rational solutions certify the following. Each is checked in floating point on a grid with margin $0.03$ against a Lipschitz error of at most $0.005$, together with the bound $|J_0(x)|\le\sqrt{2/(\pi x)}$, valid for all $x>0$~\cite[\S13.74]{Watson}, beyond the grid.
+
+\begin{corollary}\label{cor:explicit}
+Every coloring of the plane with $k$ colors has two points of the same color at a distance in $D$, for
+\[
+\begin{array}{ll}
+k=6:& D=\{1,3,5,7\};\\
+k=8:& D=\{1,3,5,\dots,15\};\\
+k=10:& D=\{2,3,5,7\};\\
+k=16:& D=\{1,2,4,8,16,32\};\\
+k=18:& D=\{1,4,9,\dots,64\}.
+\end{array}
+\]
+\end{corollary}
+
+
+\section{Formal verification}\label{sec:lean}
+
+The Lean development builds on the library of~\cite{OAI} and on the formalization of the transfer in~\cite{BassR3} (\texttt{OAI.HNN.euclidean\_transfer\_set}).
+\begin{itemize}
+\item \texttt{OAI/Soifer} (about 750 lines) proves the weak form of the Furstenberg--Katznelson--Weiss theorem needed here, by Parseval on a torus of side $3T$ and the circle decay bound of~\cite{OAI}: a measurable set in the plane of positive upper density cannot avoid every distance of an unbounded set. Combined with \texttt{euclidean\_transfer\_set} this gives \texttt{mono\_distance\_of\_unbounded} (Theorem~\ref{thm:E}(3) for unbounded sets of algebraic distances) and \texttt{soifer}, \texttt{kahle}:
+\begin{Verbatim}[fontsize=\small]
+theorem soifer {k : Nat} [NeZero k] (c : EuclideanSpace R (Fin 2) -> Fin k) :
+    exists N : Nat, forall n >= N, exists x y, dist x y = (2:R)^n /\ c x = c y
+\end{Verbatim}
+and the same with $n!$ in place of $2^n$, and for every $n\ge2$ in place of the plane. The same directory also contains a torus version of the Delsarte bound (\texttt{torus\_delsarte}) and a lacunary certificate built from $|\hat\sigma|\le1$, $\operatorname{Re}\hat\sigma(\xi)\ge1-2\pi^2|\xi|^2$ and the decay bound of~\cite{OAI}, proved by induction on $K$. Together they give \texttt{lacunary\_chromatic}: every coloring of the plane avoiding the distances $(10^6)^j$, $j<K$, uses at least $\frac49(3/2)^K$ colors. Hence \texttt{erdos706\_not\_polynomial}: for all $C$ and $e$ there is a $K$-element set of integer distances that no coloring of the plane with at most $CK^e$ colors avoids. By compactness (\texttt{erdos706\_finite}) the same holds for a finite point set $P$, as in Erd\H{o}s's formulation. The certificate works for every $q\ge10^6$, and with $q=2^{20}$ it gives \texttt{soifer\_quantitative}: every coloring of the plane with $k$ colors has two points of the same color at a distance $2^i$ with $i\le 20(2\lfloor\log_2 9k\rfloor+2)$, a formal version, with a weaker exponent, of the last claim of Theorem~\ref{thm:lacunary}. This is a formal negative answer to Erd\H{o}s Problem \#706.
+\end{itemize}
+\texttt{\#print axioms} reports only \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound} for every statement listed. The Fourier certificates of Section~\ref{sec:quant}, other than the lacunary one, and Bukh's theorem used in Theorem~\ref{thm:E}(2) are not formalized.
+
+\section{Remarks}
+\emph{Algebraic versus transcendental distances.} Bukh~\cite{Bukh} wrote that it is very likely that the ordinary chromatic number does not share the exponential growth of the measurable one, and conjectured that $\chi_D(\R^n)$ is bounded when the elements of $D$ are algebraically independent; Davies, McCarty and Pilipczuk~\cite[Conjecture 5.6]{DMP} record the stronger form that an algebraically independent unbounded set can be avoided by a finite coloring of the plane. Theorem~\ref{thm:E} shows that for algebraic distances the exponential growth does transfer. As far as we can see, the only step of the transfer that uses algebraicity is the number-field argument in the proof of~\cite[Theorem 2.3]{OAI} (Lemma 3.4 and \S3.5 there); the other steps appear to work over any countable real closed subfield $F\subset\R$ with $E=F(i)$. Consequently, if the rigidity theorem held for $E=F(i)$ with $F$ the real closure of $\Q(S)$ for an unbounded algebraically independent set $S$, then the argument of Theorem~\ref{thm:E}(3) would show that no finite coloring of the plane avoids $S$, contradicting that conjecture. Either the rigidity theorem is genuinely arithmetic, or the conjecture fails. In dimension one the transfer fails already for $D=\{1,\sqrt2\}$: a Hamel-basis parity coloring avoids $D$ with two colors, while no measurable two-coloring does.
+
+
+\begin{thebibliography}{99}
+\bibitem{ACMVZ} G.~Ambrus, A.~Csisz\'arik, M.~Matolcsi, D.~Varga, P.~Zs\'amboki, \emph{The density of planar sets avoiding unit distances}, Math.\ Program.\ (2023); arXiv:2207.14179.
+\bibitem{Bukh} B.~Bukh, \emph{Measurable sets with excluded distances}, Geom.\ Funct.\ Anal.\ 18 (2008), 668--697; arXiv:math/0703856.
+\bibitem{DOV} E.~DeCorte, F.~M.~de Oliveira Filho, F.~Vallentin, \emph{Complete positivity and distance-avoiding sets}, Math.\ Program.\ (2022); arXiv:1804.09099.
+\bibitem{Crocker} C.~Crocker, \emph{A conditional transfer for colourings of $\R^n$, with the conditional consequence $\chi(\R^3)\ge7$}, Zenodo (10 October 2026), doi:10.5281/zenodo.23273952.
+\bibitem{BassR3} H.~Bass, \emph{A machine-checked proof that three-space is not six-colorable}, preprint (October 2026).
+\bibitem{CFG} H.~T.~Croft, K.~J.~Falconer, R.~K.~Guy, \emph{Unsolved Problems in Geometry}, Springer, 1991 (corrected reprint 1994).
+\bibitem{DaviesOdd} J.~Davies, \emph{Odd distances in colourings of the plane}, Geom.\ Funct.\ Anal.\ (2024); arXiv:2209.15598.
+\bibitem{DMP} J.~Davies, R.~McCarty, M.~Pilipczuk, \emph{Prime and polynomial distances in colourings of the plane}, arXiv:2308.02483.
+\bibitem{Davies} J.~Davies, \emph{Measurable obstructions for unmeasurable colourings}, arXiv:2610.12301 (2026).
+\bibitem{EP} T.~F.~Bloom, \emph{Erd\H{o}s Problems}, \url{https://www.erdosproblems.com}, Problem \#706.
+\bibitem{Steinhardt} J.~Steinhardt, \emph{On coloring the odd-distance graph}, Electron.\ J.\ Combin.\ 16 (2009), N12; arXiv:0908.1452.
+\bibitem{Watson} G.~N.~Watson, \emph{A Treatise on the Theory of Bessel Functions}, 2nd ed., Cambridge Univ.\ Press, 1944.
+\bibitem{AAR} G.~E.~Andrews, R.~Askey, R.~Roy, \emph{Special Functions}, Cambridge Univ.\ Press, 1999.
+\bibitem{Erdos81} P.~Erd\H{o}s, \emph{On the combinatorial problems which I would most like to see solved}, Combinatorica 1 (1981), 25--42.
+\bibitem{FKW} H.~Furstenberg, Y.~Katznelson, B.~Weiss, \emph{Ergodic theory and configurations in sets of positive density}, in Mathematics of Ramsey Theory, Springer (1990).
+\bibitem{Naslund} E.~Naslund, \emph{The chromatic number of $\R^n$ with multiple forbidden distances}, arXiv:2205.12312.
+\bibitem{OAI} OpenAI, \emph{The Euclidean plane is not five-colorable}, preprint (2026), \url{https://github.com/openai/math}, with Lean formalization.
+\bibitem{OV} F.~M.~de Oliveira Filho, F.~Vallentin, \emph{Fourier analysis, linear programming, and densities of distance avoiding sets in $\R^n$}, J.\ Eur.\ Math.\ Soc.\ 12 (2010).
+\end{thebibliography}
+
+\end{document}
