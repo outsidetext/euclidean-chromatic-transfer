@@ -27,6 +27,12 @@ status:
     - declaration: OAI.HNN.euclidean_transfer_set
       file: OAI/HNN/Euclid.lean
 
+    - declaration: OAI.HNN.chromatic_eq_measurable_chromatic
+      file: OAI/HNN/Repair.lean
+
+    - declaration: OAI.HNN.chromatic_eq_measurable_chromatic_set
+      file: OAI/HNN/Repair.lean
+
     - declaration: OAI.HNN.colors_ge_of_densityE
       file: OAI/HNN/Corollary.lean
 

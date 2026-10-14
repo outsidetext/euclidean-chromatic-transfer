@@ -27,7 +27,7 @@ We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with 
 <tbody><tr>
 <td>
 
-**002. Transfer in every dimension and for algebraic distance sets.** For every n ≥ 2 and every countable set D of positive algebraic distances, a D-avoiding coloring of ℝⁿ yields a conull measurable partition into D-avoiding sets, so χ_D(ℝⁿ) ≥ 1/m_D(ℝⁿ). Verified in Lean, together with the conditional bounds χ(ℝⁿ) ≥ 11, 17, 23, 39, 53 for n = 4, …, 8 and their finite forms. For n ≥ 4 and rational squared distances these consequences are due to Davies.
+**002. Transfer in every dimension and for algebraic distance sets.** For every n ≥ 2 and every countable set D of positive algebraic distances, a D-avoiding coloring of ℝⁿ yields a conull measurable partition into D-avoiding sets, so χ_D(ℝⁿ) ≥ 1/m_D(ℝⁿ). Verified in Lean, together with the conditional bounds χ(ℝⁿ) ≥ 11, 17, 23, 39, 53 for n = 4, …, 8 and their finite forms. Combined with Davies's measurable-repair lemma (formalized here by density-point anchors and de Bruijn–Erdős compactness), this gives χ_D(ℝⁿ) = χ_{m,D}(ℝⁿ): the ordinary and Lebesgue-measurable chromatic numbers coincide for every n ≥ 2, in particular for the plane and for ℝ³ (Székely asked whether they can differ). Verified in Lean. For n ≥ 4 and rational squared distances these consequences are due to Davies; for the plane the equality is the combination of Davies's Lemma B.1 with OpenAI's transfer, flagged without proof by Crocker.
 
 </td>
 </tr></tbody>

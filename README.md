@@ -19,6 +19,7 @@ cd lean
 lake exe cache get              # Mathlib oleans (pinned commit d13f23b)
 lake build OAI.HNN.Corollary OAI.HN3.Finite OAI.HN3.IndepFolner OAI.Soifer.Main
 lake env lean CheckN.lean       # n-dimensional transfer and corollaries: prints axioms
+lake env lean CheckRepair.lean  # chi(R^n) = measurable chi(R^n), n >= 2: prints axioms
 lake env lean Check3.lean       # three-dimensional development
 lake env lean CheckIndep.lean   # finite graphs attain the density in R^3
 lake env lean CheckSoifer.lean  # monochromatic 2^n and n! distances (Soifer, Kahle)
