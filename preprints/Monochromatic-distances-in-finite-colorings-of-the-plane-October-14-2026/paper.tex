@@ -252,6 +252,8 @@ Let $d$ be a real algebraic number.
 (2) For $d\ge10^4$ this follows from (1). For $d\in[d_1,d_2]\subset[7,10^4]$ we use $h(t)=1+aJ_0(t)+bJ_0(dt)$ with $b\ge0$, one pair $(a,b)$ for all $d$ in the interval. We bound $J_0(dt)$ below by $\min\{J_0(x):d_1t\le x\le d_2t\}$. This minimum is computed from a tabulation of $J_0$ on $[0,2050]$ with spacing $10^{-4}$ and a grid error term, and replaced by $-\sqrt{2/(\pi d_1t)}$ when $d_1t>2000$. Positivity is checked on a $t$-grid with a Lipschitz margin, and beyond a cutoff $T$ by the envelope bound. Thirteen intervals cover $[7,10^4]$ and two cover $[1.77,1.92]$, each with $1+a+b>6$. For the bounds $8$, $9$ and $10$ we use $12$, $11$ and $10$ intervals covering $[16,10^4]$, $[40,10^4]$ and $[150,10^4]$, together with (1). The intervals and coefficients are in the accompanying files. All covers in this proposition were re-verified independently with ball arithmetic (Arb), including the exact decimal endpoints, with margins at least $0.01$.
 \end{proof}
 
+For $d\in(1.93,7)$ the Delsarte bound for $m_{\{1,d\}}(\R^2)$ exceeds $1/6$, and we could not close this range with inclusion--exclusion constraints. Inside it, $\chi(\R^2,\{1,(\sqrt2+\sqrt6)/2\})\ge7$ holds by finite certificates~\cite{BassRecords}.
+
 Theorem~\ref{thm:E}(2) with $r=2$ gives $\chi(\R^2,\{1,d\})\ge17$ and $\chi(\R^3,\{1,d\})\ge43$ for every sufficiently large algebraic $d$, since $m_1(\R^2)^{-2}\ge1/0.246998^2>16.39$ and $m_1(\R^3)^{-2}\ge1/0.1532996^2>42.55$. The threshold for $d$ is not explicit. Crocker~\cite{Crocker} notes the planar bound $17$ for large $N$. The bounds $12$, $13$ and $31$ of Proposition~\ref{prop:twodist} are versions with explicit thresholds.
 
 \subsection{Small explicit sets}
@@ -303,6 +305,7 @@ The results and the Lean formalization were developed with the assistance of Cla
 \bibitem{Bukh} B.~Bukh, \emph{Measurable sets with excluded distances}, Geom.\ Funct.\ Anal.\ 18 (2008), 668--697; arXiv:math/0703856.
 \bibitem{DOV} E.~DeCorte, F.~M.~de Oliveira Filho, F.~Vallentin, \emph{Complete positivity and distance-avoiding sets}, Math.\ Program.\ (2022); arXiv:1804.09099.
 \bibitem{Crocker} C.~Crocker, \emph{A conditional transfer for colourings of $\R^n$, with the conditional consequence $\chi(\R^3)\ge7$}, Zenodo (10 October 2026), doi:10.5281/zenodo.23273952.
+\bibitem{BassRecords} H.~Bass, \emph{Chromatic numbers of the plane with two forbidden distances: a seven-color lower bound and smaller six-chromatic graphs}, preprint (2026).
 \bibitem{BassR3} H.~Bass, \emph{A machine-checked proof that three-space is not six-colorable}, preprint (October 2026).
 \bibitem{CFG} H.~T.~Croft, K.~J.~Falconer, R.~K.~Guy, \emph{Unsolved Problems in Geometry}, Springer, 1991 (corrected reprint 1994).
 \bibitem{DaviesOdd} J.~Davies, \emph{Odd distances in colourings of the plane}, Geom.\ Funct.\ Anal.\ (2024); arXiv:2209.15598.
