@@ -1,16 +1,16 @@
 # Erdős #188 — explicit periodic upper bounds
 
-**Result: E^2 -/-> (l_2, l_54).**  There is a periodic red/blue colouring of the plane with no
-two red points at distance 1 and no blue unit-step 54-term AP.  (Previous best upper bound
+**Result: E^2 -/-> (l_2, l_49).**  There is a periodic red/blue colouring of the plane with no
+two red points at distance 1 and no blue unit-step 49-term AP.  (Previous best upper bound
 6330, Currier–Mody–Xie–Zhang, random construction; lower bound 8, ../erdos188.)
 
-* Colouring: `best.json` (= `cand_w54.json`): period lattice P with rational basis
-  (|b1| ~ |b2| ~ 11.224, angle ~ 60 deg; the (3,3)-supercell shape of a hexagonal lattice, rationalised), 27 OPEN discs of radius 1/2 per period, every two centres
-  >= 2 apart (exact rational check); red density 0.1945.  `python3 describe.py best.json`.
-* Verify: `python3 certify.py best.json 54 0.0007`  (~50 s) and independently
-  `python3 indep_claude/cert2.py best.json 54 4000`.  Logs: cert_w54_54.txt, cert2_w54.txt.
-* k = 53 is NOT certified for this colouring (certify.py fails at theta = 176.769 deg).
-* Certified history: 105 -> 85 -> 74 -> 72 -> 68 -> 56 -> 55 -> 54.
+* Colouring: `best.json` (= `cand_w49.json`): period lattice P with rational basis
+  (|b1| ~ |b2| ~ 11.328, angle ~ 60 deg; the (3,3)-supercell shape of a hexagonal lattice, rationalised), 27 OPEN discs of radius 1/2 per period, every two centres
+  >= 2 apart (exact rational check); red density 0.1908.  `python3 describe.py best.json`.
+* Verify: `python3 certify.py best.json 49 0.0007`  (~40 s) and independently
+  `python3 indep_claude/cert2.py best.json 49 4000`.  Logs: cert_w49_49.txt, cert2_w49.txt.
+* k = 48 is NOT certified for this colouring (certify.py fails at theta = 144.495 deg).
+* Certified history: 105 -> 85 -> 74 -> 72 -> 68 -> 56 -> 55 -> 54 -> 52 -> 49.
 
 Problem: least k such that R^2 can be 2-coloured with no red unit distance and no blue
 unit-step k-AP (x, x+u, ..., x+(k-1)u, |u|=1).
@@ -180,3 +180,37 @@ denser: red density 0.1945, 27 discs/period).  Raster stage: sample max 46; cert
 stage passes 62 ... 54 with no LP step; 52 fails (81 arcs).  certify.py: **k=54 CERTIFIED**
 (50 s), k=53 FAILS (theta = 176.769 deg); cert2.py: ALL ARCS OK (k=54, 4054 arcs).
 (slp3_3_3_1.10.json[2] gave 58 passing / 56 failing.)
+
+### certified k = 52  (best.json = cand_w52.json)
+pipeline.sh on slp3_3_3_1.09.json[0] ((3,3) supercell, sigma = 1.09, |lambda_1| = 11.328,
+27 discs, density 0.1908): raster stage sample max 50; certifier stage passes 60 ... 52, fails
+50 (115 arcs).  certify.py: **k=52 CERTIFIED** (47 s); k=51 fails (theta = 100.678 deg);
+cert2.py: ALL ARCS OK (k=52, 4094 arcs).  Other starts: slp3_3_3_1.08[1] -> 64,
+slp3_3_3_1.07[0] -> 60, slp3_3_3_1.10[2] -> 58.
+
+### certified k = 49  (best.json = cand_w49.json; same colouring as cand_w50.json)
+pipeline.sh on slp3_3_3_1.09.json[2] ((3,3) supercell, sigma = 1.09, 27 discs, density
+0.1908): raster stage sample max 46; certifier stage passes 60 ... 50, fails 48 (155 arcs).
+certify.py: k=50 and **k=49 CERTIFIED** (39 s); k=48 fails (theta = 144.495 deg);
+cert2.py: ALL ARCS OK (k=49, 4271 arcs).  Other starts in this round: slp3_3_3_1.09[1] -> 60,
+slp3_3_3_1.09_s10[0] -> 62, [1] -> 62.
+
+### Statistics over starts (27-disc (3,3) supercells, sigma 1.07-1.10)
+final certified-pass k per start (raster stage sample max in brackets):
+49 (46), 52 (50), 54 (46), 55 (54), 58 (54), 60 (47), 60 (59), 62 (59), 62 (?), 64 (59).
+So the true sup exceeds the raster sample max by 3-13 (narrow resonance peaks), and the
+start-to-start spread is large: more random starts are the cheapest way down; the LP
+repair stage rarely gained more than 2-4 at this level.
+Final round (8 new SLP seeds each at sigma 1.09 / 1.10, stop-on-first-failure pipeline):
+r0, r1, r2, t0, t1, t2 all fail already at k=58 (raster stage sample max 47-60); q2 -> 52.
+So of ~17 random starts in this family the best is 49 (one start), then 52, 52, 54.
+
+## Status / honest assessment (2026-10-15)
+* CERTIFIED: k = 49 (best.json), with two independent float64+margin certifiers (ours and
+  indep_claude/cert2.py) and exact rational unit-distance check.  This improves 6330 -> 49.
+* Not done: interval/exact arithmetic in the cover test (we rely on the error analysis
+  above), non-disc pieces (discs maximise width for diameter 1; Croft-tortoise-type pieces
+  would gain at most ~1% density), variable radii in the final search (dense packings left
+  no room: max insertable radius 0.02; lp_step_r exists but was not used for the result).
+* Expected floor for this family: ~40-50 with much more search; well below that needs a
+  structural idea that keeps lattice-like coverage in generic directions without corridors.

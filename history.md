@@ -14,5 +14,5 @@ Dates of results in this project, interleaved with related public work.
 - **2026-10-14.** Lean: transfer in every dimension for countable algebraic distance sets; α₁(ℝ³) = m₁(ℝ³); Soifer's and
   Kahle's questions; Erdős #706; χ(ℝⁿ) = χ_m(ℝⁿ) for n ≥ 2. Certificates: m₁(ℝ³) ≤ 0.1485113; quantitative odd, lacunary
   and two-distance bounds; χ(ℝ⁴) ≥ 12, χ(ℝ⁶) ≥ 55, χ(ℝ⁷) ≥ 110, χ(ℝ⁸) ≥ 198, χ(ℝ¹⁰) ≥ 760. Euclidean Ramsey: Erdős #188
-  8 ≤ k ≤ 68; monochromatic collinear triples and triangles in 2-colourings; E³ → (ℓ₂, ℓ₁₁); polychromatic bounds;
+  8 ≤ k ≤ 49; monochromatic collinear triples and triangles in 2-colourings; E³ → (ℓ₂, ℓ₁₁); polychromatic bounds;
   partial results on Erdős #214.

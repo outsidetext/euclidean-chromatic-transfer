@@ -1,0 +1,8 @@
+(a) min squared centre separation 4.000040 >= 4.0 : unit-distance-free OK
+lifted centres: 6049
+splits 50 at deg 11.199375
+splits 100 at deg 11.34
+splits 150 at deg 11.43
+splits 200 at deg 13.095
+splits 250 at deg 139.545
+(b) ALL ARCS OK: k=49, arcs=4271, splits=271.  Every unit-step 49-AP meets RED.

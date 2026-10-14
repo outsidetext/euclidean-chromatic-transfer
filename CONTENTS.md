@@ -41,7 +41,7 @@ We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with 
 <tbody><tr>
 <td>
 
-**003. Erdős Problem #188: 8 ≤ k ≤ 54 (previously 6 ≤ k ≤ 6330).** Every red/blue colouring of the plane with no two red points at distance 1 contains a blue unit-step 7-term progression (Fourier pattern linear program on a strip of the triangular lattice), and an explicit periodic colouring by 27 open discs per period has no red unit pair and no blue unit-step 54-term progression. Both bounds have exact certificates checked by two independent programs.
+**003. Erdős Problem #188: 8 ≤ k ≤ 49 (previously 6 ≤ k ≤ 6330).** Every red/blue colouring of the plane with no two red points at distance 1 contains a blue unit-step 7-term progression (Fourier pattern linear program on a strip of the triangular lattice), and an explicit periodic colouring by 27 open discs per period has no red unit pair and no blue unit-step 49-term progression. Both bounds have exact certificates checked by two independent programs.
 
 </td>
 </tr></tbody>
@@ -50,7 +50,7 @@ We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with 
 
 &emsp;[Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf)
 
-Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 54 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
+Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 49 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
 
 </td>
 </tr></tbody>
@@ -66,7 +66,7 @@ Monochromatic collinear triples and most triangles in every 2-colouring of the p
 
 &emsp;[Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf)
 
-Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 54 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
+Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 49 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
 
 </td>
 </tr></tbody>
@@ -82,7 +82,7 @@ Monochromatic collinear triples and most triangles in every 2-colouring of the p
 
 &emsp;[Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf)
 
-Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 54 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
+Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 49 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
 
 </td>
 </tr></tbody>
@@ -162,7 +162,7 @@ Every finite coloring of the plane has, for all large n, monochromatic pairs at 
 
 &emsp;[Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf)
 
-Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 54 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
+Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 49 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
 
 </td>
 </tr></tbody>
@@ -178,7 +178,7 @@ Monochromatic collinear triples and most triangles in every 2-colouring of the p
 
 &emsp;[Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf)
 
-Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 54 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
+Monochromatic collinear triples and most triangles in every 2-colouring of the plane; 8 ≤ k ≤ 49 in Erdős Problem #188; E³ → (ℓ₂, ℓ₁₁); polychromatic colourings; partial results on Erdős #214; and a characterization of the constraints the transfer carries, with a counterexample for 3-term progressions.
 
 </td>
 </tr></tbody>
