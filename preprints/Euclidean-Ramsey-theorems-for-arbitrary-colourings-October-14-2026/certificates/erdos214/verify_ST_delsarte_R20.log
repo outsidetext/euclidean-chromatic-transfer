@@ -1,0 +1,6 @@
+(1) S+T inequality >= 0 on all admissible patterns (min 0.000e+00)
+(2) spindle q >= 0 on 18 independent sets (min 0.000e+00)
+(3) lam = 1.23077, B = -14.17202 <= lam
+(4) H(t) <= lam on (0,2/5] (1 cells, PD bound) and (2/5,64] (159 cells, decay bound) + tail; R0 = 20
+(5) P(delta) = -15.4028 d^2 + 7.8473 d + -1.000000 < 0 on [0, 0.2873] (max -0.00049)
+ALL CHECKS PASSED
