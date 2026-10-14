@@ -18,3 +18,6 @@ related public work.
 - **2026-10-14.** Lean: transfer in every dimension for countable sets of algebraic distances,
   χ(ℝⁿ) bounds for 3 ≤ n ≤ 8 from published density bounds, finite forms, and α₁(ℝ³) ≤ m₁(ℝ³).
   Many-distance consequences (Erdős Problem #706; Soifer's and Kahle's questions).
+- **2026-10-14 (later).** Lean: Soifer's and Kahle's questions (monochromatic 2ⁿ and n! distances) fully
+  formalized. Quantitative bounds via Fourier certificates: odd distances (√N in the plane, linear in ℝ³),
+  lacunary distances (explicit exponential bound for Erdős #706; monochromatic 2ⁱ < k^6.2), two distances.

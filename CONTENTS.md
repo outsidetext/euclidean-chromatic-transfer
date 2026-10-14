@@ -1,6 +1,6 @@
 # Manuscript collection
 
-**2 manuscripts covering 7 result families.**
+**2 manuscripts covering 9 result families.**
 
 ## Manuscript map
 
@@ -117,6 +117,34 @@ We prove χ(ℝ², {1, (√2+√6)/2}) ≥ 7 with explicit SAT- and exact-arithm
 &emsp;[Chromatic numbers of the plane with two forbidden distances: a seven-color lower bound and smaller six-chromatic graphs](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/paper.pdf)
 
 We prove χ(ℝ², {1, (√2+√6)/2}) ≥ 7 with explicit SAT- and exact-arithmetic-certified finite configurations, give record small 6-chromatic two-distance graphs (26 and 30 vertices), the bound e₅ ≤ 2278, the six-coloring continuum up to 0.667504532081, and forced-density constants, with all certificates.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+**008. Monochromatic powers of two and factorials, machine-checked.** Every finite coloring of the plane (and of ℝⁿ, n ≥ 2) has two points of the same color at distance 2ⁿ, and two at distance n!, for all sufficiently large n; more generally no finite coloring avoids an unbounded set of algebraic distances. This answers questions of Soifer and of Kahle recorded by Davies–McCarty–Pilipczuk. Fully verified in Lean (transfer plus a torus-Fourier proof of the needed Furstenberg–Katznelson–Weiss theorem). Stated conditionally by Crocker.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+&emsp;[A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf)
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+**009. Quantitative monochromatic distances.** Every k-coloring of the plane has two points of the same color at an odd distance below 128k² and at a distance 2ⁱ < k^6.2; in ℝ³, at an odd distance at most k and at a distance 2ⁱ < k^2.58. χ(ℝ², {1, q, …, q^{K−1}}) ≥ 1 + (22/15)(2.5^K − 1) for algebraic q ≥ 4096 (an explicit exponential lower bound for Erdős Problem #706), and χ(ℝ², {1, d}) ≥ 12 for every algebraic d ≥ 10⁴. Explicit certified cases: every 6-coloring of the plane has a monochromatic pair at distance 1, 3, 5 or 7. Proofs combine the Lean-verified transfer with explicit Fourier certificates.
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+&emsp;[A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf)
 
 </td>
 </tr></tbody>

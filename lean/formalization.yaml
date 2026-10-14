@@ -48,6 +48,15 @@ status:
     - declaration: OAI.HN3.Indep.alpha1_le_m1
       file: OAI/HN3/IndepFolner.lean
 
+    - declaration: OAI.Soifer.soifer
+      file: OAI/Soifer/Main.lean
+
+    - declaration: OAI.Soifer.kahle
+      file: OAI/Soifer/Main.lean
+
+    - declaration: OAI.Soifer.mono_distance_of_unbounded
+      file: OAI/Soifer/Main.lean
+
 automation:
   methods:
     - method: agent

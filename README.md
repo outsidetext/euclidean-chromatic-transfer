@@ -17,10 +17,11 @@ density bounds from the literature appear as explicit hypotheses.
 ```
 cd lean
 lake exe cache get              # Mathlib oleans (pinned commit d13f23b)
-lake build OAI.HNN.Corollary OAI.HN3.Finite OAI.HN3.IndepFolner
+lake build OAI.HNN.Corollary OAI.HN3.Finite OAI.HN3.IndepFolner OAI.Soifer.Main
 lake env lean CheckN.lean       # n-dimensional transfer and corollaries: prints axioms
 lake env lean Check3.lean       # three-dimensional development
 lake env lean CheckIndep.lean   # finite graphs attain the density in R^3
+lake env lean CheckSoifer.lean  # monochromatic 2^n and n! distances (Soifer, Kahle)
 ```
 Certificates for the record graphs are checked by the scripts beside them; see
 [`preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/certificates/README.md`](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/certificates/README.md).
