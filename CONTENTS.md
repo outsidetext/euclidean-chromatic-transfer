@@ -238,3 +238,5 @@ A seven-color lower bound for the plane with the two forbidden distances 1 and (
 </td>
 </tr></tbody>
 </table>
+
+**011. Edges of 7-chromatic unit-distance graphs.** An explicit 6-colouring of the plane with monochromatic unit-pair density at most 4.0870626·10⁻⁶ shows, via de Grey–Parts, that every 7-chromatic unit-distance graph has at least 244,675 edges (previously 232,646). Certificate and independent checker in preprints/Seven-chromatic-unit-distance-graphs-need-244675-edges-October-15-2026.

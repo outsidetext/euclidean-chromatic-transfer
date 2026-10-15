@@ -19,3 +19,5 @@ Dates of results in this project, interleaved with related public work.
 - **2026-10-15.** m₁(ℝ³) ≤ 0.1484362. e₆ ≥ 322 and v₆ ≥ 62 (explicit periodic 5-colouring, certified); e₅ ≤ 2257.
 - **2026-10-15.** Monochromatic triangles in 2-colourings: every triangle with algebraic side ratios and shortest/longest ≤ 0.86 (481 box certificates, previously 0.654).
 - **2026-10-15.** Monochromatic triangles in 2-colourings: shortest/longest ≤ 0.88465, via a one-parameter reduction in ρ = shortest/longest and 53 interval certificates for ρ ∈ [0.86125, 0.88465] (second-order Taylor in ρ, two independent checkers), plus 112 boxes for [0.86, 0.86125]; single ratio ρ = 0.886 also certified.
+
+- 2026-10-15: e₇ ≥ 244,675 (p₆ ≤ 4.0870626·10⁻⁶, curved Pritikin rod tiling; independently verified).

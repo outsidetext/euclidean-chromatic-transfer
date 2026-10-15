@@ -44,6 +44,7 @@ See [history.md](history.md).
 | [Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf) | results 8, 9, 13 |
 | [Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf) | results 3, 4, 5, 10, 11; which constraints the transfer can and cannot carry |
 | [Chromatic numbers of the plane with two forbidden distances](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/paper.pdf) | results 14, 15 |
+| 11 | **7-chromatic unit-distance graphs need ≥ 244,675 edges** (explicit 6-colouring with monochromatic unit-pair density ≤ 4.087·10⁻⁶) | 232,646 (de Grey–Parts) | exact certificate + independent ball-arithmetic checker |
 
 Each manuscript folder contains `paper.pdf`, `paper.tex` and the certificates and verification scripts for its claims.
 [CONTENTS.md](CONTENTS.md) lists the results with abstracts.
