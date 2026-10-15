@@ -342,43 +342,41 @@ def certify(fn, prec=128, verbose=True):
         lam = (ab[0] * B[0][0] + ab[1] * B[1][0], ab[0] * B[0][1] + ab[1] * B[1][1])
         return [add(v, lam) for v in P], lam
     ndis = 0
+    import numpy as np
+    Cn = np.array(cen); Rn = np.array(rad)
+    LVa = np.array([(a * float(B[0][0]) + b * float(B[1][0]), a * float(B[0][1]) + b * float(B[1][1])) for (a, b) in LV])
+    def cands(i, extra):
+        # all (j, ab) with |c_i - (c_j + lam)| <= r_i + r_j + extra  (float prefilter, generous margin)
+        D = np.hypot(Cn[i, 0] - (Cn[None, :, 0] + LVa[:, None, 0]), Cn[i, 1] - (Cn[None, :, 1] + LVa[:, None, 1]))
+        L_, J_ = np.nonzero(D <= Rn[i] + Rn[None, :] + extra + 1e-7)
+        return [(int(j), LV[int(l)]) for l, j in zip(L_, J_)]
     for i in range(len(polys)):
-        for j in range(i, len(polys)):
-            for ab in LV:
-                if i == j and ab == (0, 0):
-                    continue
-                Rj, lam = tr(polys[j], ab)
-                cj = (cen[j][0] + float(lam[0]), cen[j][1] + float(lam[1]))
-                if math.hypot(cen[i][0] - cj[0], cen[i][1] - cj[1]) > rad[i] + rad[j] + 1e-9:
-                    continue
-                if not separated(polys[i], Rj):
-                    raise ValueError('polygons %d and %d+%s overlap' % (i, j, ab))
-                ndis += 1
+        for (j, ab) in cands(i, 0.0):
+            if j < i or (i == j and ab == (0, 0)):
+                continue
+            Rj, lam = tr(polys[j], ab)
+            if not separated(polys[i], Rj):
+                raise ValueError('polygons %d and %d+%s overlap' % (i, j, ab))
+            ndis += 1
     if verbose:
         print('tiling verified: %d polys, covolume %s (~%.6f), %d close pairs disjoint'
               % (len(polys), covol, float(covol), ndis), flush=True)
     # same-colour pairs
     tasks = []
     for i in range(len(polys)):
-        for j in range(len(polys)):
+        for (j, ab) in cands(i, 1.0 + 1e-6):
             if cols[i] != cols[j]:
                 continue
-            for ab in LV:
-                # symmetry: (i,j,lam) ~ (j,i,-lam); keep canonical rep
-                key, mkey = (i, j, ab), (j, i, (-ab[0], -ab[1]))
-                if mkey < key:
-                    continue
-                Rj, lam = tr(polys[j], ab)
-                cj = (cen[j][0] + float(lam[0]), cen[j][1] + float(lam[1]))
-                dc = math.hypot(cen[i][0] - cj[0], cen[i][1] - cj[1])
-                if dc > rad[i] + rad[j] + 1.0 + 1e-6:
-                    continue
-                if max_d2(polys[i], Rj) < 1:
-                    continue
-                if min_d2(polys[i], Rj) > 1:
-                    continue
-                mult = 1 if key == mkey else 2
-                tasks.append((i, j, ab, Rj, mult))
+            key, mkey = (i, j, ab), (j, i, (-ab[0], -ab[1]))
+            if mkey < key:
+                continue
+            Rj, lam = tr(polys[j], ab)
+            if max_d2(polys[i], Rj) < 1:
+                continue
+            if min_d2(polys[i], Rj) > 1:
+                continue
+            mult = 1 if key == mkey else 2
+            tasks.append((i, j, ab, Rj, mult))
     _CTX['tasks'] = tasks
     _CTX['polys'] = polys
     if verbose:

@@ -81,10 +81,10 @@ $59$ exact rational tilings; and the edge bound $e_5\le 2257$ for
 $5$-chromatic unit-distance graphs, via a $2257$-edge non-$4$-colorable
 spanning subgraph of the $509$-vertex record graph (previously $2406$).
 In the other direction, an explicit periodic $5$-coloring of the plane
-by $1686$ convex pieces whose random unit segment is monochromatic with
-probability at most $0.0031717$ (certified in ball arithmetic) shows
-that every $6$-chromatic unit-distance graph has at least $316$ edges
-and $61$ vertices (previously $182$ and $42$).
+by $4230$ convex pieces whose random unit segment is monochromatic with
+probability at most $0.0031083$ (certified in ball arithmetic) shows
+that every $6$-chromatic unit-distance graph has at least $322$ edges
+and $62$ vertices (previously $182$ and $42$).
 As by-products we record forced monochromatic densities
 $p_{\sqrt3}\ge 1/28$, $p_{\dd}\ge 1/37$ and $p_{1/\sqrt3}\ge1/67$ for
 invariant unit-distance $5$-colorings, together with elementary
@@ -198,8 +198,8 @@ vertex-critical (previously $33$ \cite{DeNeve25}).
 \cite{Parts20b,deGreyParts22} contains a spanning subgraph with $2257$
 edges that is not $4$-colorable.  Hence $e_5\le 2257$ (previously
 $e_5\le 2406$ \cite{deGreyParts22}).
-\item Every $6$-chromatic unit-distance graph has at least $316$ edges
-and at least $61$ vertices: $e_6\ge316$ and $v_6\ge61$ (previously
+\item Every $6$-chromatic unit-distance graph has at least $322$ edges
+and at least $62$ vertices: $e_6\ge322$ and $v_6\ge62$ (previously
 $e_6\ge182$, $v_6\ge42$ \cite{deGreyParts22}).
 \item For every proper unit-distance $5$-coloring of the plane and every
 invariant mean, the monochromatic-pair densities of
@@ -240,7 +240,7 @@ Edges of the $509$-vertex $5$-chromatic UD graph &
 $\le 2406$ \cite{deGreyParts22} & $\mathbf{\le 2257}$ & DRAT
 (\texttt{e5-2257/}) \\
 Edges / vertices of any $6$-chromatic UD graph &
-$\ge 182$ / $\ge 42$ \cite{deGreyParts22} & $\mathbf{\ge 316}$ / $\mathbf{\ge 61}$ &
+$\ge 182$ / $\ge 42$ \cite{deGreyParts22} & $\mathbf{\ge 322}$ / $\mathbf{\ge 62}$ &
 exact tiling $+$ ball arithmetic (\texttt{e6-lower-bound/}) \\
 Six-coloring continuum $X_6$ &
 $[0.354,0.657]$ \cite{MPSZ} & $[0.354,\mathbf{0.6675045}\dots]$ &
@@ -888,7 +888,7 @@ vertex-criticality from scratch in seconds.
 
 \begin{remark}
 Whether a $25$-vertex (or smaller) $6$-chromatic two-distance graph
-exists for any ratio is open.  Note that the bound $v_6\ge61$ for
+exists for any ratio is open.  Note that the bound $v_6\ge62$ for
 unit-distance graphs (Theorem~\ref{thm:e6}) does not apply to two-distance
 graphs, where only trivial lower bounds are known for $\{1,\sqrt3\}$.
 \end{remark}
@@ -947,7 +947,7 @@ other $1071$ edges, removing the edge leaves a graph that CaDiCaL finds
 $4$-colorable.  Further progress therefore needs non-greedy moves.  The
 true $e_5$ may be lower still.
 
-\subsection{$e_6\ge316$ and $v_6\ge61$}\label{sec:e6}
+\subsection{$e_6\ge322$ and $v_6\ge62$}\label{sec:e6}
 
 Let $e_k$ and $v_k$ denote the least numbers of edges and of vertices of
 a $k$-chromatic unit-distance graph in the plane.  Lower bounds come
@@ -984,23 +984,23 @@ optimize all five colors jointly.
 
 \begin{theorem}\label{thm:e6}
 There is a $5$-coloring $c_5$ of the plane, periodic with respect to a
-hexagonal lattice and composed of $1686$ convex polygons per period
+hexagonal lattice and composed of $4230$ convex polygons per period
 with rational vertices, such that
 \[
-p(c_5)\le 0.0031716258,\qquad 1/p(c_5)\ge 315.295 .
+p(c_5)\le 0.0031082241,\qquad 1/p(c_5)\ge 321.727 .
 \]
-Consequently every $6$-chromatic unit-distance graph has at least $316$
+Consequently every $6$-chromatic unit-distance graph has at least $322$
 edges and at least $59$ vertices.
 \end{theorem}
 
 \begin{proof}
 The bound on $p(c_5)$ is certified as described below.  Then
-$e_6\ge316$ follows from Lemma~\ref{lem:badness}.  For the vertex bound,
+$e_6\ge322$ follows from Lemma~\ref{lem:badness}.  For the vertex bound,
 \'Agoston and P\'alv\"olgyi \cite[Prop.~12]{AgostonPalvolgyi} show that a
 unit-distance graph with $n$ vertices and $e$ edges satisfies
 $n\ge 2r-11+24/n+(1-s)\binom{\lfloor r\rfloor}{2}+s\binom{\lceil r\rceil}{2}$,
-where $r=2e/n$ and $s=r-\lfloor r\rfloor$.  With $n=60$ this forces
-$e\le 314<316$.
+where $r=2e/n$ and $s=r-\lfloor r\rfloor$.  With $n=61$ this forces
+$e\le 321<322$.
 \end{proof}
 
 The coloring is shown in Figure~\ref{fig:c5}.  Four colors form roughly
@@ -1008,7 +1008,7 @@ convex blobs of diameter just under $1$, each of density about $0.225$.
 This is close to Croft's density $0.2293$ for a set avoiding distance
 $1$.  The fifth color, of density $0.097$, fills a connected network of
 channels between the blobs.  The period lattice is spanned by
-$(7.0438,0)$ and $(3.5234,6.1021)$, a $7\times7$ hexagonal supercell;
+$(7,0)$ and $(7/2,6.0622)$, a $7\times7$ hexagonal supercell;
 other periods we tried were markedly worse.
 
 \begin{figure}[ht]
@@ -1016,12 +1016,12 @@ other periods we tried were markedly worse.
 \includegraphics[width=0.62\textwidth]{certificates/e6-lower-bound/c5_best.png}
 \caption{The periodic $5$-coloring $c_5$ of Theorem~\ref{thm:e6}, shown
 over several periods.  A random unit segment (bar) is monochromatic with
-probability $0.0031716$.}\label{fig:c5}
+probability $0.0031081$.}\label{fig:c5}
 \end{figure}
 
 \paragraph{Certificate.}
 The file \texttt{certificates/e6-lower-bound/c5\_best.json} lists the
-period basis and the $1686$ convex pieces in exact rational coordinates.  The
+period basis and the $4230$ convex pieces in exact rational coordinates.  The
 verifier \texttt{certify.py} works in two stages.
 \begin{enumerate}[label=(\roman*)]
 \item In exact rational arithmetic, it checks that every cell is strictly
@@ -1040,12 +1040,12 @@ $\theta$.  The verifier fits it exactly from $5$ rigorous evaluations,
 checks the fit at a sixth, and integrates in closed form.  Small balls
 around the crossing angles are bounded crudely by the cell areas.
 \end{enumerate}
-The run takes about five minutes and returns
-$p\in[0.0031716\pm3\cdot10^{-8}]$, with upper endpoint $0.00317162578$.  As an independent check, a separate
+The run takes about $15$ minutes with three worker processes and returns
+$p\in[0.003108\pm2.3\cdot10^{-7}]$, with upper endpoint $0.00310822410$.  As an independent check, a separate
 short C program (\texttt{pmono.c}) clips polygons in floating point and
 integrates over $\theta$ by the midpoint rule.  It gives
-$p=0.003171605$ at $2000$ and $8000$ nodes, so
-$1/p=315.2978$.  A Monte Carlo estimate on an earlier version of the
+$p=0.003108121$ at $1000$ and $4000$ nodes, so
+$1/p=321.738$.  A Monte Carlo estimate on an earlier version of the
 coloring also agreed.  For calibration, the same verifier applied to the
 regular hexagonal $4$-coloring at the optimal diameter $1.1335$ returns
 $1/p_4=98.4956$, which reproduces $e_5\ge99$ and $v_5\ge28$
@@ -1065,14 +1065,22 @@ needle-shaped tips of cells, which are about to self-intersect.  We cut
 each tip with interior angle below $12^\circ$: the thin triangle at the
 tip is reassigned to the neighboring region across one of its edges.
 This keeps the map exact and barely changes $p$, but it removes the
-barrier.  Further rounds reached $1/p\approx315.3$.  Finally the vertices were rounded to
+barrier.  Further rounds reached $1/p\approx315.3$.  The final
+coloring was obtained differently.  We traced the color-region
+boundaries of the best pixel coloring directly into a periodic planar
+map, simplifying each shared boundary chain with Douglas--Peucker at
+tolerance $0.006$, which gave $1/p\approx315.4$ before any optimization.
+Eight rounds of the same loop (L-BFGS, merging short edges, cutting
+tips, subdividing long edges) then reached $1/p\approx321.7$.  Finally the vertices were rounded to
 rationals with denominator $10^8$, and each region was cut
 into convex pieces by exact ear clipping followed by greedy re-merging.
 The resulting coloring was then certified.  The following are
 computational observations and are not certified.  Pixel colorings at
-resolution $0.0055$ reached $1/p\approx317.6$ in our searches.  The
-next step, $v_6\ge62$, needs $e_6\ge322$, i.e.\ $1/p>321$, which
-appears to require a different topology of the coloring.  For $k=5$ we found
+resolution $0.0055$ reached $1/p\approx317.6$ in our searches, and
+pixel optima at the coarser resolutions $0.022$ and $0.011$ reached $281$
+and $307$.  The next step, $v_6\ge63$, needs $e_6\ge330$,
+i.e.\ $1/p>329$, which appears to require a better pixel optimum than
+this $7\times7$ topology provides.  For $k=5$ we found
 no improvement over the hexagonal coloring.  It is a stationary point,
 since reflection in each edge swaps the two colors there.  Of $58$
 random-restart searches over $4$-colorings, $57$ converged to it.
@@ -1392,7 +1400,7 @@ two points, rotated so that the two partner points are at distance $1$.
 \end{problem}
 
 \begin{problem}
-Close the gap $99\le e_5\le2257$ and $316\le e_6$.  The tiling method
+Close the gap $99\le e_5\le2257$ and $322\le e_6$.  The tiling method
 of Section~\ref{sec:e6} appears exhausted for $k=5$ (the regular
 hexagonal $4$-coloring is a stationary point), and we know no other
 nontrivial lower-bound technique for the number of edges of
@@ -1482,7 +1490,7 @@ exact coordinates of the $509$ vertices; unit-distance check. \\
 \midrule
 \multicolumn{3}{@{}l}{\texttt{e6-lower-bound/} (Theorem~\ref{thm:e6})}\\
 \texttt{c5\_best.json} & 156\,KB &
-the $1686$ exact rational convex pieces, their colors and the period lattice. \\
+the $4230$ exact rational convex pieces, their colors and the period lattice. \\
 \texttt{certify.py} & $\sim$350 lines &
 exact tiling check and ball-arithmetic enclosure of $p$
 (dependency: \texttt{python-flint}). \\
