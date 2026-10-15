@@ -1,6 +1,6 @@
 # Manuscript collection
 
-**4 manuscripts covering 14 results.**
+**4 manuscripts covering 15 results.**
 
 Each result is followed by its manuscript and abstract. Paper titles link directly to PDFs.
 
@@ -217,7 +217,14 @@ Every finite coloring of the plane has, for all large n, monochromatic pairs at 
 <tbody><tr>
 <td>
 
-**014. Records for two-distance graphs.** χ(ℝ², {1, (√2+√6)/2}) ≥ 7 by finite certificates; 6-chromatic two-distance graphs on 26 vertices (previously 117) and 30 vertices for {1, √3} (previously 33); e₅ ≤ 2278 (previously 2406).
+**014. Records for two-distance graphs.** χ(ℝ², {1, (√2+√6)/2}) ≥ 7 by finite certificates; 6-chromatic two-distance graphs on 26 vertices (previously 117) and 30 vertices for {1, √3} (previously 33).
+
+</td>
+</tr></tbody>
+<tbody><tr>
+<td>
+
+**015. Size of k-chromatic unit-distance graphs.** Every 6-chromatic unit-distance graph has at least 311 edges and 60 vertices (previously 182 and 42), via an explicit periodic 5-colouring of the plane by 716 convex pieces in which a random unit segment is monochromatic with probability at most 0.0032230, certified in ball arithmetic. A 2257-edge non-4-colourable subgraph of Parts' 509-vertex graph gives e₅ ≤ 2257 (previously 2406).
 
 </td>
 </tr></tbody>
@@ -226,7 +233,7 @@ Every finite coloring of the plane has, for all large n, monochromatic pairs at 
 
 &emsp;[Chromatic numbers of the plane with two forbidden distances](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/paper.pdf)
 
-A seven-color lower bound for the plane with the two forbidden distances 1 and (√2+√6)/2 by finite certificates, smaller six-chromatic two-distance graphs, and related records, with exact-arithmetic and DRAT certificates.
+A seven-color lower bound for the plane with the two forbidden distances 1 and (√2+√6)/2 by finite certificates, smaller six-chromatic two-distance graphs, and related records, including new bounds on the size of 5- and 6-chromatic unit-distance graphs, with exact-arithmetic, ball-arithmetic and DRAT certificates.
 
 </td>
 </tr></tbody>

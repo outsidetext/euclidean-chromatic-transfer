@@ -26,7 +26,8 @@ numerical claim.
 | 11 | **Erdős Problem #214 (partial)**: 5-point sets with algebraic distances that are small or spread out have red copies | 4 ≤ k ≤ 7 | certificates |
 | 12 | Finite unit-distance graphs attain the measurable density in ℝ³ (α₁ = m₁), hence finite graphs in ℝ³ with independence ratio < 0.1486 | — | Lean (α₁ = m₁) |
 | 13 | Quantitative bounds for odd distances, lacunary and two-distance sets; e.g. χ(ℝ², {1, d}) ≥ 7 for algebraic d ≥ 7 | — | certificates |
-| 14 | Records for two-distance graphs: χ(ℝ², {1, (√2+√6)/2}) ≥ 7 by finite certificates; 6-chromatic two-distance graphs on 26 and 30 vertices; e₅ ≤ 2278 | 117 and 33 vertices; e₅ ≤ 2406 | DRAT + exact arithmetic |
+| 14 | Records for two-distance graphs: χ(ℝ², {1, (√2+√6)/2}) ≥ 7 by finite certificates; 6-chromatic two-distance graphs on 26 and 30 vertices | 117 and 33 vertices | DRAT + exact arithmetic |
+| 15 | **Size of k-chromatic unit-distance graphs**: every 6-chromatic unit-distance graph has ≥ 311 edges and ≥ 60 vertices, from an explicit periodic 5-colouring of the plane in which a random unit segment is monochromatic with probability ≤ 0.00323; and a 5-chromatic unit-distance graph with 2257 edges | e₆ ≥ 182, v₆ ≥ 42; e₅ ≤ 2406 | exact tiling + ball arithmetic; DRAT |
 
 The transfer in all dimensions and results 1, 12 and the qualitative parts of 8 and 9 were also stated, conditionally on
 OpenAI's rigidity theorem and without formalization or explicit bounds, by C. Crocker
@@ -42,7 +43,7 @@ See [history.md](history.md).
 | [A machine-checked proof that three-space is not six-colorable](preprints/A-machine-checked-proof-that-three-space-is-not-six-colorable-October-14-2026/paper.pdf) | results 1, 2, 6, 7, 12 |
 | [Monochromatic distances in finite colorings of the plane](preprints/Monochromatic-distances-in-finite-colorings-of-the-plane-October-14-2026/paper.pdf) | results 8, 9, 13 |
 | [Euclidean Ramsey theorems for arbitrary colourings via spectral rigidity](preprints/Euclidean-Ramsey-theorems-for-arbitrary-colourings-October-14-2026/paper.pdf) | results 3, 4, 5, 10, 11; which constraints the transfer can and cannot carry |
-| [Chromatic numbers of the plane with two forbidden distances](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/paper.pdf) | result 14 |
+| [Chromatic numbers of the plane with two forbidden distances](preprints/Chromatic-numbers-of-the-plane-with-two-forbidden-distances-October-14-2026/paper.pdf) | results 14, 15 |
 
 Each manuscript folder contains `paper.pdf`, `paper.tex` and the certificates and verification scripts for its claims.
 [CONTENTS.md](CONTENTS.md) lists the results with abstracts.

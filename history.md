@@ -16,3 +16,4 @@ Dates of results in this project, interleaved with related public work.
   and two-distance bounds; χ(ℝ⁴) ≥ 12, χ(ℝ⁶) ≥ 55, χ(ℝ⁷) ≥ 110, χ(ℝ⁸) ≥ 198, χ(ℝ¹⁰) ≥ 760. Euclidean Ramsey: Erdős #188
   8 ≤ k ≤ 49; monochromatic collinear triples and triangles in 2-colourings; E³ → (ℓ₂, ℓ₁₁); polychromatic bounds;
   partial results on Erdős #214.
+- **2026-10-15.** e₆ ≥ 311 and v₆ ≥ 60 (explicit periodic 5-colouring, certified); e₅ ≤ 2257.
