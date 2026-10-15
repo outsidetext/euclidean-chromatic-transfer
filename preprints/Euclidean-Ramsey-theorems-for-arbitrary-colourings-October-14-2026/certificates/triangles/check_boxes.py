@@ -7,7 +7,9 @@ import mpmath as mp
 mp.mp.dps = 40
 L1 = 0.5819  # >= max|J1|
 def j0(x): return float(mp.besselj(0, x))
-GRID = 0.002; NG = int(200 / GRID) + 2
+import os as _os
+TMAX_CERT = float(_os.environ.get('TMAX', '150'))  # largest cert T to be checked (grid must cover x <= TMAX)
+GRID = 0.002; NG = int(max(200, 1.05 * TMAX_CERT) / GRID) + 2
 J = [j0(i * GRID) for i in range(NG)]
 def j0_ub(lo, hi):  # upper bound of J0 on [lo,hi]
     i0, i1 = int(lo / GRID), int(math.ceil(hi / GRID))
@@ -30,7 +32,7 @@ def check(C):
         mut += mu
     Lam = float(L - mut); assert Lam > 0
     ks = [(float(k), float(c)) for k, c in fixed.items() if c != 0]
-    T = 150.0
+    T = max(150.0, float(C['T'])); assert T <= TMAX_CERT or T == 150.0, ('set TMAX >=', T)
     tail = sum(abs(c) * math.sqrt(2 / (math.pi * k * T)) for k, c in ks) + abs(float(y[0])) * math.sqrt(2 / (math.pi * float(a0) * T)) + abs(float(y[1])) * math.sqrt(2 / (math.pi * float(b0) * T))
     assert tail < Lam - 1e-9, ('tail', tail, Lam)
     Lip = sum(abs(c) * k for k, c in ks) * L1

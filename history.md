@@ -17,4 +17,4 @@ Dates of results in this project, interleaved with related public work.
   8 ≤ k ≤ 49; monochromatic collinear triples and triangles in 2-colourings; E³ → (ℓ₂, ℓ₁₁); polychromatic bounds;
   partial results on Erdős #214.
 - **2026-10-15.** e₆ ≥ 322 and v₆ ≥ 62 (explicit periodic 5-colouring, certified); e₅ ≤ 2257.
-- **2026-10-15.** Monochromatic triangles in 2-colourings: every triangle with algebraic side ratios and shortest/longest ≤ 0.74 (283 box certificates, previously 0.654).
+- **2026-10-15.** Monochromatic triangles in 2-colourings: every triangle with algebraic side ratios and shortest/longest ≤ 0.80 (333 box certificates, previously 0.654).
