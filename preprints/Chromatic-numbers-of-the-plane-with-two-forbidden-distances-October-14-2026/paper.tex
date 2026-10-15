@@ -964,10 +964,11 @@ $(k-1)$-colorable.  Hence $e_k\ge\lceil 1/p(c)\rceil$.
 Place $G$ by a uniformly random rigid motion (a uniform translation
 modulo $\Lambda$ composed with a uniform rotation).  Each edge is then a
 random unit segment, so it is monochromatic with probability $p(c)$, and
-the expected number of monochromatic edges is $e\,p(c)<1$.  Some
-placement therefore has no monochromatic edge, and almost every
-placement avoids the null set of cell boundaries, so restricting $c$ to
-the placed vertices is a proper $(k-1)$-coloring of $G$.
+the expected number of monochromatic edges is $e\,p(c)<1$.  Since this
+number is a non-negative integer, it is $0$ with positive probability.
+Almost every placement puts no vertex on the null set of cell
+boundaries, so some placement does both, and restricting $c$ to the
+placed vertices is a proper $(k-1)$-coloring of $G$.
 \end{proof}
 
 De~Grey and Parts obtained $e_5\ge99$ from Croft's tiling and the
