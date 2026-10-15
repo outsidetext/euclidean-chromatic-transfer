@@ -33,8 +33,28 @@ def j0_range(lo, hi):
         if (-B) > lb: lb = -B
         if B < ub: ub = B
     return lb, ub
+W = Fr(1, 64); PIECE = {}
+def piece(k):
+    """rigorous (lb, ub) of J0 on [kW, (k+1)W] (cached; exact-point arbs)."""
+    if k not in PIECE: PIECE[k] = j0_range(k * W, (k + 1) * W)
+    return PIECE[k]
+def j0_range_wide(lo, hi):
+    """(lower, upper) bounds of J0 on [lo, hi]: Taylor if narrow, else min/max over the cached W-pieces covering
+    [lo, hi] (the pieces [kW,(k+1)W], k0 <= k <= k1, cover [lo, hi]), intersected with the envelope bound."""
+    if hi - lo <= 2 * W: return j0_range(lo, hi)
+    k0 = (lo / W).__floor__(); k1 = (hi / W).__ceil__() - 1
+    lb, ub = piece(k0)
+    for k in range(k0 + 1, k1 + 1):
+        l, u = piece(k)
+        if l < lb: lb = l
+        if u > ub: ub = u
+    if lo > 0:
+        B = (2 / (arb.pi() * A(lo))).sqrt(); Bl = arb(B.upper())
+        if (-Bl) > lb: lb = -Bl
+        if Bl < ub: ub = Bl
+    return lb, ub
 def term_ub(y, lo, hi):
-    lb, ub = j0_range(lo, hi)
+    lb, ub = j0_range_wide(lo, hi)
     return A(y) * (ub if y >= 0 else lb)
 
 def verify_box(Cj, minrad=Fr(1, 10**6)):

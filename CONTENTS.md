@@ -57,7 +57,7 @@ Monochromatic collinear triples and most triangles in every 2-colouring of the p
 <tbody><tr>
 <td>
 
-**004. Monochromatic triangles in every 2-colouring of the plane.** Every red/blue colouring of ℝ² contains a monochromatic congruent copy of every collinear triple {0, a, a+b} with a/b algebraic, of every triangle with algebraic side ratios whose shortest side is at most 0.86 times its longest, and of the near-equilateral triangles (4,5,6), (5,6,7), (7,8,9) and (3,3,4) (Erdős #173 / the conjecture of Erdős, Graham, Montgomery, Rothschild, Spencer and Straus). Previously known for arbitrary colourings only for 3-term progressions (Currier–Moore–Yip); the criterion is Shkredov's for measurable colourings.
+**004. Monochromatic triangles in every 2-colouring of the plane.** Every red/blue colouring of ℝ² contains a monochromatic congruent copy of every collinear triple {0, a, a+b} with a/b algebraic, of every triangle with algebraic side ratios and shortest side ≤ 0.88465 × longest, and of the near-equilateral triangles (4,5,6), (5,6,7), (7,8,9) and (3,3,4) (Erdős #173 / the conjecture of Erdős, Graham, Montgomery, Rothschild, Spencer and Straus). Previously known for arbitrary colourings only for 3-term progressions (Currier–Moore–Yip); the criterion is Shkredov's for measurable colourings.
 
 </td>
 </tr></tbody>
