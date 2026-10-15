@@ -9,3 +9,5 @@ Python 3 with numpy, scipy and python-flint. Run each command inside its folder.
 | `erdos188_upper/` | a periodic colouring with no red unit pair and no blue unit-step 49-term progression (k ≤ 49) | `python3 certify.py cand_w49.json 49 0.0007`; independent: `python3 cert2.py cand_w49.json 49 4000` |
 | `ramsey3d/` | E³ → (ℓ₂, ℓ₁₁) | `python3 verify3d.py cert_k11_line14.json 11`; independent: `python3 check3d.py cert_k11_line14.json` (uses m₁(ℝ³) ≤ 0.1485113, certified in the three-space manuscript) |
 | `erdos214/` | partial results on Erdős #214 | `python3 verify_small.py`; `python3 verify_ST.py cert_ST_R10.json 10 6/5`; `python3 verify_ST.py cert_ST_delsarte_R20.json 20 2/5 0.2873` |
+
+`triangles/beyond/`: shapes with two sides in ratio ρ = 0.88 or 0.885 (beyond the pair-constraint limit of about 0.877), using glued 7-point configurations. Check with `python3 check_173_patterns.py iso088_cfg.json iso0885_cfg.json` (exact algebraic geometry, arb). An independent second checker exists in the research repository.
