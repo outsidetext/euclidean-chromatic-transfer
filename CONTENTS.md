@@ -105,7 +105,7 @@ We give a proof, formally verified in Lean 4, that every coloring of ℝ³ with 
 <tbody><tr>
 <td>
 
-**007. An improved density bound in ℝ³.** m₁(ℝ³) ≤ 0.1485113 (previously 0.1532996), by correlation-polytope cutting planes; certified in ball arithmetic and checked by two independent programs.
+**007. An improved density bound in ℝ³.** m₁(ℝ³) ≤ 0.1484362 (previously 0.1532996), by correlation-polytope cutting planes; certified in ball arithmetic and checked by two independent programs.
 
 </td>
 </tr></tbody>
@@ -185,7 +185,7 @@ Monochromatic collinear triples and most triangles in every 2-colouring of the p
 <tbody><tr>
 <td>
 
-**012. Finite graphs attain the measurable density in ℝ³.** α₁(ℝ³) = m₁(ℝ³) (Lean), so finite unit-distance graphs in ℝ³ have independence ratio below 0.1486; consequently Erdős #188 and #214 hold in ℝ³ for 6-point sets (Lean).
+**012. Finite graphs attain the measurable density in ℝ³.** α₁(ℝ³) = m₁(ℝ³) (Lean), so finite unit-distance graphs in ℝ³ have independence ratio below 0.14844; consequently Erdős #188 and #214 hold in ℝ³ for 6-point sets (Lean).
 
 </td>
 </tr></tbody>

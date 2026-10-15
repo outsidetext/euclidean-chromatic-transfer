@@ -19,12 +19,12 @@ numerical claim.
 | 4 | **Monochromatic triangles in every 2-colouring of the plane** (Erdős #173): every collinear triple {0, a, a+b} with a/b algebraic, every triangle with algebraic side ratios and shortest side ≤ 0.80 × longest, and the near-equilateral triangles (4,5,6), (5,6,7), (7,8,9) and (3,3,4) | 3-term progressions only | proof + certified Bessel bound |
 | 5 | **E³ → (ℓ₂, ℓ₁₁)**: red unit-distance-free colourings of ℝ³ contain blue unit-step 11-term progressions | ℓ₆ | exact certificate, two verifiers |
 | 6 | **χ(ℝ⁴) ≥ 12, χ(ℝ⁶) ≥ 55, χ(ℝ⁷) ≥ 110, χ(ℝ⁸) ≥ 198, χ(ℝ¹⁰) ≥ 760** | 11, 52, 98, 174, 729 | ball-arithmetic certificates, independently re-checked |
-| 7 | **m₁(ℝ³) ≤ 0.1485113** (density of unit-distance-free sets in ℝ³) | 0.1532996 | ball-arithmetic certificate, two verifiers |
+| 7 | **m₁(ℝ³) ≤ 0.1484362** (density of unit-distance-free sets in ℝ³) | 0.1532996 | ball-arithmetic certificate, two verifiers |
 | 8 | **Erdős Problem #706, negative answer**: the number of colours needed to avoid r distances in the plane is not polynomial in r; explicit bound > (22/15)(2.5ʳ − 1) | — | Lean (qualitative), certificate (explicit) |
 | 9 | **Soifer's and Kahle's questions**: every finite colouring of the plane has monochromatic pairs at distance 2ⁿ and n! for all large n; quantitatively a monochromatic 2ⁱ < k^6.2 | open | Lean (qualitative), certificate (quantitative) |
 | 10 | **Polychromatic colourings** whose avoided distances have algebraic ratios need ≥ 5 colours in ℝ² and ≥ 7 in ℝ³ | ≥ 4 in ℝ² (Raiskii) | proof |
 | 11 | **Erdős Problem #214 (partial)**: 5-point sets with algebraic distances that are small or spread out have red copies | 4 ≤ k ≤ 7 | certificates |
-| 12 | Finite unit-distance graphs attain the measurable density in ℝ³ (α₁ = m₁), hence finite graphs in ℝ³ with independence ratio < 0.1486 | — | Lean (α₁ = m₁) |
+| 12 | Finite unit-distance graphs attain the measurable density in ℝ³ (α₁ = m₁), hence finite graphs in ℝ³ with independence ratio < 0.14844 | — | Lean (α₁ = m₁) |
 | 13 | Quantitative bounds for odd distances, lacunary and two-distance sets; e.g. χ(ℝ², {1, d}) ≥ 7 for algebraic d ≥ 7 | — | certificates |
 | 14 | Records for two-distance graphs: χ(ℝ², {1, (√2+√6)/2}) ≥ 7 by finite certificates; 6-chromatic two-distance graphs on 26 and 30 vertices | 117 and 33 vertices | DRAT + exact arithmetic |
 | 15 | **Size of k-chromatic unit-distance graphs**: every 6-chromatic unit-distance graph has ≥ 322 edges and ≥ 62 vertices, from an explicit periodic 5-colouring of the plane in which a random unit segment is monochromatic with probability ≤ 0.00311; and a 5-chromatic unit-distance graph with 2257 edges | e₆ ≥ 182, v₆ ≥ 42; e₅ ≤ 2406 | exact tiling + ball arithmetic; DRAT |
