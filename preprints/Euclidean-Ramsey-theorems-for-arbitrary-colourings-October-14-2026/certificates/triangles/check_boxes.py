@@ -50,7 +50,8 @@ for i, C in enumerate(certs):
     Lam, w = check(C)
 print(len(certs), 'boxes OK (independent Lipschitz check)')
 # coverage: union of boxes must contain {(a,b): a in [A0,A1], a <= b <= 1}
-A0, A1 = F(13, 20), F(7, 10)
+import os
+A0, A1 = F(os.environ.get("A0", "13/20")), F(os.environ.get("A1", "7/10"))
 cuts = sorted({F(c['box'][0][0]) for c in certs} | {F(c['box'][0][1]) for c in certs})
 assert cuts[0] <= A0 and cuts[-1] >= A1
 for lo, hi in zip(cuts, cuts[1:]):

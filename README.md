@@ -16,7 +16,7 @@ numerical claim.
 | 1 | **χ(ℝ³) ≥ 7**: three-space is not six-colourable, for arbitrary colourings | χ(ℝ³) ≥ 6 | Lean, from the published bound m₁(ℝ³) ≤ 0.1533 |
 | 2 | **χ(ℝⁿ) = χ_m(ℝⁿ) for every n ≥ 2**: the chromatic number equals the Lebesgue-measurable chromatic number (also for countable sets of algebraic distances) | n ≥ 4 (Davies) | Lean |
 | 3 | **Erdős Problem #188: 8 ≤ k ≤ 49.** Every red/blue colouring of the plane with no red unit pair has a blue unit-step 7-term progression; an explicit periodic colouring has none of length 49 | 6 ≤ k ≤ 6330 | exact certificates, two independent verifiers each |
-| 4 | **Monochromatic triangles in every 2-colouring of the plane** (Erdős #173): every collinear triple {0, a, a+b} with a/b algebraic, every triangle with algebraic side ratios and shortest side ≤ 0.70 × longest, and the near-equilateral triangles (4,5,6), (5,6,7), (7,8,9) and (3,3,4) | 3-term progressions only | proof + certified Bessel bound |
+| 4 | **Monochromatic triangles in every 2-colouring of the plane** (Erdős #173): every collinear triple {0, a, a+b} with a/b algebraic, every triangle with algebraic side ratios and shortest side ≤ 0.74 × longest, and the near-equilateral triangles (4,5,6), (5,6,7), (7,8,9) and (3,3,4) | 3-term progressions only | proof + certified Bessel bound |
 | 5 | **E³ → (ℓ₂, ℓ₁₁)**: red unit-distance-free colourings of ℝ³ contain blue unit-step 11-term progressions | ℓ₆ | exact certificate, two verifiers |
 | 6 | **χ(ℝ⁴) ≥ 12, χ(ℝ⁶) ≥ 55, χ(ℝ⁷) ≥ 110, χ(ℝ⁸) ≥ 198, χ(ℝ¹⁰) ≥ 760** | 11, 52, 98, 174, 729 | ball-arithmetic certificates, independently re-checked |
 | 7 | **m₁(ℝ³) ≤ 0.1485113** (density of unit-distance-free sets in ℝ³) | 0.1532996 | ball-arithmetic certificate, two verifiers |
