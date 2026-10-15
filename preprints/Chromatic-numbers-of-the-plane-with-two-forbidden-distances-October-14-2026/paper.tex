@@ -939,7 +939,13 @@ not depend on this reasoning: the DRAT proof certifies the combined
 graph directly.  To speed up the searches we used a tabu-search
 $4$-coloring heuristic, which certifies that an edge is necessary by
 exhibiting a $4$-coloring of the graph minus that edge; this
-replaces most SAT calls.  The true $e_5$ may be lower still.
+replaces most SAT calls.
+\emph{Computational observation} (not part of the certificate bundle):
+the $2257$-edge subgraph is edge-critical.  For $1186$ of its edges a
+tabu-search $4$-coloring of the graph minus that edge was found; for the
+other $1071$ edges, removing the edge leaves a graph that CaDiCaL finds
+$4$-colorable.  Further progress therefore needs non-greedy moves.  The
+true $e_5$ may be lower still.
 
 \subsection{$e_6\ge316$ and $v_6\ge61$}\label{sec:e6}
 
