@@ -224,7 +224,7 @@ Every finite coloring of the plane has, for all large n, monochromatic pairs at 
 <tbody><tr>
 <td>
 
-**015. Size of k-chromatic unit-distance graphs.** Every 6-chromatic unit-distance graph has at least 311 edges and 60 vertices (previously 182 and 42), via an explicit periodic 5-colouring of the plane by 716 convex pieces in which a random unit segment is monochromatic with probability at most 0.0032230, certified in ball arithmetic. A 2257-edge non-4-colourable subgraph of Parts' 509-vertex graph gives e₅ ≤ 2257 (previously 2406).
+**015. Size of k-chromatic unit-distance graphs.** Every 6-chromatic unit-distance graph has at least 316 edges and 61 vertices (previously 182 and 42), via an explicit periodic 5-colouring of the plane by 1686 convex pieces in which a random unit segment is monochromatic with probability at most 0.0031717, certified in ball arithmetic. A 2257-edge non-4-colourable subgraph of Parts' 509-vertex graph gives e₅ ≤ 2257 (previously 2406).
 
 </td>
 </tr></tbody>

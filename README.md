@@ -27,7 +27,7 @@ numerical claim.
 | 12 | Finite unit-distance graphs attain the measurable density in ℝ³ (α₁ = m₁), hence finite graphs in ℝ³ with independence ratio < 0.1486 | — | Lean (α₁ = m₁) |
 | 13 | Quantitative bounds for odd distances, lacunary and two-distance sets; e.g. χ(ℝ², {1, d}) ≥ 7 for algebraic d ≥ 7 | — | certificates |
 | 14 | Records for two-distance graphs: χ(ℝ², {1, (√2+√6)/2}) ≥ 7 by finite certificates; 6-chromatic two-distance graphs on 26 and 30 vertices | 117 and 33 vertices | DRAT + exact arithmetic |
-| 15 | **Size of k-chromatic unit-distance graphs**: every 6-chromatic unit-distance graph has ≥ 311 edges and ≥ 60 vertices, from an explicit periodic 5-colouring of the plane in which a random unit segment is monochromatic with probability ≤ 0.00323; and a 5-chromatic unit-distance graph with 2257 edges | e₆ ≥ 182, v₆ ≥ 42; e₅ ≤ 2406 | exact tiling + ball arithmetic; DRAT |
+| 15 | **Size of k-chromatic unit-distance graphs**: every 6-chromatic unit-distance graph has ≥ 316 edges and ≥ 61 vertices, from an explicit periodic 5-colouring of the plane in which a random unit segment is monochromatic with probability ≤ 0.00318; and a 5-chromatic unit-distance graph with 2257 edges | e₆ ≥ 182, v₆ ≥ 42; e₅ ≤ 2406 | exact tiling + ball arithmetic; DRAT |
 
 The transfer in all dimensions and results 1, 12 and the qualitative parts of 8 and 9 were also stated, conditionally on
 OpenAI's rigidity theorem and without formalization or explicit bounds, by C. Crocker
