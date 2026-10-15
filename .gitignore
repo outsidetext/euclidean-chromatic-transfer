@@ -1,3 +1,5 @@
 .DS_Store
 .lake/
 __pycache__/
+libj0fast.dylib
+j0_table.h
